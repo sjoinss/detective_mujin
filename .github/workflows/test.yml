@@ -1,0 +1,17 @@
+# push·PR마다 검사를 돌린다: 사건 데이터 검증, 엔진 시험(모든 장 자동 완주), lint, 대비, 주소 해시 최신 여부
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm test
