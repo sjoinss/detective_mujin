@@ -1,0 +1,560 @@
+{
+  "schemaVersion": 1,
+  "id": "case5",
+  "chapter": 5,
+  "title": "젖은 발자국",
+  "difficulty": 5,
+
+  "briefing": {
+    "summary": [
+      "매립지 공사 때 자재를 쌓아 두던 제3부두 폐창고. 재개발로 곧 헐린다.",
+      "전 경찰서 기록계 이영길이 창고 냉동고 앞에서 숨진 채 발견된다.",
+      "손에 찢어진 접수대장 조각을 쥐고 있었다."
+    ],
+    "rumor": [
+      "안개 낀 밤이면 창고 바닥에 젖은 맨발 자국이 생겼다 사라진다.",
+      "바다에서 걸어 올라온 발이라고 한다."
+    ],
+    "victim": { "name": "이영길", "age": 63, "role": "전 무진경찰서 기록계" }
+  },
+
+  "start": "sc.gate",
+  "reportRequires": ["r.go.1"],
+
+  "objectives": [
+    { "when": [], "text": "현장 순찰: 제3부두 폐창고" },
+    { "when": ["clue.register"], "text": "지워진 줄의 원본을 찾는다" },
+    { "when": ["clue.deletememo"], "text": "원본을 되찾으러 온 손을 찾는다" },
+    { "when": ["r.go.1"], "text": "보고서를 쓴다" }
+  ],
+
+  "scenes": [
+    {
+      "id": "sc.gate",
+      "art": "art/case5/gate.svg",
+      "name": "창고 입구",
+      "alt": "안개 낀 부두. 녹슨 창고 문과 경고문, 왼쪽 검문소 차단기, 오른쪽 경비 초소.",
+      "text": [
+        "안개가 무릎까지 차 있다.",
+        "창고 문 앞 바닥이 젖었다. 비는 오지 않았다."
+      ],
+      "objects": [
+        {
+          "id": "obj.g.gate",
+          "label": "검문소 일지",
+          "hotspot": { "x": 8, "y": 40, "w": 16, "h": 14 },
+          "text": ["차단기 옆 상자에 드나든 차량 기록이 꽂혀 있다."],
+          "gives": ["clue.checkpoint"]
+        },
+        {
+          "id": "obj.g.notice",
+          "label": "창고 문 경고문",
+          "hotspot": { "x": 40, "y": 24, "w": 14, "h": 12 },
+          "text": ["철거업체 이름으로 붙은 경고문. 그 위에 누가 매직으로 덧썼다."],
+          "gives": ["clue.dispute"]
+        },
+        {
+          "id": "obj.g.booth",
+          "label": "경비 초소",
+          "hotspot": { "x": 74, "y": 46, "w": 14, "h": 12 },
+          "text": ["초소 책상에 신고 접수 쪽지가 남았다."],
+          "gives": ["clue.reportcall"]
+        },
+        {
+          "id": "obj.g.shell",
+          "label": "젖은 조개껍데기",
+          "hotspot": { "x": 52, "y": 84, "w": 6, "h": 6 },
+          "text": ["창고 문턱 바로 앞.", "이번엔 껍데기 안에 물이 고여 있다."],
+          "gives": ["clue.shell"]
+        }
+      ]
+    },
+    {
+      "id": "sc.office",
+      "art": "art/case5/office.svg",
+      "name": "선적 사무실",
+      "alt": "창고 안쪽 선적 사무실. 벽에 붙은 옛 양식과 조위표, 책상 위 팩스, 구석의 금고.",
+      "text": ["먼지 앉은 책상 위로 팩스 한 장만 새것이다."],
+      "objects": [
+        {
+          "id": "obj.o.form",
+          "label": "벽의 옛 양식",
+          "hotspot": { "x": 10, "y": 16, "w": 16, "h": 20 },
+          "text": ["누렇게 뜬 빈 양식. 경찰서 접수대장과 같은 칸이다."],
+          "gives": ["clue.registerform"]
+        },
+        {
+          "id": "obj.o.tide",
+          "label": "조위표",
+          "hotspot": { "x": 32, "y": 16, "w": 16, "h": 20 },
+          "text": ["이번 달 조위표와 배수로 단면도가 함께 붙었다."],
+          "gives": ["clue.tidetable"]
+        },
+        {
+          "id": "obj.o.fax",
+          "label": "팩스",
+          "hotspot": { "x": 56, "y": 52, "w": 14, "h": 10 },
+          "text": ["요청해 둔 시청 출입 기록이 도착했다."],
+          "gives": ["clue.cityhall"]
+        },
+        {
+          "id": "obj.o.safe",
+          "label": "금고",
+          "hotspot": { "x": 78, "y": 44, "w": 14, "h": 26 },
+          "text": ["네 자리 번호 금고. 다이얼 옆에 쪽지가 끼워져 있다."],
+          "gives": ["clue.safenote"],
+          "puzzle": "p.safe"
+        }
+      ]
+    },
+    {
+      "id": "sc.freezer",
+      "art": "art/case5/freezer.svg",
+      "name": "냉동고 앞",
+      "alt": "멈춘 대형 냉동고 문 앞. 바닥의 테이프 자국, 떨어진 휴대전화, 문 쪽의 신발 자국.",
+      "text": ["냉동고는 멈춘 지 오래다. 문 손잡이에만 서리가 없다."],
+      "objects": [
+        {
+          "id": "obj.f.body",
+          "label": "시신이 있던 자리",
+          "hotspot": { "x": 30, "y": 70, "w": 30, "h": 14 },
+          "text": ["테이프 자국 옆에 도하연의 메모.", "쥐고 있던 종이 조각들이 증거 봉투에 담겨 있다."],
+          "gives": ["clue.c5autopsy"],
+          "puzzle": "p.register"
+        },
+        {
+          "id": "obj.f.phone",
+          "label": "떨어진 휴대전화",
+          "hotspot": { "x": 66, "y": 80, "w": 8, "h": 6 },
+          "text": ["화면이 금 갔지만 켜진다."],
+          "gives": ["clue.calllog"]
+        },
+        {
+          "id": "obj.f.sole",
+          "label": "신발 자국",
+          "hotspot": { "x": 10, "y": 80, "w": 14, "h": 10 },
+          "text": ["맨발 자국 사이에 구두 자국 한 짝. 기름이 번졌다."],
+          "gives": ["clue.soleprint"]
+        }
+      ]
+    },
+    {
+      "id": "sc.drain",
+      "art": "art/case5/drain.svg",
+      "name": "지하 배수로",
+      "alt": "창고 바닥 아래 배수로. 바다 쪽으로 열린 수로와 그 위를 덮은 판자 바닥.",
+      "text": ["바다 냄새가 아래에서 올라온다.", "수로 벽에 물때 줄이 여러 겹이다."],
+      "objects": [
+        {
+          "id": "obj.d.boards",
+          "label": "판자 바닥",
+          "hotspot": { "x": 64, "y": 40, "w": 26, "h": 18 },
+          "text": ["판자마다 오래 밟혀 움푹한 홈이 있다.", "홈이 발바닥 모양이다."],
+          "gives": ["clue.grooves"]
+        },
+        {
+          "id": "obj.d.channel",
+          "label": "배수로",
+          "hotspot": { "x": 20, "y": 60, "w": 40, "h": 20 },
+          "text": ["수로가 바다 쪽으로 열려 있다. 수문은 녹슬어 반쯤 열린 채 굳었다."],
+          "puzzle": "p.tide"
+        }
+      ]
+    }
+  ],
+
+  "puzzles": [
+    {
+      "id": "p.register",
+      "type": "pieces",
+      "title": "찢어진 접수대장",
+      "teaches": ["clue.registerform"],
+      "gives": ["clue.register"],
+      "config": {
+        "pieces": [
+          { "id": "r1", "label": "117쪽" },
+          { "id": "r2", "label": "2006. 11. 4." },
+          { "id": "r3", "label": "22:50" },
+          { "id": "r4", "label": "등대 무선. 현장 쪽 불빛·소란." },
+          { "id": "r5", "label": "처리: (두 줄로 그어 지움)" }
+        ],
+        "answer": ["r1", "r2", "r3", "r4", "r5"]
+      },
+      "answerNote": "양식 순서대로. 쪽 번호, 날짜, 시각, 경로·내용, 처리.",
+      "solvedText": [
+        "조각이 한 줄로 이어진다.",
+        "117쪽. 2006년 11월 4일 22:50. 등대 무선, 현장 쪽 불빛과 소란.",
+        "",
+        "처리 칸은 두 줄로 그어져 있다."
+      ]
+    },
+    {
+      "id": "p.tide",
+      "type": "timeline",
+      "title": "배수로와 조위",
+      "requires": ["clue.grooves"],
+      "teaches": ["clue.tidetable"],
+      "gives": ["clue.footprints"],
+      "config": {
+        "groupLabel": "물이 오르고 빠지는 차례",
+        "checkLabel": "조위표와 맞춰 본다",
+        "wrongText": "물길이 그 순서로는 흐르지 않는다.",
+        "items": [
+          { "id": "t1", "label": "만조가 가까워 바닷물이 배수로를 거슬러 오른다" },
+          { "id": "t2", "label": "배수로 수위가 창고 바닥 판자 높이를 넘는다" },
+          { "id": "t3", "label": "판자 틈으로 밀려 오른 물이 발 모양 홈에 고인다" },
+          { "id": "t4", "label": "물이 빠지며 발자국이 사라진다" }
+        ],
+        "answer": ["t1", "t2", "t3", "t4"]
+      },
+      "answerNote": "거슬러 오른다 → 판자 높이를 넘는다 → 홈에 고인다 → 빠지며 사라진다.",
+      "solvedText": [
+        "물때 줄과 조위표가 겹친다.",
+        "만조 전후 한 시간, 수로 물이 판자 위로 올라 홈에 고인다.",
+        "",
+        "걸어 올라온 발은 없다. 물이 발 모양으로 고였을 뿐."
+      ]
+    },
+    {
+      "id": "p.safe",
+      "type": "lock",
+      "title": "금고",
+      "requires": ["clue.register"],
+      "teaches": ["clue.safenote"],
+      "gives": ["clue.deletememo"],
+      "config": { "digits": 4, "answer": "0117" },
+      "answerNote": "그 줄이 적힌 쪽은 117. 네 자리로 0117.",
+      "solvedText": [
+        "0117에서 다이얼이 걸린다.",
+        "안에는 접수대장 원본 한 권과 메모 한 장.",
+        "",
+        "메모 끝에 서명 약자. H.D.Y."
+      ]
+    }
+  ],
+
+  "clues": [
+    {
+      "id": "clue.c5autopsy",
+      "name": "검안 소견",
+      "text": "이영길, 뒤통수를 선반 모서리에 부딪혔다. 사망 22:30~23:00. 손톱 밑에 남색 모직 섬유.",
+      "people": []
+    },
+    {
+      "id": "clue.checkpoint",
+      "name": "검문소 일지",
+      "text": "22:20 진입, 시청 관용차. 운전자 칸에 '고현우'. 나간 시각 23:15.",
+      "people": ["s.go"]
+    },
+    {
+      "id": "clue.dispute",
+      "name": "덧쓴 경고문",
+      "text": "철거업체 경고문 위에 이영길이 매직으로 '장비 들이지 말 것'. 마진아와 다툰 흔적.",
+      "people": ["s.ma"]
+    },
+    {
+      "id": "clue.reportcall",
+      "name": "신고 접수 쪽지",
+      "text": "23:05 시신 발견, 최초 신고자 하봉기.",
+      "people": ["s.ha"]
+    },
+    {
+      "id": "clue.shell",
+      "name": "젖은 조개껍데기",
+      "text": "창고 문턱 앞. 껍데기 안에 물이 고였다.",
+      "people": [],
+      "atmosphere": true
+    },
+    {
+      "id": "clue.registerform",
+      "name": "접수대장 양식",
+      "text": "맨 위에 쪽 번호. 줄마다 날짜, 시각, 신고 경로와 내용, 처리 순서로 적는다.",
+      "people": []
+    },
+    {
+      "id": "clue.tidetable",
+      "name": "조위표와 배수로 단면도",
+      "text": "그날 만조 22:40. 만조 앞뒤 한 시간은 바다 쪽으로 열린 수로의 물이 창고 바닥 판자 높이를 넘는다.",
+      "people": []
+    },
+    {
+      "id": "clue.cityhall",
+      "name": "시청 출입 기록",
+      "text": "고현우 21:50 퇴근 태그. 그날 밤 야간 회의실 예약 없음.",
+      "people": ["s.go"]
+    },
+    {
+      "id": "clue.safenote",
+      "name": "금고 쪽지",
+      "text": "이영길의 글씨. '번호는 그 줄이 적힌 쪽. 네 자리로.'",
+      "people": []
+    },
+    {
+      "id": "clue.register",
+      "name": "접수대장 조각",
+      "text": "117쪽. 2006.11.4 22:50 등대 무선, 현장 쪽 불빛·소란. 처리 칸은 두 줄로 그어 지웠다.",
+      "people": []
+    },
+    {
+      "id": "clue.deletememo",
+      "name": "접수대장 원본과 삭제 지시 메모",
+      "text": "원본 117쪽과 메모. '22:50 등대 신고 건 지울 것. 현장 정리는 내가 한다.' 서명 약자 H.D.Y. 2006.11.5 새벽.",
+      "people": [],
+      "fragment": "frag.register"
+    },
+    {
+      "id": "clue.calllog",
+      "name": "휴대전화 기록",
+      "text": "사건 당일 오후 시장 비서실과 통화 세 번. 이영길이 보낸 마지막 문자 '원본은 내가 갖고 있다. 착공식 전에 말하겠다.'",
+      "people": ["s.go"]
+    },
+    {
+      "id": "clue.soleprint",
+      "name": "구두 자국",
+      "text": "맨발 자국 사이에 구두 한 짝. 굽이 좁은 정장 구두. 바닷물과 기름이 섞여 번졌다.",
+      "people": []
+    },
+    {
+      "id": "clue.grooves",
+      "name": "판자의 홈",
+      "text": "오래 밟혀 움푹 팬 판자 홈. 생김새가 발바닥 같다.",
+      "people": []
+    },
+    {
+      "id": "clue.footprints",
+      "name": "발자국의 정체",
+      "text": "만조 전후 배수로를 거슬러 오른 물이 판자 홈에 고였다 빠진다. 그날 만조 22:40. 맨발 자국은 물이 만든다.",
+      "people": []
+    },
+    {
+      "id": "clue.patrol",
+      "name": "순찰 일지",
+      "text": "21:00, 22:00, 23:00 정시 순찰, 초소 카메라 시각과 맞는다. 23:05 발견, 즉시 신고.",
+      "people": ["s.ha"]
+    },
+    {
+      "id": "clue.majinalibi",
+      "name": "야간 작업 일지",
+      "text": "22:00~24:00 철거 현장 야간 작업. 마진아 지시 기록과 작업자 서명 열한 개.",
+      "people": ["s.ma"]
+    }
+  ],
+
+  "suspects": [
+    {
+      "id": "s.go",
+      "name": "고현우",
+      "age": 46,
+      "role": "시장 비서실장",
+      "intro": "남색 정장. 구두 끝을 자꾸 바닥에 문지른다.",
+      "onWrong": ["고현우가 넥타이를 반듯하게 고친다.", "\"시장님 일정과 무관한 질문입니다.\""],
+      "requires": [],
+      "suspectedBy": ["clue.checkpoint"],
+      "clearedBy": [],
+      "rounds": [
+        {
+          "id": "r.go.1",
+          "requires": [],
+          "statements": [
+            {
+              "id": "st.go.meeting",
+              "text": "그날 밤은 시청 야간 회의에 있었습니다.",
+              "contradictedBy": ["clue.cityhall"],
+              "reply": "회의라고 꼭 회의실에서 하는 건 아니죠."
+            },
+            {
+              "id": "st.go.never",
+              "text": "부두엔 몇 년째 나와 본 적이 없습니다.",
+              "contradictedBy": ["clue.checkpoint"],
+              "reply": "관용차는 여러 사람이 씁니다."
+            },
+            {
+              "id": "st.go.phone",
+              "text": "이영길 씨요? 이름만 압니다.",
+              "contradictedBy": ["clue.calllog"],
+              "reply": "민원 전화를 일일이 기억하진 않습니다."
+            }
+          ]
+        },
+        {
+          "id": "r.go.2",
+          "requires": ["r.go.1", "clue.footprints"],
+          "statements": [
+            {
+              "id": "st.go.ghost",
+              "text": "안개 낀 밤 발자국 얘기 아시죠. 그분도 그걸 보고 놀라 넘어졌을 겁니다.",
+              "contradictedBy": ["clue.footprints"],
+              "reply": "......"
+            },
+            {
+              "id": "st.go.shoes",
+              "text": "제 구두요? 오늘 아침에 닦았습니다.",
+              "contradictedBy": ["clue.soleprint"],
+              "reply": "그 정도 기름은 어디서나 묻습니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s.ha",
+      "name": "하봉기",
+      "age": 57,
+      "role": "창고 경비",
+      "intro": "손전등을 끄지 않고 바닥만 비춘다.",
+      "onWrong": ["하봉기가 손전등을 끈다.", "\"나는 본 대로만 말했소.\""],
+      "requires": [],
+      "suspectedBy": ["clue.reportcall"],
+      "clearedBy": ["clue.patrol"],
+      "rounds": [
+        {
+          "id": "r.ha.1",
+          "requires": [],
+          "statements": [
+            {
+              "id": "st.ha.found",
+              "text": "23:05에 발견하고 바로 신고했소."
+            },
+            {
+              "id": "st.ha.patrol",
+              "text": "순찰은 정시마다 돌았소. 일지랑 초소 카메라 보면 알 거요.",
+              "gives": ["clue.patrol"]
+            },
+            {
+              "id": "st.ha.car",
+              "text": "열 시 반 좀 못 돼서 관용차 하나가 들어가는 건 봤소. 안개 때문에 번호는 못 봤고."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s.ma",
+      "name": "마진아",
+      "age": 40,
+      "role": "철거업체 현장팀장",
+      "intro": "안전모를 겨드랑이에 끼고 있다.",
+      "onWrong": ["마진아가 안전모를 고쳐 낀다.", "\"현장 일이랑 그게 무슨 상관이에요.\""],
+      "requires": [],
+      "suspectedBy": ["clue.dispute"],
+      "clearedBy": ["clue.majinalibi"],
+      "rounds": [
+        {
+          "id": "r.ma.1",
+          "requires": [],
+          "statements": [
+            {
+              "id": "st.ma.fight",
+              "text": "장비 들이는 문제로 그 어르신하고 싸운 건 맞아요."
+            },
+            {
+              "id": "st.ma.site",
+              "text": "그 시간엔 철거 현장 야간 작업 중이었어요. 일지에 서명이 열 개 넘게 있어요.",
+              "gives": ["clue.majinalibi"]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "board": [
+    {
+      "id": "b.meet",
+      "left": "clue.cityhall",
+      "right": "st.go.meeting",
+      "sentence": "21:50에 시청을 나선 사람이 야간 회의에 있었다고 한다."
+    },
+    {
+      "id": "b.car",
+      "left": "clue.checkpoint",
+      "right": "st.go.never",
+      "sentence": "몇 년째 안 왔다던 부두 검문소에 22:20 그의 이름이 적혔다."
+    },
+    {
+      "id": "b.call",
+      "left": "clue.calllog",
+      "right": "clue.deletememo",
+      "sentence": "착공식 전에 말하겠다던 원본. 그 원본에 H.D.Y가 있다."
+    },
+    {
+      "id": "b.foot",
+      "left": "clue.footprints",
+      "right": "clue.soleprint",
+      "sentence": "맨발 자국은 물이 만든다. 구두 자국만 사람이 만든다."
+    },
+    {
+      "id": "b.time",
+      "left": "clue.c5autopsy",
+      "right": "clue.checkpoint",
+      "sentence": "22:20 들어와 23:15 나간 차. 그 사이 22:30~23:00에 이영길이 쓰러졌다."
+    }
+  ],
+
+  "accusation": {
+    "method": [
+      { "id": "m.struggle", "text": "원본을 빼앗으려 몸싸움하다 밀쳐 선반 모서리에 부딪히게 했다" },
+      { "id": "m.ghost", "text": "안개 속 젖은 발자국에 놀라 넘어졌다" },
+      { "id": "m.cold", "text": "냉동고 앞에서 추위에 쓰러졌다" }
+    ],
+    "motive": [
+      { "id": "mo.original", "text": "접수대장 원본을 되찾아 착공식 전에 입을 막으려고" },
+      { "id": "mo.equipment", "text": "철거 장비 반입을 두고 다투다가" },
+      { "id": "mo.job", "text": "경비 자리를 지키려고" }
+    ]
+  },
+
+  "solution": {
+    "culprit": "s.go",
+    "method": "m.struggle",
+    "motive": "mo.original",
+    "requires": [
+      "clue.checkpoint", "clue.cityhall", "clue.soleprint",
+      "clue.c5autopsy", "clue.footprints",
+      "clue.calllog", "clue.deletememo"
+    ],
+    "evidence": {
+      "culprit": ["clue.checkpoint", "clue.cityhall", "clue.soleprint"],
+      "method": ["clue.c5autopsy", "clue.soleprint", "clue.footprints"],
+      "motive": ["clue.calllog", "clue.deletememo"]
+    }
+  },
+
+  "hints": {
+    "p.register": [
+      "벽의 옛 양식. 양식대로.",
+      "맨 위는 쪽 번호. 쪽 번호.",
+      "날짜, 시각, 내용, 처리. 처리가 끝."
+    ],
+    "p.tide": [
+      "조위표, 단면도. 물은 아래에서 온다.",
+      "거슬러 오르고, 넘치고, 고인다. 고인다.",
+      "마지막은 빠지는 것. 사라지는 것."
+    ],
+    "p.safe": [
+      "쪽지. 그 줄이 적힌 쪽.",
+      "접수대장 조각 맨 위. 맨 위.",
+      "117. 네 자리면 앞에 0."
+    ],
+    "report": [
+      "누가. 회의에 없던 사람. 검문소에 있던 사람.",
+      "어떻게. 선반 모서리. 맨발 자국 사이의 구두.",
+      "왜. 마지막 문자. 금고 속 원본. H.D.Y."
+    ]
+  },
+
+  "han": [
+    { "when": [], "text": "최초 발견자부터 보십시오. 경비 순찰 일지가 정확한지." },
+    { "when": ["clue.register"], "text": "그 조각, 기록계 본인이 찢었을 수도 있습니다. 섣불리 판단하지 마십시오." }
+  ],
+
+  "result": {
+    "text": [
+      "고현우가 구두를 내려다본다.",
+      "기름이 번진 자국이 아직 덜 말랐다.",
+      "",
+      "접수대장 원본 117쪽을 사건부에 옮긴다.",
+      "H.D.Y. 사건부를 건네준 사람의 이름 약자와 같다."
+    ]
+  }
+}

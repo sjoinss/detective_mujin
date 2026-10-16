@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice">
+  <!-- 방송실. 핫스팟: 예약 스위치(35~48, 48~58) 배선 안내판(112~141, 18~40) 믹서(54~96, 52~68) 테이프 상자(13~32, 66~78) -->
+  <rect class="bg" width="160" height="100"/>
+  <!-- 벽과 바닥 -->
+  <rect class="f1" x="0" y="0" width="160" height="70"/>
+  <path class="ln" d="M0 70 H160"/>
+  <path class="ln" d="M0 74 H160 M0 82 H160 M0 93 H160" opacity="0.5"/>
+  <!-- 방음 타공판 -->
+  <g class="ln" opacity="0.45">
+    <rect x="6" y="6" width="44" height="34"/>
+    <path d="M6 14 H50 M6 22 H50 M6 30 H50 M17 6 V40 M28 6 V40 M39 6 V40"/>
+  </g>
+  <!-- 벽 스피커 -->
+  <rect class="f2" x="62" y="8" width="16" height="20"/>
+  <circle class="ln2" cx="70" cy="21" r="5"/>
+  <circle class="ln" cx="70" cy="12" r="2"/>
+  <!-- 배선 안내판 -->
+  <rect class="f3" x="113" y="18" width="28" height="22"/>
+  <rect class="f2" x="114.5" y="19.5" width="25" height="19"/>
+  <path class="ln2" d="M117 24 H128 M117 28 H134 M117 32 H125 M117 36 H131"/>
+  <path class="ln" d="M130 24 l3 0 M128 32 l6 0"/>
+  <!-- 책상 -->
+  <rect class="f3" x="28" y="58" width="84" height="3"/>
+  <path class="ln2" d="M28 58 H112"/>
+  <path class="ln" d="M32 61 V70 M108 61 V70"/>
+  <!-- 예약 스위치 상자 -->
+  <rect class="f2" x="36" y="49" width="12" height="9"/>
+  <rect class="ln2" x="36" y="49" width="12" height="9"/>
+  <rect class="ln" x="38" y="51" width="8" height="3"/>
+  <circle class="seal" cx="42" cy="56" r="0.9"/>
+  <!-- 믹서 -->
+  <path class="f2" d="M55 58 L59 52 H92 L96 58 Z"/>
+  <path class="ln2" d="M55 58 L59 52 H92 L96 58 Z"/>
+  <g class="ln">
+    <path d="M63 53.5 V57 M67 53.5 V57 M71 53.5 V57 M75 53.5 V57 M79 53.5 V57 M83 53.5 V57 M87 53.5 V57"/>
+  </g>
+  <g class="lt">
+    <rect x="62.2" y="55" width="1.6" height="0.9"/><rect x="66.2" y="54" width="1.6" height="0.9"/>
+    <rect x="70.2" y="56" width="1.6" height="0.9"/><rect x="74.2" y="54.6" width="1.6" height="0.9"/>
+    <rect x="78.2" y="55.4" width="1.6" height="0.9"/><rect x="82.2" y="54.2" width="1.6" height="0.9"/>
+    <rect x="86.2" y="55.8" width="1.6" height="0.9"/>
+  </g>
+  <!-- 빠진 케이블 세 가닥 -->
+  <path class="ln2" d="M92 58 C95 63 90 66 98 68 M94 58 C99 64 103 62 104 69 M89 58 C88 64 84 65 86 69"/>
+  <!-- 마이크 -->
+  <path class="ln2" d="M102 58 V46 L98 42"/>
+  <rect class="f3" x="95.5" y="39.5" width="4" height="4" transform="rotate(-40 97.5 41.5)"/>
+  <!-- 테이프 상자 -->
+  <path class="f2" d="M13 70 H32 V78 H13 Z"/>
+  <path class="ln2" d="M13 70 H32 V78 H13 Z M13 70 L16 66 H35 L32 70 M35 66 V74 L32 78"/>
+  <circle class="ln" cx="19" cy="68" r="1.6"/><circle class="ln" cx="26" cy="68" r="1.6"/>
+  <path class="ln" d="M24 72 c3 2 6 -1 9 3"/>
+  <!-- 문틈 빛 -->
+  <rect class="f2" x="146" y="22" width="14" height="48"/>
+  <path class="ln" d="M146 22 V70"/>
+  <rect class="glow" x="145" y="22" width="1.4" height="48"/>
+</svg>

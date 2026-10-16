@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice">
+  <!-- 지하 서고. 핫스팟: 문서 선반(16~64, 30~70) 철문 자물쇠(90~106, 40~52) 젖은 조개껍데기(118~128, 78~84) -->
+  <rect class="bg" width="160" height="100"/>
+  <!-- 낮은 천장과 배관 -->
+  <rect class="f1" x="0" y="14" width="160" height="60"/>
+  <path class="ln2" d="M0 14 H160"/>
+  <path class="ln" d="M0 9 H160 M0 11.5 H160"/>
+  <circle class="ln" cx="40" cy="10.2" r="2.2"/><circle class="ln" cx="120" cy="10.2" r="2.2"/>
+  <!-- 문서 선반 -->
+  <g>
+    <rect class="f2" x="16" y="28" width="48" height="44"/>
+    <path class="ln2" d="M16 28 h48 v44 h-48 z M16 39 H64 M16 50 H64 M16 61 H64"/>
+    <g class="f3">
+      <rect x="18" y="31" width="9" height="8"/><rect x="28" y="32" width="9" height="7"/><rect x="40" y="31" width="9" height="8"/><rect x="51" y="33" width="10" height="6"/>
+      <rect x="18" y="43" width="10" height="7"/><rect x="30" y="42" width="9" height="8"/><rect x="52" y="43" width="9" height="7"/>
+      <rect x="19" y="54" width="9" height="7"/><rect x="29" y="53" width="10" height="8"/><rect x="41" y="54" width="9" height="7"/><rect x="51" y="53" width="10" height="8"/>
+      <rect x="18" y="64" width="10" height="8"/><rect x="31" y="65" width="9" height="7"/><rect x="44" y="64" width="9" height="8"/>
+    </g>
+    <!-- 먼지 자국이 새로 난 상자 하나 -->
+    <rect class="lt" x="41" y="42" width="9" height="8" opacity="0.55"/>
+  </g>
+  <!-- 철문 -->
+  <rect class="f3" x="78" y="20" width="40" height="54"/>
+  <path class="ln2" d="M78 20 h40 v54 h-40 z M98 20 V74"/>
+  <path class="ln" d="M80 28 H96 M100 28 H116 M80 66 H96 M100 66 H116"/>
+  <g class="lt"><circle cx="81" cy="23" r="0.6"/><circle cx="115" cy="23" r="0.6"/><circle cx="81" cy="71" r="0.6"/><circle cx="115" cy="71" r="0.6"/></g>
+  <!-- 번호 자물쇠 -->
+  <path class="ln2" d="M94 43 c0 -4 8 -4 8 0"/>
+  <rect class="f2" x="92" y="43" width="12" height="8"/>
+  <path class="ln2" d="M92 43 h12 v8 h-12 z M95 43 v8 M98 43 v8 M101 43 v8"/>
+  <!-- 바닥 물기와 조개껍데기 -->
+  <path class="ln" d="M0 74 H160"/>
+  <ellipse class="f2" cx="122" cy="83" rx="14" ry="3"/>
+  <path class="ln2" d="M120 83.5 c0 -3 6 -3 6 0 z M121 83.3 l1.5 -2.3 M123 83.3 v-2.6 M125 83.3 l-1.5 -2.3"/>
+  <path class="ln" d="M60 90 c8 -2 20 -2 30 0 M100 94 c10 -1.5 20 -1.5 34 0" opacity="0.5"/>
+</svg>

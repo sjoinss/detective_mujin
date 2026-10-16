@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ko" data-text-size="m" data-motion="system" data-fx="full" data-contrast="normal">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#1b1815">
+  <title>무진 사건부</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%231b1815'/%3E%3Crect x='6' y='6' width='20' height='20' fill='none' stroke='%23ec8a78' stroke-width='2.5' transform='rotate(-8 16 16)'/%3E%3C/svg%3E">
+  <!-- 아래는 tools/stamp.mjs가 적는다. 손으로 고치지 않는다. -->
+  <!-- stamp:start -->
+  <link rel="stylesheet" href="css/tokens.css?v=f2a02b781b">
+  <link rel="stylesheet" href="css/base.css?v=ae1192ad94">
+  <link rel="stylesheet" href="css/components.css?v=38133efca4">
+  <link rel="stylesheet" href="css/screens.css?v=8c06ec0656">
+  <script type="importmap">{
+    "imports": {
+      "./js/engine/accusation.js": "./js/engine/accusation.js?v=5bb2732480",
+      "./js/engine/board.js": "./js/engine/board.js?v=0007181028",
+      "./js/engine/clues.js": "./js/engine/clues.js?v=97031b32a0",
+      "./js/engine/final.js": "./js/engine/final.js?v=d490205b21",
+      "./js/engine/game.js": "./js/engine/game.js?v=4f18104497",
+      "./js/engine/graph.js": "./js/engine/graph.js?v=4a0ec23ccc",
+      "./js/engine/hints.js": "./js/engine/hints.js?v=1496c379d4",
+      "./js/engine/interrogation.js": "./js/engine/interrogation.js?v=532fc9ba4a",
+      "./js/engine/saveCode.js": "./js/engine/saveCode.js?v=3f8a909769",
+      "./js/main.js": "./js/main.js?v=c6f6cc790f",
+      "./js/puzzles/index.js": "./js/puzzles/index.js?v=f39c070034",
+      "./js/puzzles/lock.js": "./js/puzzles/lock.js?v=cfae3fc97d",
+      "./js/puzzles/morse.js": "./js/puzzles/morse.js?v=b5385e3906",
+      "./js/puzzles/move.js": "./js/puzzles/move.js?v=32e308bac5",
+      "./js/puzzles/optics.js": "./js/puzzles/optics.js?v=b569e3401d",
+      "./js/puzzles/pieces.js": "./js/puzzles/pieces.js?v=2075942601",
+      "./js/puzzles/reconstruct.js": "./js/puzzles/reconstruct.js?v=997b883968",
+      "./js/puzzles/restore.js": "./js/puzzles/restore.js?v=4d050bd861",
+      "./js/puzzles/sort.js": "./js/puzzles/sort.js?v=52ed63986e",
+      "./js/puzzles/timeline.js": "./js/puzzles/timeline.js?v=755dbe68b8",
+      "./js/puzzles/wiring.js": "./js/puzzles/wiring.js?v=4154b15696",
+      "./js/router.js": "./js/router.js?v=09ec67aa49",
+      "./js/save.js": "./js/save.js?v=6d6e880899",
+      "./js/screens/board.js": "./js/screens/board.js?v=0eafd67489",
+      "./js/screens/briefing.js": "./js/screens/briefing.js?v=4da6257199",
+      "./js/screens/cases.js": "./js/screens/cases.js?v=80a3eed2e1",
+      "./js/screens/common.js": "./js/screens/common.js?v=1583d472d9",
+      "./js/screens/desk.js": "./js/screens/desk.js?v=1ebe3f530d",
+      "./js/screens/ending.js": "./js/screens/ending.js?v=bc679760b5",
+      "./js/screens/notes.js": "./js/screens/notes.js?v=678e3e9274",
+      "./js/screens/puzzle.js": "./js/screens/puzzle.js?v=8368f756c2",
+      "./js/screens/report.js": "./js/screens/report.js?v=b2287ed05f",
+      "./js/screens/result.js": "./js/screens/result.js?v=bc971df216",
+      "./js/screens/settings.js": "./js/screens/settings.js?v=77034ea71e",
+      "./js/screens/talk.js": "./js/screens/talk.js?v=e0ed8cf6ab",
+      "./js/screens/title.js": "./js/screens/title.js?v=4b488385f2",
+      "./js/settings.js": "./js/settings.js?v=93ea304e0e",
+      "./js/state.js": "./js/state.js?v=573251eb7e",
+      "./js/store.js": "./js/store.js?v=6c9ef86e06",
+      "./js/ui/casebook.js": "./js/ui/casebook.js?v=4dd7b4715d",
+      "./js/ui/dialog.js": "./js/ui/dialog.js?v=9f34ee5738",
+      "./js/ui/dom.js": "./js/ui/dom.js?v=8d130992e4",
+      "./js/ui/fields.js": "./js/ui/fields.js?v=6d8beea470",
+      "./js/ui/scene.js": "./js/ui/scene.js?v=b9846314bf",
+      "./js/ui/tabs.js": "./js/ui/tabs.js?v=a9c1d5ef34",
+      "./js/ui/text.js": "./js/ui/text.js?v=e9d1e7463e",
+      "./js/ui/toast.js": "./js/ui/toast.js?v=9268056a97"
+    }
+  }</script>
+  <link rel="modulepreload" href="js/engine/accusation.js?v=5bb2732480">
+  <link rel="modulepreload" href="js/engine/board.js?v=0007181028">
+  <link rel="modulepreload" href="js/engine/clues.js?v=97031b32a0">
+  <link rel="modulepreload" href="js/engine/final.js?v=d490205b21">
+  <link rel="modulepreload" href="js/engine/game.js?v=4f18104497">
+  <link rel="modulepreload" href="js/engine/graph.js?v=4a0ec23ccc">
+  <link rel="modulepreload" href="js/engine/hints.js?v=1496c379d4">
+  <link rel="modulepreload" href="js/engine/interrogation.js?v=532fc9ba4a">
+  <link rel="modulepreload" href="js/engine/saveCode.js?v=3f8a909769">
+  <link rel="modulepreload" href="js/main.js?v=c6f6cc790f">
+  <link rel="modulepreload" href="js/puzzles/index.js?v=f39c070034">
+  <link rel="modulepreload" href="js/puzzles/lock.js?v=cfae3fc97d">
+  <link rel="modulepreload" href="js/puzzles/morse.js?v=b5385e3906">
+  <link rel="modulepreload" href="js/puzzles/move.js?v=32e308bac5">
+  <link rel="modulepreload" href="js/puzzles/optics.js?v=b569e3401d">
+  <link rel="modulepreload" href="js/puzzles/pieces.js?v=2075942601">
+  <link rel="modulepreload" href="js/puzzles/reconstruct.js?v=997b883968">
+  <link rel="modulepreload" href="js/puzzles/restore.js?v=4d050bd861">
+  <link rel="modulepreload" href="js/puzzles/sort.js?v=52ed63986e">
+  <link rel="modulepreload" href="js/puzzles/timeline.js?v=755dbe68b8">
+  <link rel="modulepreload" href="js/puzzles/wiring.js?v=4154b15696">
+  <link rel="modulepreload" href="js/router.js?v=09ec67aa49">
+  <link rel="modulepreload" href="js/save.js?v=6d6e880899">
+  <link rel="modulepreload" href="js/screens/board.js?v=0eafd67489">
+  <link rel="modulepreload" href="js/screens/briefing.js?v=4da6257199">
+  <link rel="modulepreload" href="js/screens/cases.js?v=80a3eed2e1">
+  <link rel="modulepreload" href="js/screens/common.js?v=1583d472d9">
+  <link rel="modulepreload" href="js/screens/desk.js?v=1ebe3f530d">
+  <link rel="modulepreload" href="js/screens/ending.js?v=bc679760b5">
+  <link rel="modulepreload" href="js/screens/notes.js?v=678e3e9274">
+  <link rel="modulepreload" href="js/screens/puzzle.js?v=8368f756c2">
+  <link rel="modulepreload" href="js/screens/report.js?v=b2287ed05f">
+  <link rel="modulepreload" href="js/screens/result.js?v=bc971df216">
+  <link rel="modulepreload" href="js/screens/settings.js?v=77034ea71e">
+  <link rel="modulepreload" href="js/screens/talk.js?v=e0ed8cf6ab">
+  <link rel="modulepreload" href="js/screens/title.js?v=4b488385f2">
+  <link rel="modulepreload" href="js/settings.js?v=93ea304e0e">
+  <link rel="modulepreload" href="js/state.js?v=573251eb7e">
+  <link rel="modulepreload" href="js/store.js?v=6c9ef86e06">
+  <link rel="modulepreload" href="js/ui/casebook.js?v=4dd7b4715d">
+  <link rel="modulepreload" href="js/ui/dialog.js?v=9f34ee5738">
+  <link rel="modulepreload" href="js/ui/dom.js?v=8d130992e4">
+  <link rel="modulepreload" href="js/ui/fields.js?v=6d8beea470">
+  <link rel="modulepreload" href="js/ui/scene.js?v=b9846314bf">
+  <link rel="modulepreload" href="js/ui/tabs.js?v=a9c1d5ef34">
+  <link rel="modulepreload" href="js/ui/text.js?v=e9d1e7463e">
+  <link rel="modulepreload" href="js/ui/toast.js?v=9268056a97">
+  <script type="module" src="js/main.js?v=c6f6cc790f"></script>
+  <!-- stamp:end -->
+</head>
+<body data-chrome="none">
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+  <header class="topbar">
+    <p class="shell">
+      <span class="objective-label">지금 할 일</span>
+      <span class="objective-text" id="objective"></span>
+    </p>
+  </header>
+
+  <main id="main" class="shell" tabindex="-1">
+    <p class="loading">사건부를 펼치는 중</p>
+  </main>
+
+  <nav class="bottombar" aria-label="책상">
+    <ul class="bottombar-list" role="list">
+      <li><a href="#/desk" data-route="desk">장면</a></li>
+      <li class="only-narrow"><a href="#/desk/book" data-route="desk/book">사건부<span id="book-badge"></span></a></li>
+      <li><a href="#/board" data-route="board">대조표</a></li>
+      <li class="bottombar-aside"><a href="#/settings" data-route="settings">설정</a></li>
+    </ul>
+  </nav>
+
+  <div class="toasts" id="toasts" aria-hidden="true"></div>
+  <div class="visually-hidden" id="announcer" aria-live="polite" aria-atomic="false"></div>
+  <div class="visually-hidden" id="alerter" role="alert"></div>
+
+  <noscript>
+    <p class="notice">이 사건부는 자바스크립트가 켜져 있어야 펼쳐진다.</p>
+  </noscript>
+</body>
+</html>

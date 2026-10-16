@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice">
+  <!-- 7번 병실. 핫스팟: 호출벨(48~61, 30~40) 침대(32~96, 50~72) 사물함(115~141, 30~70) 조개껍데기(102~112, 82~88) -->
+  <rect class="bg" width="160" height="100"/>
+  <rect class="f1" x="0" y="0" width="160" height="74"/>
+  <path class="ln" d="M0 74 H160"/>
+  <!-- 커튼 레일과 반쯤 친 커튼 -->
+  <path class="ln" d="M6 8 H104"/>
+  <path class="ln" d="M8 8 v40 M12 8 v42 M16 8 v40 M20 8 v41" opacity="0.5"/>
+  <!-- 벽 의료 레일과 호출벨 -->
+  <rect class="f2" x="30" y="26" width="70" height="4"/>
+  <path class="ln2" d="M30 26 h70 v4 h-70 z"/>
+  <rect class="f3" x="49" y="31" width="11" height="8"/>
+  <path class="ln2" d="M49 31 h11 v8 h-11 z"/>
+  <circle class="seal" cx="54.5" cy="35" r="1.6"/>
+  <path class="ln" d="M54.5 39 c-2 6 4 8 0 14" opacity="0.7"/>
+  <!-- 빈 침대 -->
+  <rect class="f2" x="32" y="52" width="64" height="10"/>
+  <path class="ln2" d="M32 52 h64 v10 h-64 z M32 44 V72 M96 50 V72"/>
+  <rect class="f3" x="36" y="49" width="16" height="4"/>
+  <path class="ln" d="M40 66 v6 M90 66 v6 M36 62 H92" opacity="0.6"/>
+  <!-- 보호자 사물함 -->
+  <rect class="f2" x="115" y="30" width="26" height="40"/>
+  <path class="ln2" d="M115 30 h26 v40 h-26 z M115 50 H141"/>
+  <rect class="lt" x="122" y="34" width="12" height="3"/>
+  <path class="ln" d="M137 40 v4 M137 56 v4"/>
+  <!-- 바닥과 조개껍데기 -->
+  <path class="ln" d="M0 82 H160 M0 92 H160" opacity="0.35"/>
+  <ellipse class="f2" cx="107" cy="86" rx="6" ry="1.6"/>
+  <path class="ln2" d="M104.5 86 c0 -3 5 -3 5 0 z M105.5 85.8 l1 -2 M107 85.8 v-2.3 M108.5 85.8 l-1 -2"/>
+</svg>

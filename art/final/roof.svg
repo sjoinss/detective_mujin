@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice">
+  <!-- 옥상. 핫스팟: 끊긴 난간(125~150, 30~46) 측량 표시(48~96, 60~74) 조개껍데기(19~29, 84~90) -->
+  <rect class="bg" width="160" height="100"/>
+  <!-- 밤하늘과 먼 매립지 -->
+  <path class="ln" d="M0 26 L30 22 L60 24 L100 20 L160 23" opacity="0.5"/>
+  <g class="lt"><rect x="20" y="20" width="1" height="1"/><rect x="74" y="18" width="1" height="1"/><rect x="118" y="17" width="1" height="1"/></g>
+  <!-- 옥상 바닥 -->
+  <path class="f1" d="M0 46 H160 V100 H0 Z"/>
+  <path class="ln" d="M0 46 H160"/>
+  <!-- 난간: 동쪽 끝 한 칸이 끊겼다 -->
+  <path class="ln2" d="M0 34 H130 M144 34 H160 M0 34 V46 M20 34 V46 M40 34 V46 M60 34 V46 M80 34 V46 M100 34 V46 M120 34 V46 M150 34 V46 M160 34 V46"/>
+  <path class="seal-ln" d="M130 34 l3 3 M144 34 l-3 3"/>
+  <!-- 측량 격자 -->
+  <g class="ln" opacity="0.7">
+    <path d="M48 60 H96 M48 67 H96 M48 74 H96 M48 60 V74 M64 60 V74 M80 60 V74 M96 60 V74"/>
+  </g>
+  <g class="lt"><rect x="54" y="62.5" width="3" height="1"/><rect x="70" y="69.5" width="3" height="1"/><rect x="86" y="62.5" width="3" height="1"/></g>
+  <!-- 조개껍데기 -->
+  <ellipse class="f2" cx="24" cy="88" rx="6" ry="1.6"/>
+  <path class="ln2" d="M21.5 88 c0 -3 5 -3 5 0 z M22.5 87.8 l1 -2 M24 87.8 v-2.3 M25.5 87.8 l-1 -2"/>
+</svg>

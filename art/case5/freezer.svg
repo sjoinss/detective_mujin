@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice">
+  <!-- 냉동고 앞. 핫스팟: 시신 자리(48~96, 70~84) 휴대전화(106~118, 80~86) 신발 자국(16~38, 80~90) -->
+  <rect class="bg" width="160" height="100"/>
+  <rect class="f1" x="0" y="0" width="160" height="66"/>
+  <path class="ln" d="M0 66 H160"/>
+  <!-- 대형 냉동고 문 -->
+  <rect class="f3" x="44" y="8" width="56" height="58"/>
+  <path class="ln2" d="M44 8 h56 v58 h-56 z M72 8 V66"/>
+  <rect class="f2" x="66" y="30" width="4" height="14"/>
+  <path class="ln" d="M48 14 h20 M76 14 h20" opacity="0.6"/>
+  <!-- 선반: 모서리 -->
+  <path class="ln2" d="M110 30 H150 M110 46 H150 M110 30 V66 M150 30 V66"/>
+  <g class="f2"><rect x="114" y="22" width="10" height="8"/><rect x="130" y="24" width="12" height="6"/><rect x="118" y="38" width="12" height="8"/></g>
+  <circle class="seal" cx="110" cy="46" r="0.8"/>
+  <!-- 바닥 -->
+  <rect class="f2" x="0" y="66" width="160" height="34" opacity="0.5"/>
+  <!-- 테이프 자국 -->
+  <path class="seal-ln" d="M52 78 c3 -4 8 -4 12 -2 l10 0 l8 -3 l3 2 l-6 4 l7 3 l-2 3 l-9 -3 l-9 1 c-5 2 -11 1 -14 -5 z"/>
+  <circle class="seal-ln" cx="90" cy="76" r="3"/>
+  <!-- 휴대전화 -->
+  <rect class="f3" x="107" y="81" width="10" height="5" transform="rotate(-10 112 83)"/>
+  <path class="ln2" d="M108 82 l7 3" transform="rotate(-10 112 83)"/>
+  <!-- 맨발 자국과 구두 자국 -->
+  <g class="ln" opacity="0.6"><ellipse cx="22" cy="74" rx="2" ry="3"/><ellipse cx="30" cy="78" rx="2" ry="3"/><ellipse cx="40" cy="74" rx="2" ry="3"/></g>
+  <path class="ln2" d="M20 84 h12 c3 0 3 4 0 4 h-12 c-2 0 -2 -4 0 -4 z M34 85 h3 v2 h-3 z"/>
+</svg>

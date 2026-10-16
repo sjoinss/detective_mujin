@@ -1,0 +1,607 @@
+{
+  "schemaVersion": 1,
+  "id": "case2",
+  "chapter": 2,
+  "title": "4호실의 물",
+  "difficulty": 2,
+
+  "briefing": {
+    "summary": [
+      "무진항 앞 월광 여관.",
+      "장기 투숙객 박만석이 안쪽 걸쇠가 걸린 4호실에서 숨진 채 발견된다.",
+      "폐에서 바닷물이 나왔다. 방은 말라 있다."
+    ],
+    "rumor": [
+      "4호실 거울에서 물이 흘러나와 사람을 삼킨다.",
+      "거울에 '물이 찬다'는 글씨가 남는다고 한다."
+    ],
+    "victim": { "name": "박만석", "age": 67, "role": "장기 투숙객, 전 매립지 현장 야간 경비" }
+  },
+
+  "start": "sc.room4",
+  "reportRequires": ["r.jae.1"],
+
+  "objectives": [
+    { "when": [], "text": "현장 순찰: 월광 여관 4호실" },
+    { "when": ["clue.lungwater"], "text": "마른 방에서 물에 빠진 사람. 그 물이 어디서 왔는지 찾는다" },
+    { "when": ["clue.connectdoor"], "text": "옆방으로 빠져나간 손을 찾는다" },
+    { "when": ["r.jae.1"], "text": "보고서를 쓴다" }
+  ],
+
+  "scenes": [
+    {
+      "id": "sc.room4",
+      "art": "art/case2/room4.svg",
+      "name": "4호실",
+      "alt": "좁은 여관방. 창가 침대와 머리맡 탁자, 벽의 거울, 안쪽 걸쇠가 걸린 문, 바닥의 가방.",
+      "text": [
+        "방 안 공기가 말라 있다.",
+        "거울에만 물기가 남았다."
+      ],
+      "objects": [
+        {
+          "id": "obj.r4.memo",
+          "label": "도하연의 검안 메모",
+          "hotspot": { "x": 44, "y": 56, "w": 10, "h": 8 },
+          "text": ["머리맡 탁자에 메모 한 장. 숫자부터 적혀 있다."],
+          "gives": ["clue.lividity", "clue.lungwater"]
+        },
+        {
+          "id": "obj.r4.mirror",
+          "label": "거울",
+          "hotspot": { "x": 66, "y": 16, "w": 14, "h": 26 },
+          "text": [
+            "거울에 비누로 쓴 글씨.",
+            "물이 찬다.",
+            "",
+            "글씨 끝이 아직 무르다."
+          ],
+          "gives": ["clue.mirror"]
+        },
+        {
+          "id": "obj.r4.latch",
+          "label": "문 걸쇠",
+          "hotspot": { "x": 88, "y": 40, "w": 8, "h": 12 },
+          "text": ["걸쇠가 안쪽에서 걸린 채 휘어 있다. 문을 부수고 들어온 자국."],
+          "gives": ["clue.latch"]
+        },
+        {
+          "id": "obj.r4.bag",
+          "label": "박만석의 가방",
+          "hotspot": { "x": 10, "y": 74, "w": 14, "h": 14 },
+          "text": ["낡은 손가방. 옷 사이에 손바닥만 한 녹음기가 있다.", "재생 버튼을 누른다."],
+          "gives": ["clue.guardtape"]
+        }
+      ]
+    },
+    {
+      "id": "sc.front",
+      "art": "art/case2/front.svg",
+      "name": "프런트·복도",
+      "alt": "나무 카운터 위 투숙 장부, 벽의 열쇠판, 입구 옆 우편함.",
+      "text": ["카운터 종이 한 번 울리고 멈춘다."],
+      "objects": [
+        {
+          "id": "obj.f.ledger",
+          "label": "투숙 장부",
+          "hotspot": { "x": 36, "y": 52, "w": 18, "h": 10 },
+          "text": ["사건 당일 장에 지우개 자국이 한 줄 있다.", "다음 장을 비스듬히 보면 연필이 눌린 자리가 있다."],
+          "gives": ["clue.pressmarks"],
+          "puzzle": "p.ledger"
+        },
+        {
+          "id": "obj.f.keys",
+          "label": "열쇠판",
+          "hotspot": { "x": 66, "y": 16, "w": 20, "h": 24 },
+          "text": ["방 번호마다 고리 하나. 아래에 대여 기록표가 꽂혀 있다."],
+          "gives": ["clue.key5", "clue.masterkey"]
+        },
+        {
+          "id": "obj.f.mail",
+          "label": "우편함",
+          "hotspot": { "x": 8, "y": 30, "w": 14, "h": 18 },
+          "text": ["뜯어 본 봉투 하나가 다시 꽂혀 있다."],
+          "gives": ["clue.loanletter"]
+        }
+      ]
+    },
+    {
+      "id": "sc.room5",
+      "art": "art/case2/room5.svg",
+      "name": "5호실",
+      "alt": "가구만 남은 빈방. 창가, 침대와 화장대, 4호실 쪽 벽에 붙은 옷장. 바닥에 긁힌 자국.",
+      "text": ["빈방이라고 했다. 이불은 없고 가구만 있다."],
+      "objects": [
+        {
+          "id": "obj.r5.floor",
+          "label": "바닥 긁힌 자국",
+          "hotspot": { "x": 40, "y": 80, "w": 30, "h": 10 },
+          "text": ["장판에 반원 모양 자국이 겹쳐 있다."],
+          "gives": ["clue.marks"]
+        },
+        {
+          "id": "obj.r5.furniture",
+          "label": "벽 쪽 가구",
+          "hotspot": { "x": 56, "y": 14, "w": 26, "h": 56 },
+          "text": ["4호실 쪽 벽에 가구가 바싹 붙어 있다.", "옷장 문짝에 손잡이 나사 구멍만 남았다."],
+          "puzzle": "p.door"
+        },
+        {
+          "id": "obj.r5.window",
+          "label": "창문",
+          "hotspot": { "x": 8, "y": 14, "w": 20, "h": 26 },
+          "text": ["창 너머로 부두가 보인다. 어선 몇 척이 묶여 흔들린다."],
+          "gives": ["clue.window5"]
+        },
+        {
+          "id": "obj.r5.shell",
+          "label": "젖은 조개껍데기",
+          "hotspot": { "x": 30, "y": 84, "w": 6, "h": 6 },
+          "text": ["옷장 앞 바닥.", "마른 방에서 이것만 젖어 있다."],
+          "gives": ["clue.shell"]
+        }
+      ]
+    },
+    {
+      "id": "sc.boiler",
+      "art": "art/case2/boiler.svg",
+      "name": "지하 보일러실",
+      "alt": "보일러와 배관, 선반 위 물 샘플 병들, 바닥의 공구함, 구석의 세탁물 카트.",
+      "text": ["보일러가 낮게 운다. 바닥이 축축하다."],
+      "objects": [
+        {
+          "id": "obj.b.samples",
+          "label": "물 샘플 병",
+          "hotspot": { "x": 12, "y": 40, "w": 20, "h": 14 },
+          "text": ["선반에 병 다섯. 도하연의 글씨로 이름표가 붙었다.", "병 옆에 접힌 표 한 장."],
+          "gives": ["clue.chart"],
+          "puzzle": "p.water"
+        },
+        {
+          "id": "obj.b.cart",
+          "label": "세탁물 카트",
+          "hotspot": { "x": 60, "y": 56, "w": 22, "h": 24 },
+          "text": ["천 바구니가 달린 카트. 바퀴 홈이 지저분하다."],
+          "gives": ["clue.laundrycart"]
+        },
+        {
+          "id": "obj.b.toolbox",
+          "label": "공구함",
+          "hotspot": { "x": 40, "y": 70, "w": 14, "h": 10 },
+          "text": ["녹슨 공구 사이에 쇠 손잡이 하나가 섞여 있다."],
+          "gives": ["clue.handle"]
+        }
+      ]
+    }
+  ],
+
+  "puzzles": [
+    {
+      "id": "p.door",
+      "type": "move",
+      "title": "벽 쪽 가구",
+      "requires": ["clue.handle"],
+      "teaches": ["clue.marks"],
+      "gives": ["clue.connectdoor"],
+      "config": {
+        "items": [
+          { "id": "bed", "label": "침대", "text": "침대를 민다. 뒤엔 누렇게 뜬 벽지뿐이다." },
+          { "id": "dresser", "label": "화장대", "text": "화장대를 옮긴다. 막아 둔 콘센트 하나." },
+          { "id": "wardrobe", "label": "옷장" }
+        ],
+        "answer": "wardrobe"
+      },
+      "answerNote": "옷장을 민다. 합판 구멍에 공구함의 손잡이를 끼운다.",
+      "solvedText": [
+        "옷장이 긁힌 자국을 따라 미끄러진다.",
+        "뒤에 합판 한 장. 가운데 나사 구멍.",
+        "공구함에서 찾은 손잡이를 끼워 돌린다.",
+        "",
+        "합판째 문이 열린다. 건너편은 4호실."
+      ]
+    },
+    {
+      "id": "p.ledger",
+      "type": "restore",
+      "title": "투숙 장부",
+      "teaches": ["clue.pressmarks"],
+      "gives": ["clue.cartlog"],
+      "config": {
+        "label": "지워진 줄",
+        "text": "세탁 14:40 2층 카트 — 재민",
+        "target": 72,
+        "tolerance": 7,
+        "answer": "14:40",
+        "answerLabel": "지워진 시각"
+      },
+      "answerNote": "빛의 각도 70 언저리. 지워진 시각은 14:40.",
+      "solvedText": [
+        "빛을 눕히자 눌린 획이 일어선다.",
+        "세탁 14:40 2층 카트. 재민.",
+        "",
+        "박만석이 죽던 날 낮이다."
+      ]
+    },
+    {
+      "id": "p.water",
+      "type": "sort",
+      "title": "물 샘플 병",
+      "requires": ["clue.lungwater"],
+      "teaches": ["clue.chart"],
+      "gives": ["clue.samewater"],
+      "config": {
+        "caption": "물 샘플 대조",
+        "itemHeader": "샘플",
+        "detailHeader": "잰 값",
+        "categoryHeader": "어떤 물",
+        "checkLabel": "기준표와 대조한다",
+        "wrongText": "기준표와 견주어 본다. 어느 병인가 어긋난다.",
+        "categories": [
+          { "id": "fresh", "label": "민물" },
+          { "id": "sea", "label": "바닷물, 맑음" },
+          { "id": "tank", "label": "바닷물, 비늘 섞임" }
+        ],
+        "items": [
+          { "id": "sA", "label": "보일러실 탱크", "detail": "염도 0.0, 녹 가루" },
+          { "id": "sB", "label": "4호실 욕조", "detail": "염도 0.0, 비누 거품" },
+          { "id": "sC", "label": "선착장 바닷물", "detail": "염도 3.3, 맑음" },
+          { "id": "sD", "label": "어선 활어 수조", "detail": "염도 3.2, 비늘 조각" },
+          { "id": "sE", "label": "폐에서 나온 물", "detail": "염도 3.1, 비늘 조각" }
+        ],
+        "answer": { "sA": "fresh", "sB": "fresh", "sC": "sea", "sD": "tank", "sE": "tank" }
+      },
+      "answerNote": "보일러실·욕조는 민물. 선착장은 맑은 바닷물. 어선 수조와 폐의 물은 비늘 섞인 바닷물.",
+      "solvedText": [
+        "병 다섯을 두 줄로 나눈다.",
+        "폐에서 나온 물은 바다에서 오지 않았다.",
+        "",
+        "어선 활어 수조의 물이다."
+      ]
+    }
+  ],
+
+  "clues": [
+    {
+      "id": "clue.lividity",
+      "name": "검안 소견",
+      "text": "시반이 오른쪽 옆구리에 몰려 있다. 침대에 바로 누운 자세와 맞지 않는다. 사망 추정 낮 13~15시.",
+      "people": []
+    },
+    {
+      "id": "clue.lungwater",
+      "name": "폐 속의 물",
+      "text": "폐에서 바닷물이 나왔다. 염도 3.1, 비늘 조각이 섞였다. 이불과 바닥은 말라 있다.",
+      "people": []
+    },
+    {
+      "id": "clue.mirror",
+      "name": "거울 글씨",
+      "text": "비누로 쓴 '물이 찬다'. 글씨 끝이 아직 무르다.",
+      "people": [],
+      "atmosphere": true
+    },
+    {
+      "id": "clue.latch",
+      "name": "안쪽 걸쇠",
+      "text": "문은 안쪽 걸쇠로 잠겨 있었다. 창은 못질돼 열리지 않는다.",
+      "people": []
+    },
+    {
+      "id": "clue.guardtape",
+      "name": "박만석의 녹음",
+      "text": "\"그날 밤 현장 사무소 불이 늦게까지 켜져 있었어. 형사 한 명이 혼자 왔지. 혼자.\" 녹음 날짜는 사흘 전.",
+      "people": [],
+      "fragment": "frag.guardtape"
+    },
+    {
+      "id": "clue.pressmarks",
+      "name": "장부의 눌린 자국",
+      "text": "사건 당일 한 줄이 지우개로 지워졌다. 다음 장에 연필이 눌린 자국이 남았다. 빛을 눕히면 보인다.",
+      "people": []
+    },
+    {
+      "id": "clue.cartlog",
+      "name": "복원한 장부 줄",
+      "text": "'세탁 14:40 2층 카트 — 재민.' 박만석이 죽던 날 낮.",
+      "people": ["s.jae"]
+    },
+    {
+      "id": "clue.key5",
+      "name": "5호실 열쇠 대여",
+      "text": "5호실 열쇠, 사건 당일 오전 '재민' 서명으로 대여. 반납 칸은 비었다.",
+      "people": ["s.jae"]
+    },
+    {
+      "id": "clue.masterkey",
+      "name": "마스터키",
+      "text": "모든 방을 여는 마스터키는 주인 한옥분이 허리에 차고 다닌다.",
+      "people": ["s.ok"]
+    },
+    {
+      "id": "clue.loanletter",
+      "name": "대출 상환 유예 통지",
+      "text": "한재민 앞. '선박 대출 상환을 1년 유예합니다. 보증 무진종합개발.' 사건 열흘 전 날짜.",
+      "people": ["s.jae"]
+    },
+    {
+      "id": "clue.marks",
+      "name": "바닥 긁힌 자국",
+      "text": "5호실 옷장 다리 아래로 반원 자국이 겹쳤다. 옷장을 최근에 밀었다 되돌렸다.",
+      "people": []
+    },
+    {
+      "id": "clue.window5",
+      "name": "창밖 부두",
+      "text": "5호실 창 너머로 부두가 보인다. 어선 몇 척이 묶여 있다.",
+      "people": [],
+      "atmosphere": true
+    },
+    {
+      "id": "clue.shell",
+      "name": "젖은 조개껍데기",
+      "text": "5호실 옷장 앞. 마른 방에서 이것만 젖어 있다.",
+      "people": [],
+      "atmosphere": true
+    },
+    {
+      "id": "clue.connectdoor",
+      "name": "숨은 연결문",
+      "text": "5호실 옷장 뒤 합판 안쪽에 4호실로 통하는 문. 5호실 쪽에서 열고 닫는다. 문틀 먼지가 최근에 끊겼다.",
+      "people": []
+    },
+    {
+      "id": "clue.chart",
+      "name": "물 대조 기준표",
+      "text": "도하연의 표. 민물은 염도 0. 바닷물은 3.0~3.5. 활어 수조 물엔 비늘이 섞인다.",
+      "people": []
+    },
+    {
+      "id": "clue.samewater",
+      "name": "같은 물",
+      "text": "폐에서 나온 물과 어선 활어 수조의 물이 같다. 염도 3.1~3.2, 같은 비늘.",
+      "people": ["s.jae"]
+    },
+    {
+      "id": "clue.laundrycart",
+      "name": "세탁물 카트",
+      "text": "바퀴 홈에 젖은 모래와 비늘. 카트 바닥에 바닷물 자국이 말라붙었다.",
+      "people": []
+    },
+    {
+      "id": "clue.handle",
+      "name": "쇠 손잡이",
+      "text": "공구함에서 나왔다. 나사 간격이 옛날 문 규격이다.",
+      "people": []
+    },
+    {
+      "id": "clue.departure",
+      "name": "출항 기록",
+      "text": "한재민의 배, 새벽 03:30 출항. 전날 밤 22시부터 선착장 경비 일지에 이름이 있다.",
+      "people": ["s.jae"]
+    },
+    {
+      "id": "clue.knee",
+      "name": "무릎 수술 영수증",
+      "text": "한옥분, 한 달 전 무릎 수술. 소견서에 '계단 오르내리기 금지'.",
+      "people": ["s.ok"]
+    },
+    {
+      "id": "clue.quarrel",
+      "name": "전날 밤 다툼",
+      "text": "사건 전날 밤 4호실에서 박만석과 윤서린이 언성을 높였다. 한옥분이 들었다.",
+      "people": ["s.yoon"]
+    },
+    {
+      "id": "clue.exhibit",
+      "name": "전시장 사진",
+      "text": "사건 당일 13:00~16:00 읍내 전시장. 윤서린이 관람객들과 찍힌 사진, 시각 표시.",
+      "people": ["s.yoon"]
+    }
+  ],
+
+  "suspects": [
+    {
+      "id": "s.jae",
+      "name": "한재민",
+      "age": 34,
+      "role": "어선 선원, 여관 주인의 아들",
+      "intro": "손등이 터 있다. 모자를 벗지 않는다.",
+      "onWrong": ["한재민이 모자챙을 내린다.", "\"그거 들고 와서 뭘 어쩌라고요.\""],
+      "requires": [],
+      "suspectedBy": ["clue.key5"],
+      "clearedBy": [],
+      "rounds": [
+        {
+          "id": "r.jae.1",
+          "requires": [],
+          "statements": [
+            {
+              "id": "st.jae.night",
+              "text": "그날 밤은 새벽 출항 준비로 배에 있었어요. 선착장 일지에 다 있어요.",
+              "gives": ["clue.departure"]
+            },
+            {
+              "id": "st.jae.day",
+              "text": "낮엔 집에서 잤죠. 여관엔 들르지도 않았어요.",
+              "contradictedBy": ["clue.cartlog"],
+              "reply": "카트야 엄마 대신 몇 번 밀어 준 거고요."
+            },
+            {
+              "id": "st.jae.key",
+              "text": "5호실은 빈방이에요. 들어갈 일이 없죠.",
+              "contradictedBy": ["clue.key5"],
+              "reply": "......창문 고치러 들어간 거예요."
+            }
+          ]
+        },
+        {
+          "id": "r.jae.2",
+          "requires": ["r.jae.1", "clue.samewater"],
+          "statements": [
+            {
+              "id": "st.jae.water",
+              "text": "바다에 빠졌으면 바다에서 건져야지, 왜 여관 방이에요. 귀신 짓이라니까요.",
+              "contradictedBy": ["clue.samewater"],
+              "reply": "......"
+            },
+            {
+              "id": "st.jae.boat",
+              "text": "수조요? 그건 그냥 물고기 넣는 데예요."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s.ok",
+      "name": "한옥분",
+      "age": 61,
+      "role": "월광 여관 주인",
+      "intro": "카운터를 짚고 일어선다. 무릎에 붕대가 감겼다.",
+      "onWrong": ["한옥분이 카운터를 다시 짚는다.", "\"나는 모르는 일이에요.\""],
+      "requires": [],
+      "suspectedBy": ["clue.masterkey"],
+      "clearedBy": ["clue.knee"],
+      "rounds": [
+        {
+          "id": "r.ok.1",
+          "requires": [],
+          "statements": [
+            {
+              "id": "st.ok.knee",
+              "text": "2층은 못 올라가요. 무릎 수술한 지 한 달이에요. 영수증 보여 줄까요.",
+              "gives": ["clue.knee"]
+            },
+            {
+              "id": "st.ok.quarrel",
+              "text": "전날 밤에 4호실이 시끄러웠어요. 그 화가 양반하고 언성이 높았지.",
+              "gives": ["clue.quarrel"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s.yoon",
+      "name": "윤서린",
+      "age": 41,
+      "role": "화가, 장기 투숙객",
+      "intro": "손톱 밑에 물감이 끼어 있다.",
+      "onWrong": ["윤서린이 붓을 손가락 사이로 굴린다.", "\"그건 제 그림하고 상관없는 얘기네요.\""],
+      "requires": [],
+      "suspectedBy": ["clue.quarrel"],
+      "clearedBy": ["clue.exhibit"],
+      "rounds": [
+        {
+          "id": "r.yoon.1",
+          "requires": [],
+          "statements": [
+            {
+              "id": "st.yoon.fight",
+              "text": "다툰 건 맞아요. 밤에 창가에서 그림 그리는데 시끄럽다고 해서."
+            },
+            {
+              "id": "st.yoon.day",
+              "text": "그날 낮엔 읍내 전시장에 있었어요. 사진도 있어요.",
+              "gives": ["clue.exhibit"]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "board": [
+    {
+      "id": "b.day",
+      "left": "clue.cartlog",
+      "right": "st.jae.day",
+      "sentence": "낮에 집에서 잤다던 14:40, 그가 세탁물 카트를 2층으로 올린다."
+    },
+    {
+      "id": "b.time",
+      "left": "clue.lividity",
+      "right": "clue.departure",
+      "sentence": "죽은 건 낮. 출항 기록은 밤만 가린다."
+    },
+    {
+      "id": "b.water",
+      "left": "clue.samewater",
+      "right": "clue.laundrycart",
+      "sentence": "수조의 비늘이 카트 바퀴에도 붙어 있다."
+    },
+    {
+      "id": "b.door",
+      "left": "clue.connectdoor",
+      "right": "clue.latch",
+      "sentence": "걸쇠는 안에서 잠겼다. 사람은 옆방으로 나갔다."
+    }
+  ],
+
+  "accusation": {
+    "method": [
+      { "id": "m.mirror", "text": "거울에서 흘러나온 물에 잠겼다" },
+      { "id": "m.tank", "text": "낮에 어선 수조에서 익사시키고 카트로 옮겨 밀실처럼 꾸몄다" },
+      { "id": "m.bath", "text": "밤에 4호실 욕조에서 익사시켰다" }
+    ],
+    "motive": [
+      { "id": "mo.loan", "text": "선박 대출 상환을 유예받는 대가로" },
+      { "id": "mo.quarrel", "text": "전날 밤 다툼에 앙심을 품고" },
+      { "id": "mo.rumor", "text": "괴담을 퍼뜨려 여관 손님을 끌려고" }
+    ]
+  },
+
+  "solution": {
+    "culprit": "s.jae",
+    "method": "m.tank",
+    "motive": "mo.loan",
+    "requires": [
+      "clue.cartlog", "clue.key5",
+      "clue.samewater", "clue.connectdoor", "clue.lividity",
+      "clue.loanletter"
+    ],
+    "evidence": {
+      "culprit": ["clue.cartlog", "clue.key5"],
+      "method": ["clue.samewater", "clue.connectdoor", "clue.lividity"],
+      "motive": ["clue.loanletter"]
+    }
+  },
+
+  "hints": {
+    "p.door": [
+      "바닥 자국. 자국이 가리키는 쪽.",
+      "4호실 쪽 벽. 벽에 붙은 것.",
+      "옷장. 손잡이는 보일러실. 보일러실."
+    ],
+    "p.ledger": [
+      "눌린 자국. 빛을 눕힐 것.",
+      "빛이 거의 옆으로 누울 때. 누울 때.",
+      "글자가 다 보이면 시각만 옮길 것. 시각만."
+    ],
+    "p.water": [
+      "기준표 먼저. 표 먼저.",
+      "염도 0이면 민물. 3이 넘으면 바다.",
+      "비늘이 있으면 수조. 폐의 물도. 폐의 물도."
+    ],
+    "report": [
+      "누가. 낮에 2층으로 카트를 올린 사람. 사람.",
+      "어떻게. 폐의 물은 어디 물. 방은 어떻게 잠겼나. 잠겼나.",
+      "왜. 열흘 전 우편. 우편."
+    ]
+  },
+
+  "han": [
+    { "when": [], "text": "마른 방에서 물에 빠졌다... 그 물은 어디서 왔을까요?" },
+    { "when": ["clue.samewater"], "text": "수조라... 그 배, 누구 배였죠?" }
+  ],
+
+  "result": {
+    "text": [
+      "한재민이 모자를 벗는다.",
+      "손등에 비늘 하나가 붙어 있다.",
+      "",
+      "녹음기 속 목소리를 사건부 사이에 끼운다.",
+      "형사 한 명이 혼자 왔다."
+    ]
+  }
+}

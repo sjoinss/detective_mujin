@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice">
+  <!-- 지하 보일러실. 핫스팟: 샘플 병(19~51, 40~54) 세탁물 카트(96~131, 56~80) 공구함(64~86, 70~80) -->
+  <rect class="bg" width="160" height="100"/>
+  <rect class="f1" x="0" y="10" width="160" height="58"/>
+  <path class="ln" d="M0 10 H160 M0 68 H160"/>
+  <!-- 천장 배관 -->
+  <path class="ln2" d="M0 14 H128 V22 M0 18 H120 V30"/>
+  <circle class="ln" cx="60" cy="14" r="1.5"/><circle class="ln" cx="96" cy="18" r="1.5"/>
+  <!-- 보일러 -->
+  <rect class="f2" x="134" y="8" width="22" height="58" rx="2"/>
+  <path class="ln2" d="M134 8 h22 v58 h-22 z M134 30 H156"/>
+  <circle class="ln2" cx="145" cy="20" r="4"/>
+  <path class="ln" d="M145 20 l2 -2"/>
+  <rect class="glow" x="140" y="48" width="10" height="4"/>
+  <!-- 선반과 샘플 병 다섯 -->
+  <path class="ln2" d="M16 54 H54 M16 54 V58 M54 54 V58"/>
+  <g class="f2">
+    <rect x="20" y="44" width="4" height="10"/><rect x="27" y="45" width="4" height="9"/><rect x="34" y="44" width="4" height="10"/>
+    <rect x="41" y="45" width="4" height="9"/><rect x="47" y="44" width="4" height="10"/>
+  </g>
+  <g class="ln"><path d="M20 49 h4 M27 49 h4 M34 49 h4 M41 49 h4 M47 49 h4"/></g>
+  <g class="lt"><rect x="20.6" y="41.5" width="2.8" height="2.5"/><rect x="34.6" y="41.5" width="2.8" height="2.5"/><rect x="47.6" y="41.5" width="2.8" height="2.5"/></g>
+  <!-- 바닥 -->
+  <rect class="f1" x="0" y="68" width="160" height="32" opacity="0.5"/>
+  <!-- 공구함 -->
+  <rect class="f3" x="65" y="72" width="21" height="8"/>
+  <path class="ln2" d="M65 72 h21 v8 h-21 z M71 72 c0 -3 9 -3 9 0"/>
+  <!-- 세탁물 카트 -->
+  <path class="f2" d="M98 58 h32 l-3 16 h-26 z"/>
+  <path class="ln2" d="M98 58 h32 l-3 16 h-26 z M96 58 h36"/>
+  <circle class="ln2" cx="104" cy="78" r="2"/><circle class="ln2" cx="124" cy="78" r="2"/>
+  <path class="ln" d="M103 63 c6 2 14 -2 22 1" opacity="0.6"/>
+  <!-- 바닥 물기 -->
+  <path class="ln" d="M20 86 c10 -2 22 -2 34 0 M100 92 c10 -1.5 22 -1.5 36 0" opacity="0.5"/>
+</svg>

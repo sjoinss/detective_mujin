@@ -1,0 +1,361 @@
+/* 컴포넌트. 앱 모양(카드 그리드, 알약 버튼, 그라데이션 헤더) 대신 서류와 도장의 모양을 쓴다. */
+
+/* ---------- 버튼 ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--touch);
+  min-width: var(--touch);
+  padding: var(--space-2) var(--space-4);
+  border: var(--border) solid var(--line-strong);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  font-weight: 600;
+  line-height: var(--lh-tight);
+  text-align: center;
+  text-decoration: none;
+  transition: background-color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.btn:hover { background: var(--surface-raised); border-color: var(--text-muted); }
+.btn:active { transform: translateY(1px); }
+
+/* 주 CTA: 인주 도장. 화면마다 하나만. */
+.btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+.btn--primary:hover { background: var(--c-seal-700); border-color: var(--accent-text); }
+
+.btn--ghost {
+  border-color: transparent;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+.btn--ghost:hover { border-color: transparent; }
+
+.btn--destructive { border-color: var(--err); color: var(--err); }
+.btn--destructive::before { content: "✕"; font-weight: 400; }
+
+/* 조건이 모자란 버튼: 포커스는 받아서 이유를 읽히게 하고, 누르면 아무 일도 없다 */
+.btn[aria-disabled="true"],
+.btn:disabled {
+  border-style: dashed;
+  border-color: var(--line);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: not-allowed;
+  transform: none;
+}
+.btn-reason { display: block; margin-top: var(--space-1); color: var(--text-muted); font-size: var(--fs-small); }
+
+.btn[aria-busy="true"] { cursor: progress; position: relative; }
+.btn[aria-busy="true"]::after {
+  content: "";
+  position: absolute;
+  left: var(--space-2); right: var(--space-2); bottom: 4px;
+  height: 2px;
+  background: currentColor;
+  transform-origin: left;
+  animation: busy-line 1.2s var(--ease) infinite;
+}
+@keyframes busy-line { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.actions--stack { flex-direction: column; align-items: stretch; }
+
+/* ---------- 글 흐름(로그) ----------
+   글과 선택지는 한 스크롤 흐름에 있다. 고른 선택지는 옅은 바탕으로 남는다. */
+.log { display: flex; flex-direction: column; gap: var(--space-3); max-width: var(--measure); }
+.log-entry { display: flex; flex-direction: column; gap: calc(var(--space-1) + var(--line-drift) * 1rem); }
+.log-line { white-space: pre-wrap; }
+.log-gap { height: var(--space-4); }
+.log-choice {
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface-raised);
+  color: var(--text-muted);
+  border-left: var(--focus-ring) solid var(--line-strong);
+}
+.log-choice::before { content: "› "; }
+.log-speaker { font-weight: 700; color: var(--text-strong); }
+/* 앞서 본 것: 접어 두지만 지우지 않는다 */
+.log-past { border-bottom: var(--border) solid var(--line); padding-bottom: var(--space-2); }
+.log-past > summary {
+  display: flex;
+  align-items: center;
+  min-height: var(--touch);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.log-past[open] > summary { margin-bottom: var(--space-3); }
+.log-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  padding: var(--space-1) var(--space-3);
+  border-left: var(--focus-ring) solid var(--accent-text);
+  color: var(--text-strong);
+}
+.log-note-tag { color: var(--accent-text); font-size: var(--fs-small); font-weight: 700; }
+
+/* ---------- 사건부 항목 ---------- */
+.clue-list { display: flex; flex-direction: column; gap: var(--space-3); }
+.clue {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-bottom: var(--space-3);
+  border-bottom: var(--border) solid var(--sheet-line);
+}
+.clue-name { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2); font-size: var(--fs-body); }
+.clue-tag {
+  padding: 0 var(--space-1);
+  background: var(--highlight-bg);
+  color: var(--highlight-text);
+  font-size: var(--fs-small);
+  font-weight: 700;
+}
+.clue-meta { font-size: var(--fs-small); color: var(--sheet-muted); }
+.clue { gap: 0; }
+.clue-list { gap: var(--space-2); }
+.people { display: flex; flex-direction: column; gap: var(--space-2); }
+.people ul { display: flex; flex-direction: column; gap: var(--space-3); margin-bottom: var(--space-3); }
+.people h3 { font-size: var(--fs-small); color: var(--sheet-muted); }
+.person h4 { font-size: var(--fs-body); }
+.person-age { font-weight: 400; color: var(--sheet-muted); }
+
+/* ---------- 저장 코드 ---------- */
+.code-box {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: var(--border) solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  word-break: break-all;
+  resize: vertical;
+}
+.code-box[aria-invalid="true"] { border-color: var(--err); }
+.field-error { color: var(--err); }
+.field-error::before { content: "! "; font-weight: 700; }
+
+/* ---------- 선택지 목록(살펴볼 곳, 진술, 선택) ---------- */
+.choices { display: flex; flex-direction: column; gap: var(--space-2); }
+.choice {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: var(--touch);
+  padding: var(--space-2) var(--space-3);
+  border: var(--border) solid var(--line);
+  border-left-width: var(--focus-ring);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  text-align: left;
+  text-decoration: none;
+}
+.choice:hover { border-color: var(--line-strong); background: var(--surface-raised); }
+.choice-mark { margin-left: auto; color: var(--text-muted); font-size: var(--fs-small); white-space: nowrap; }
+.choice[data-done="true"] { border-left-color: var(--line-strong); }
+.choice[data-done="true"] .choice-label { color: var(--text-muted); }
+
+/* ---------- 서류(종이) ---------- */
+.sheet {
+  /* 종이 위의 기본 입력(체크박스, 라디오, 셀렉트)은 밝은 모양으로 */
+  color-scheme: light;
+  background: var(--sheet-bg);
+  color: var(--sheet-text);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  --focus: var(--sheet-focus);
+  --text-muted: var(--sheet-muted);
+}
+/* 종이 위 제목은 전부 먹색. 바탕(어두운 책상)의 제목색이 새어 들면 안 보인다. */
+.sheet h1, .sheet h2, .sheet h3, .sheet h4 { color: var(--sheet-text); }
+.sheet a { color: var(--sheet-accent); }
+.sheet .btn { color: var(--sheet-text); border-color: var(--sheet-line); }
+.sheet .btn:hover { background: var(--sheet-bg-alt); }
+.sheet .btn--ghost { border-color: transparent; }
+/* 종이 위에서도 주 버튼은 인주 바탕에 밝은 글씨 */
+.sheet .btn--primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.sheet .btn--primary:hover { background: var(--c-seal-700); }
+.sheet-rule { border: 0; border-top: var(--border) solid var(--sheet-line); margin: var(--space-3) 0; }
+.sheet-meta { color: var(--sheet-muted); font-size: var(--fs-small); }
+
+/* 서진우 메모: 왼쪽 인주 줄 + "메모" 이름 */
+.memo {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border-left: var(--focus-ring) solid var(--memo-line);
+  background: var(--sheet-bg-alt);
+  color: var(--memo-text);
+}
+.memo-tag {
+  display: block;
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--sheet-accent);
+  letter-spacing: 0.05em;
+}
+
+.marker { background: var(--highlight-bg); color: var(--highlight-text); padding: 0 0.15em; }
+
+/* ---------- 탭(사건부 분류) ---------- */
+.tabs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  border-bottom: var(--border) solid var(--sheet-line);
+}
+.tab {
+  flex: 0 0 auto;
+  min-height: var(--touch);
+  padding: var(--space-2) var(--space-3);
+  border: var(--border) solid transparent;
+  border-bottom: 0;
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: transparent;
+  color: var(--sheet-muted);
+  font-weight: 600;
+}
+.tab[aria-selected="true"] {
+  background: var(--sheet-bg-alt);
+  border-color: var(--sheet-line);
+  color: var(--sheet-text);
+  box-shadow: inset 0 var(--focus-ring) 0 var(--sheet-accent);
+}
+.tab-panel { padding-top: var(--space-4); }
+
+/* ---------- 알림 줄(토스트) ---------- */
+/* 알림 줄은 위쪽 오른편, 목표 줄 아래. 아래쪽엔 손이 닿는 버튼이 모이므로 가리지 않는다. */
+.toasts {
+  position: fixed;
+  z-index: 40;
+  top: calc(var(--touch) + var(--space-2));
+  right: var(--space-4);
+  left: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+  pointer-events: none;
+}
+/* 넓은 화면: 양옆 칸(살펴볼 곳·사건부)을 피해 가운데 아래에. 하단 띠 바로 위. */
+@media (min-width: 64em) {
+  .toasts {
+    top: auto;
+    bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom) + var(--space-3));
+    left: 50%;
+    right: auto;
+    width: min(var(--measure), 40vw);
+    transform: translateX(-50%);
+    align-items: center;
+  }
+}
+.toast {
+  max-width: var(--measure);
+  padding: var(--space-2) var(--space-3);
+  background: var(--sheet-bg);
+  color: var(--sheet-text);
+  border-left: var(--focus-ring) solid var(--sheet-accent);
+  animation: toast-in var(--dur-slow) var(--ease);
+}
+.toast[data-leaving="true"] { opacity: 0; transition: opacity var(--dur-slow) var(--ease); }
+@keyframes toast-in { from { opacity: 0; transform: translateY(var(--space-2)); } }
+
+/* ---------- 알림 문단(오류, 주의, 빈 상태) ---------- */
+.notice {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-1) var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: var(--border) solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  max-width: var(--measure);
+}
+.notice-icon { font-weight: 700; }
+.notice > :not(.notice-icon) { grid-column: 2; }
+.notice--error { border-color: var(--err); }
+.notice--error .notice-icon { color: var(--err); }
+.notice--warn { border-color: var(--warn); }
+.notice--warn .notice-icon { color: var(--warn); }
+
+.loading { display: flex; align-items: center; gap: var(--space-3); color: var(--text-muted); }
+.loading::before {
+  content: "";
+  width: var(--space-6);
+  height: 2px;
+  background: var(--text-muted);
+  transform-origin: left;
+  animation: busy-line 1.2s var(--ease) infinite alternate;
+}
+
+/* ---------- 모달 ---------- */
+.dialog {
+  width: min(32rem, calc(100vw - 2 * var(--space-4)));
+  max-height: calc(100dvh - 2 * var(--space-4));
+  padding: var(--space-5);
+  border: var(--border) solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+}
+.dialog::backdrop { background: var(--scrim); opacity: 0.8; }
+.dialog h2 { margin-bottom: var(--space-3); }
+.dialog .actions { margin-top: var(--space-5); justify-content: flex-end; }
+
+/* ---------- 입력: 라디오 묶음 ---------- */
+.field { display: flex; flex-direction: column; gap: var(--space-2); }
+.field legend { font-weight: 700; color: var(--text-strong); margin-bottom: var(--space-2); }
+.field-help { color: var(--text-muted); font-size: var(--fs-small); }
+.options { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.option {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--touch);
+  padding: var(--space-2) var(--space-3);
+  border: var(--border) solid var(--line-strong);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+.option input { width: 1.125rem; height: 1.125rem; margin: 0; accent-color: var(--accent); }
+.option:has(input:checked) { border-color: var(--text); background: var(--surface-raised); font-weight: 700; }
+.option:has(input:focus-visible) { outline: var(--focus-ring) solid var(--focus); outline-offset: 2px; }
+.option input:focus-visible { outline: none; }
+
+/* ---------- 장면 뷰어 ---------- */
+.scene-view {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--c-ink-950);
+  border: var(--border) solid var(--line);
+}
+.scene-art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; color: var(--text-muted); }
+.hotspot {
+  position: absolute;
+  min-width: var(--touch);
+  min-height: var(--touch);
+  padding: 0;
+  border: var(--border) dashed transparent;
+  background: transparent;
+}
+.hotspot:hover { border-color: var(--text-muted); }
+.hotspot[data-done="true"]::after {
+  content: "✓";
+  position: absolute;
+  top: 2px; right: 4px;
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+.scene-caption { margin-top: var(--space-2); color: var(--text-muted); font-size: var(--fs-small); }

@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "id": "prologue",
+  "kind": "prologue",
+  "chapter": 0,
+  "title": "인수인계",
+  "difficulty": 1,
+
+  "briefing": {
+    "summary": [
+      "무진경찰서 장기미제 기록실.",
+      "전임 조사관 서진우가 연락이 끊긴 지 석 달.",
+      "그의 책상과 사건부가 넘어온다."
+    ],
+    "rumor": []
+  },
+
+  "start": "sc.p.room",
+  "completeWhen": ["clue.p.file"],
+
+  "objectives": [
+    { "when": [], "text": "인수인계: 서진우의 책상" },
+    { "when": ["clue.p.memo"], "text": "철제 캐비닛을 연다" }
+  ],
+
+  "scenes": [
+    {
+      "id": "sc.p.room",
+      "art": "art/prologue/room.svg",
+      "name": "장기미제 기록실",
+      "alt": "서류 상자가 쌓인 기록실. 창가 책상 위에 펼쳐진 사건부, 유리 깔린 책상, 모니터에 붙은 메모, 벽의 철제 캐비닛.",
+      "text": [
+        "형광등 하나가 늦게 켜진다.",
+        "창가 책상 위에 사건부가 펼쳐져 있다."
+      ],
+      "objects": [
+        {
+          "id": "obj.p.book",
+          "label": "펼쳐진 사건부",
+          "hotspot": { "x": 40, "y": 54, "w": 18, "h": 10 },
+          "text": [
+            "표지 안쪽에 인계 칸이 있다.",
+            "작성 서진우. 그 아래 한 줄이 비어 있다."
+          ],
+          "gives": ["clue.p.book"],
+          "input": "playerName"
+        },
+        {
+          "id": "obj.p.glass",
+          "label": "책상 유리 밑",
+          "hotspot": { "x": 12, "y": 58, "w": 16, "h": 10 },
+          "text": ["유리 밑에 사건 목록이 깔려 있다. 첫 줄에 별표."],
+          "gives": ["clue.p.list"]
+        },
+        {
+          "id": "obj.p.memo",
+          "label": "모니터에 붙은 메모",
+          "hotspot": { "x": 64, "y": 30, "w": 10, "h": 10 },
+          "text": ["노란 메모지 한 장. 글씨가 짧게 끊긴다."],
+          "gives": ["clue.p.memo"]
+        },
+        {
+          "id": "obj.p.cabinet",
+          "label": "철제 캐비닛",
+          "hotspot": { "x": 80, "y": 20, "w": 14, "h": 50 },
+          "text": ["네 자리 번호 자물쇠가 달린 캐비닛. 서진우만 열던 칸이다."],
+          "puzzle": "p.p.cabinet"
+        }
+      ]
+    }
+  ],
+
+  "puzzles": [
+    {
+      "id": "p.p.cabinet",
+      "type": "lock",
+      "title": "철제 캐비닛",
+      "teaches": ["clue.p.memo", "clue.p.list"],
+      "gives": ["clue.p.file"],
+      "config": { "digits": 4, "answer": "0347" },
+      "answerNote": "처음 맡은 사건 21-0347. 끝 넷은 0347.",
+      "solvedText": [
+        "다이얼이 0347에서 걸린다.",
+        "맨 아래 칸에 서류철 하나.",
+        "",
+        "무진초등학교. 방송실."
+      ]
+    }
+  ],
+
+  "clues": [
+    {
+      "id": "clue.p.book",
+      "name": "서진우의 사건부",
+      "text": "메모가 짧게 끊긴다. 같은 말을 두 번 적는다. 인계 칸 한 줄이 비어 있었다.",
+      "people": [],
+      "atmosphere": true
+    },
+    {
+      "id": "clue.p.list",
+      "name": "유리 밑 사건 목록",
+      "text": "서진우가 맡은 사건 목록. 첫 줄 21-0347에 별표.",
+      "people": []
+    },
+    {
+      "id": "clue.p.memo",
+      "name": "모니터 메모",
+      "text": "'캐비닛. 처음 맡은 사건 번호 끝 넷. 확인. 확인 필요.'",
+      "people": []
+    },
+    {
+      "id": "clue.p.file",
+      "name": "방송실의 출석",
+      "text": "무진초등학교 사건 서류철. 첫 장에 서진우의 글씨 '여기서부터. 여기서부터.'",
+      "people": []
+    }
+  ],
+
+  "suspects": [],
+
+  "hints": {
+    "p.p.cabinet": [
+      "메모. 메모대로.",
+      "처음 맡은 사건. 유리 밑.",
+      "번호 끝 넷. 넷."
+    ]
+  },
+
+  "han": [
+    { "when": [], "text": "서 조사관 자리, 오늘부터 쓰시면 돼요. 그 사건부는... 읽어 보셨어요?" },
+    { "when": ["clue.p.memo"], "text": "캐비닛이요? 서 조사관은 번호를 어디 적어 두는 사람이었을까요..." },
+    { "when": ["clue.p.file"], "text": "그 학교, 곧 헐린다던데요. 서두르는 게 좋지 않을까요..." }
+  ],
+
+  "result": {
+    "text": [
+      "서류철을 사건부 옆에 놓는다.",
+      "한도윤이 커피 두 잔을 내려놓고 나간다.",
+      "",
+      "사건부의 다음 장을 넘긴다."
+    ]
+  }
+}

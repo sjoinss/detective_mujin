@@ -1,0 +1,565 @@
+{
+  "schemaVersion": 1,
+  "id": "case1",
+  "chapter": 1,
+  "title": "방송실의 출석",
+  "difficulty": 1,
+
+  "briefing": {
+    "summary": [
+      "철거를 앞둔 무진초등학교.",
+      "현장소장 오병철이 방송실 앞 계단 아래에서 발견된다.",
+      "1차 판단은 방송에 놀라 떨어진 사고."
+    ],
+    "rumor": [
+      "밤 열한 시 십 분이면 방송실에서 아이 목소리가 흘러나온다.",
+      "3학년 2반 출석을 부른다고 한다."
+    ],
+    "victim": { "name": "오병철", "age": 54, "role": "철거 현장소장" }
+  },
+
+  "start": "sc.broadcast",
+  "reportRequires": ["r.kang.1"],
+
+  "objectives": [
+    { "when": [], "text": "현장 순찰: 무진초등학교 방송실" },
+    { "when": ["p.mixer"], "text": "방송을 걸어 둔 손을 찾는다" },
+    { "when": ["p.mixer", "p.lock"], "text": "서고에서 나온 일지를 아는 사람을 찾는다" },
+    { "when": ["r.kang.1"], "text": "보고서를 쓴다" }
+  ],
+
+  "scenes": [
+    {
+      "id": "sc.broadcast",
+      "art": "art/case1/broadcast.svg",
+      "name": "방송실",
+      "alt": "좁은 방송실. 먼지 덮인 믹서와 테이프 데크, 벽에 붙은 배선 안내판.",
+      "text": [
+        "방송실 문이 걸리며 열린다.",
+        "믹서 위로 먼지가 두껍게 쌓였다."
+      ],
+      "objects": [
+        {
+          "id": "obj.switch",
+          "label": "예약 스위치",
+          "hotspot": { "x": 22, "y": 48, "w": 8, "h": 10 },
+          "text": [
+            "스위치 하나만 먼지가 없다.",
+            "손끝이 그 앞에서 멈춘다.",
+            "누가 닦았나 보다, 하고 돌아서려는데",
+            "",
+            "스위치가 아직 따뜻하다."
+          ],
+          "gives": ["clue.warmswitch"]
+        },
+        {
+          "id": "obj.wiring",
+          "label": "배선 안내판",
+          "hotspot": { "x": 70, "y": 18, "w": 18, "h": 22 },
+          "text": ["누렇게 바랜 안내판. 단자마다 손글씨가 남았다."],
+          "gives": ["clue.wiring"]
+        },
+        {
+          "id": "obj.mixer",
+          "label": "방송 믹서",
+          "hotspot": { "x": 34, "y": 52, "w": 26, "h": 16 },
+          "text": ["믹서 뒤로 케이블 세 가닥이 빠져 있다.", "누가 급하게 뽑았다."],
+          "puzzle": "p.mixer"
+        },
+        {
+          "id": "obj.tapebox",
+          "label": "테이프 상자",
+          "hotspot": { "x": 8, "y": 66, "w": 12, "h": 12 },
+          "text": ["녹음테이프가 몇 토막으로 잘려 있다."],
+          "puzzle": "p.tape"
+        }
+      ]
+    },
+    {
+      "id": "sc.stairs",
+      "art": "art/case1/stairs.svg",
+      "name": "2층 계단",
+      "alt": "방송실 앞 계단. 허리 높이 난간, 아래층 계단참에 테이프로 표시한 자리.",
+      "text": ["계단참에 하얀 테이프 자국이 사람 모양으로 남았다."],
+      "objects": [
+        {
+          "id": "obj.coroner",
+          "label": "검안 메모",
+          "hotspot": { "x": 60, "y": 70, "w": 14, "h": 10 },
+          "text": ["도하연의 글씨. 숫자부터 적혀 있다."],
+          "gives": ["clue.autopsy"]
+        },
+        {
+          "id": "obj.belongings",
+          "label": "유류품 봉투",
+          "hotspot": { "x": 18, "y": 74, "w": 12, "h": 12 },
+          "text": ["휴대전화 하나. 화면에 문자가 떠 있다."],
+          "gives": ["clue.minsms"]
+        },
+        {
+          "id": "obj.handrail",
+          "label": "난간",
+          "hotspot": { "x": 40, "y": 30, "w": 30, "h": 10 },
+          "text": [
+            "난간이 허리께까지 온다.",
+            "기대 보아도 몸이 넘어가지 않는다."
+          ],
+          "gives": ["clue.handrail"]
+        }
+      ]
+    },
+    {
+      "id": "sc.staffroom",
+      "art": "art/case1/staffroom.svg",
+      "name": "교무실",
+      "alt": "책상이 밀려난 교무실. 출석부 더미, 경비 일지, 전화기 옆 메모철, 벽걸이 열쇠함.",
+      "text": ["책상은 벽으로 밀렸고 서류만 제자리에 남았다."],
+      "objects": [
+        {
+          "id": "obj.rollbook",
+          "label": "3학년 2반 출석부",
+          "hotspot": { "x": 12, "y": 44, "w": 16, "h": 14 },
+          "text": ["표지가 눅눅하다. 마지막 장까지 이름이 빼곡하다."],
+          "gives": ["clue.rollbook"]
+        },
+        {
+          "id": "obj.gatelog",
+          "label": "정문 경비 일지",
+          "hotspot": { "x": 36, "y": 46, "w": 16, "h": 12 },
+          "text": ["드나든 차량이 시각순으로 적혀 있다."],
+          "gives": ["clue.gatelog"]
+        },
+        {
+          "id": "obj.memo",
+          "label": "전화 메모철",
+          "hotspot": { "x": 58, "y": 40, "w": 12, "h": 12 },
+          "text": ["맨 위 장에 오병철의 이름이 적혀 있다."],
+          "gives": ["clue.inquiry"]
+        },
+        {
+          "id": "obj.keybox",
+          "label": "열쇠함",
+          "hotspot": { "x": 80, "y": 24, "w": 12, "h": 18 },
+          "text": ["고리 하나가 비었다. 안쪽에 대여 기록표가 붙어 있다."],
+          "gives": ["clue.keyledger"]
+        }
+      ]
+    },
+    {
+      "id": "sc.archive",
+      "art": "art/case1/archive.svg",
+      "name": "지하 서고",
+      "alt": "천장이 낮은 지하 서고. 번호 자물쇠가 걸린 철문과 문서 상자가 쌓인 선반.",
+      "text": ["계단 끝에서 습기가 올라온다."],
+      "objects": [
+        {
+          "id": "obj.shelf",
+          "label": "문서 선반",
+          "hotspot": { "x": 10, "y": 30, "w": 30, "h": 40 },
+          "text": ["상자 하나만 먼지 자국이 새로 났다. 누가 최근에 꺼냈다가 넣었다."],
+          "gives": ["clue.dustmark"]
+        },
+        {
+          "id": "obj.lock",
+          "label": "서고 철문 자물쇠",
+          "hotspot": { "x": 56, "y": 40, "w": 10, "h": 12 },
+          "text": ["네 자리 번호 자물쇠. 옆에 '3-2 당번'이라고 긁어 쓴 자국."],
+          "puzzle": "p.lock"
+        },
+        {
+          "id": "obj.shell",
+          "label": "젖은 조개껍데기",
+          "hotspot": { "x": 74, "y": 78, "w": 6, "h": 6 },
+          "text": [
+            "바다에서 한참 떨어진 지하.",
+            "조개껍데기가 아직 젖어 있다."
+          ],
+          "gives": ["clue.shell"]
+        }
+      ]
+    }
+  ],
+
+  "puzzles": [
+    {
+      "id": "p.mixer",
+      "type": "wiring",
+      "title": "방송 믹서",
+      "teaches": ["clue.wiring"],
+      "gives": ["clue.timer"],
+      "config": {
+        "plugs": [
+          { "id": "tape", "label": "테이프 데크" },
+          { "id": "timer", "label": "예약기" },
+          { "id": "amp", "label": "앰프 출력" }
+        ],
+        "jacks": [
+          { "id": "in1", "label": "입력 1" },
+          { "id": "in2", "label": "입력 2" },
+          { "id": "remote", "label": "원격" },
+          { "id": "all", "label": "교실 전체" },
+          { "id": "office", "label": "교무실만" }
+        ],
+        "answer": { "tape": "in2", "timer": "remote", "amp": "all" }
+      },
+      "answerNote": "테이프 데크 → 입력 2, 예약기 → 원격, 앰프 출력 → 교실 전체.",
+      "solvedText": [
+        "케이블 세 가닥이 제자리에 들어간다.",
+        "예약기 창에 불이 들어온다.",
+        "",
+        "23:10. 매일."
+      ]
+    },
+    {
+      "id": "p.lock",
+      "type": "lock",
+      "title": "서고 철문 자물쇠",
+      "teaches": ["clue.rollbook"],
+      "gives": ["clue.ledgercopy"],
+      "config": { "digits": 4, "answer": "4196" },
+      "answerNote": "서고 당번 순서대로 출석 번호. 4, 1, 9, 6.",
+      "solvedText": [
+        "다이얼이 4196에서 걸린다.",
+        "철문이 무겁게 밀린다.",
+        "선반 맨 아래, 끈으로 묶은 사본 한 묶음.",
+        "",
+        "43쪽 다음 장이 46쪽이다."
+      ]
+    },
+    {
+      "id": "p.tape",
+      "type": "pieces",
+      "title": "잘린 녹음테이프",
+      "teaches": ["clue.rollbook"],
+      "gives": ["clue.tapename"],
+      "config": {
+        "pieces": [
+          { "id": "t1", "label": "\"1번, 박준서.\"" },
+          { "id": "t2", "label": "\"4번, 김소라.\"" },
+          { "id": "t3", "label": "\"6번, 정민호.\"" },
+          { "id": "t4", "label": "\"9번, 최유나.\"" },
+          { "id": "t5", "label": "잠깐 숨소리. 그리고 이름 하나." }
+        ],
+        "answer": ["t1", "t2", "t3", "t4", "t5"]
+      },
+      "answerNote": "출석 번호순. 1, 4, 6, 9. 번호 없는 토막이 맨 끝.",
+      "solvedText": [
+        "토막을 순서대로 이어 튼다.",
+        "아이 목소리가 번호를 부른다. 1번, 4번, 6번, 9번.",
+        "잠깐 숨소리.",
+        "",
+        "\"오병철.\""
+      ]
+    }
+  ],
+
+  "clues": [
+    {
+      "id": "clue.warmswitch",
+      "name": "따뜻한 예약 스위치",
+      "text": "먼지 없는 스위치 하나. 방금 전까지 돌았다.",
+      "people": [],
+      "atmosphere": true
+    },
+    {
+      "id": "clue.wiring",
+      "name": "배선 안내판",
+      "text": "테이프 → 입력 2. 예약기 → 원격. 출력은 교실 전체로.",
+      "people": []
+    },
+    {
+      "id": "clue.timer",
+      "name": "예약 방송 23:10",
+      "text": "예약기가 매일 23:10에 테이프를 틀도록 맞춰져 있다. 설정한 날짜는 사고 당일 저녁.",
+      "people": []
+    },
+    {
+      "id": "clue.autopsy",
+      "name": "검안 소견",
+      "text": "사망 추정 22:45~22:55. 등 한가운데 손바닥 크기 멍. 떨어지기 전에 생겼다.",
+      "people": []
+    },
+    {
+      "id": "clue.handrail",
+      "name": "허리 높이 난간",
+      "text": "혼자 놀라 뒷걸음질해서는 넘어가기 어려운 높이.",
+      "people": []
+    },
+    {
+      "id": "clue.minsms",
+      "name": "민수호의 문자",
+      "text": "\"철거 대금 이번 주까지 안 들어오면 나도 가만 안 있어.\" 사고 전날 21:12.",
+      "people": ["s.min"]
+    },
+    {
+      "id": "clue.drivelog",
+      "name": "대리운전 호출 기록",
+      "text": "민수호 명의. 22:20 무진초 앞 출발, 23:35 이웃 도시 자택 도착.",
+      "people": ["s.min"]
+    },
+    {
+      "id": "clue.rollbook",
+      "name": "3학년 2반 출석부",
+      "text": "맨 뒤 '서고 당번' 칸에 차례대로 동그라미 넷. 4번 김소라, 1번 박준서, 9번 최유나, 6번 정민호.",
+      "people": []
+    },
+    {
+      "id": "clue.gatelog",
+      "name": "정문 경비 일지",
+      "text": "22:40 진입. 차량번호 옆에 '시 개발공사'. 나간 기록은 23:25.",
+      "people": ["s.kang"]
+    },
+    {
+      "id": "clue.inquiry",
+      "name": "전화 메모",
+      "text": "오병철 → 시 개발공사 사무국. '2006년 감리 일지, 43쪽 다음이 46쪽. 빠진 쪽 문의.' 사고 이틀 전.",
+      "people": ["s.kang"]
+    },
+    {
+      "id": "clue.keyledger",
+      "name": "방송실 열쇠 대여 기록",
+      "text": "방송실 열쇠는 두 벌. 하나는 철거 현장사무소, 하나는 시 개발공사 사무국에서 강지훈 서명으로 대여 중. 청소 용역 몫은 없다.",
+      "people": ["s.kang", "s.gu"]
+    },
+    {
+      "id": "clue.dustmark",
+      "name": "새 먼지 자국",
+      "text": "'2006 매립지 감리' 상자만 최근에 꺼냈다 넣은 자국.",
+      "people": [],
+      "atmosphere": true
+    },
+    {
+      "id": "clue.shell",
+      "name": "젖은 조개껍데기",
+      "text": "지하 서고 바닥. 바다 냄새가 난다.",
+      "people": [],
+      "atmosphere": true
+    },
+    {
+      "id": "clue.ledgercopy",
+      "name": "감리 일지 사본",
+      "text": "2006년 매립지 현장. 11월 4일 저녁 면이 없다. 43쪽 다음이 46쪽.",
+      "people": [],
+      "fragment": "frag.ledger"
+    },
+    {
+      "id": "clue.tapename",
+      "name": "녹음의 마지막 이름",
+      "text": "출석 호명 끝에 한 이름이 더 불린다. \"오병철.\" 출석부에 없는 이름.",
+      "people": []
+    },
+    {
+      "id": "clue.rumor",
+      "name": "구순자가 들은 소문",
+      "text": "밤 열한 시 십 분, 3학년 2반 출석. 소문에는 마지막 이름이 없다.",
+      "people": ["s.gu"]
+    }
+  ],
+
+  "suspects": [
+    {
+      "id": "s.kang",
+      "name": "강지훈",
+      "age": 48,
+      "role": "시 개발공사 사무국장",
+      "intro": "넥타이가 반듯하다. 시계를 두 번 본다.",
+      "onWrong": ["강지훈이 시계를 본다.", "\"그게 저랑 무슨 상관입니까. 처음부터 다시 말씀드리죠.\""],
+      "requires": [],
+      "suspectedBy": ["clue.inquiry"],
+      "clearedBy": [],
+      "rounds": [
+        {
+          "id": "r.kang.1",
+          "requires": [],
+          "statements": [
+            {
+              "id": "st.kang.leave",
+              "text": "저녁 여덟 시에 퇴근했습니다. 그 뒤로는 내내 회식 자리였고요.",
+              "contradictedBy": ["clue.gatelog"],
+              "reply": "그건, 서류를 두고 와서 잠깐 들른 거예요. 잠깐."
+            },
+            {
+              "id": "st.kang.key",
+              "text": "방송실이요? 열쇠가 어디 있는지도 모릅니다.",
+              "contradictedBy": ["clue.keyledger"],
+              "reply": "빌려만 둔 거죠. 써 본 적은 없어요."
+            },
+            {
+              "id": "st.kang.work",
+              "text": "오 소장하고는 일 얘기만 했어요. 옛날 서류 같은 건 모르고요.",
+              "contradictedBy": ["clue.inquiry"],
+              "reply": "전화야 하루에 수십 통 받습니다."
+            }
+          ]
+        },
+        {
+          "id": "r.kang.2",
+          "requires": ["r.kang.1", "clue.tapename"],
+          "statements": [
+            {
+              "id": "st.kang.name",
+              "text": "자기 이름이 방송에서 불리는데, 누구라도 놀라서 발을 헛디디죠.",
+              "contradictedBy": ["clue.rumor"],
+              "reply": "......"
+            },
+            {
+              "id": "st.kang.machine",
+              "text": "그 방송은 애들 장난이겠죠. 저는 그런 기계 만질 줄도 모릅니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s.min",
+      "name": "민수호",
+      "age": 51,
+      "role": "철거업체 대표",
+      "intro": "목소리가 크다. 묻기 전에 먼저 말한다.",
+      "onWrong": ["민수호가 의자에 등을 붙인다.", "\"그걸 왜 나한테 들이밀어요.\""],
+      "requires": [],
+      "suspectedBy": ["clue.minsms"],
+      "clearedBy": ["clue.drivelog"],
+      "rounds": [
+        {
+          "id": "r.min.1",
+          "requires": [],
+          "statements": [
+            {
+              "id": "st.min.money",
+              "text": "돈 때문에 싸운 건 맞아요. 문자도 내가 보냈고."
+            },
+            {
+              "id": "st.min.drive",
+              "text": "그 밤엔 대리 불러서 집에 갔어요. 기록 있으니까 봐요.",
+              "gives": ["clue.drivelog"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s.gu",
+      "name": "구순자",
+      "age": 66,
+      "role": "청소 용역",
+      "intro": "걸레를 쥔 손을 놓지 않는다.",
+      "onWrong": ["걸레 쥔 손에 힘이 들어간다.", "\"몰라. 나는 청소만 해.\""],
+      "requires": [],
+      "suspectedBy": ["clue.rumor"],
+      "clearedBy": ["clue.keyledger"],
+      "rounds": [
+        {
+          "id": "r.gu.1",
+          "requires": [],
+          "statements": [
+            {
+              "id": "st.gu.rumor",
+              "text": "밤 열한 시 십 분이면 삼학년 이반 출석을 불러. 내가 다 들었어. 동네에도 내가 말했고.",
+              "gives": ["clue.rumor"]
+            },
+            {
+              "id": "st.gu.key",
+              "text": "방송실은 못 들어가. 열쇠를 안 주니까."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "board": [
+    {
+      "id": "b.gate",
+      "left": "clue.gatelog",
+      "right": "st.kang.leave",
+      "sentence": "회식 자리에 있었다던 22:40, 그의 차가 정문을 지난다."
+    },
+    {
+      "id": "b.time",
+      "left": "clue.autopsy",
+      "right": "clue.timer",
+      "sentence": "방송은 23:10. 오병철은 그보다 먼저 떨어졌다."
+    },
+    {
+      "id": "b.pages",
+      "left": "clue.inquiry",
+      "right": "clue.ledgercopy",
+      "sentence": "오병철이 묻던 쪽은 일지에서 빠진 바로 그 쪽."
+    },
+    {
+      "id": "b.name",
+      "left": "clue.rumor",
+      "right": "st.kang.name",
+      "sentence": "소문 어디에도 마지막 이름은 없다. 그런데 그는 안다."
+    }
+  ],
+
+  "accusation": {
+    "method": [
+      { "id": "m.fright", "text": "방송에 놀라 스스로 떨어졌다" },
+      { "id": "m.timer", "text": "계단에서 민 뒤, 예약 방송으로 괴담을 꾸몄다" },
+      { "id": "m.slip", "text": "물청소한 계단에서 미끄러졌다" }
+    ],
+    "motive": [
+      { "id": "mo.ledger", "text": "감리 일지의 빠진 쪽을 묻고 다니는 입을 막으려고" },
+      { "id": "mo.money", "text": "철거 대금 다툼 끝에" },
+      { "id": "mo.rumor", "text": "괴담을 키워 철거를 늦추려고" }
+    ]
+  },
+
+  "solution": {
+    "culprit": "s.kang",
+    "method": "m.timer",
+    "motive": "mo.ledger",
+    "requires": [
+      "clue.gatelog", "clue.keyledger", "clue.rumor",
+      "clue.timer", "clue.autopsy", "clue.handrail",
+      "clue.inquiry", "clue.ledgercopy"
+    ],
+    "evidence": {
+      "culprit": ["clue.gatelog", "clue.keyledger", "clue.rumor"],
+      "method": ["clue.timer", "clue.autopsy", "clue.handrail"],
+      "motive": ["clue.inquiry", "clue.ledgercopy"]
+    }
+  },
+
+  "hints": {
+    "p.mixer": [
+      "배선 안내판. 안내판 먼저.",
+      "테이프는 입력 2. 입력 2.",
+      "예약기는 원격. 출력은 교실 전체. 확인. 확인 필요."
+    ],
+    "p.lock": [
+      "자물쇠 옆 글씨. 3-2 당번.",
+      "출석부 맨 뒤. 동그라미 넷. 넷.",
+      "번호순 말고 동그라미 순서. 동그라미 순서."
+    ],
+    "p.tape": [
+      "부르는 건 출석. 출석이면 번호.",
+      "출석부 번호순. 번호순.",
+      "번호 없는 토막. 그건 맨 끝. 맨 끝."
+    ],
+    "report": [
+      "누가. 그 시각 거기 있던 사람. 열쇠 쥔 사람.",
+      "어떻게. 방송은 몇 시. 떨어진 건 몇 시. 몇 시.",
+      "왜. 빠진 쪽수. 쪽수를 묻던 사람. 묻던 사람."
+    ]
+  },
+
+  "han": [
+    { "when": [], "text": "그 방송, 정말 아이 목소리일까요? 테이프는 누가 감았을까요..." },
+    { "when": ["p.mixer"], "text": "예약을 걸어 둔 사람이라... 그 방 열쇠는 누가 갖고 있었을까요?" },
+    { "when": ["p.tape"], "text": "마지막 이름이요? 그게 소문에도 있던가요..." }
+  ],
+
+  "result": {
+    "text": [
+      "강지훈이 넥타이를 푼다.",
+      "시계를 보지 않는다.",
+      "",
+      "사건부에 감리 일지 사본을 끼운다.",
+      "43쪽 다음 장이 46쪽이다."
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice">
+  <!-- 교무실. 핫스팟: 출석부(19~45, 44~58) 경비 일지(58~83, 46~58) 전화 메모철(93~112, 40~52) 열쇠함(128~147, 24~42) -->
+  <rect class="bg" width="160" height="100"/>
+  <rect class="f1" x="0" y="0" width="160" height="62"/>
+  <path class="ln" d="M0 62 H160"/>
+  <!-- 창문 -->
+  <g class="ln" opacity="0.55">
+    <rect x="8" y="8" width="34" height="24"/><path d="M25 8 V32 M8 20 H42"/>
+    <rect x="50" y="8" width="34" height="24"/><path d="M67 8 V32 M50 20 H84"/>
+  </g>
+  <!-- 벽 시간표 -->
+  <rect class="f2" x="92" y="8" width="26" height="20"/>
+  <path class="ln" d="M92 13 H118 M92 18 H118 M92 23 H118 M100 8 V28 M109 8 V28" opacity="0.6"/>
+  <!-- 벽으로 밀린 긴 책상 -->
+  <rect class="f3" x="10" y="58" width="112" height="3"/>
+  <path class="ln2" d="M10 58 H122"/>
+  <path class="ln" d="M14 61 V78 M118 61 V78 M66 61 V78"/>
+  <!-- 출석부 더미 -->
+  <rect class="f2" x="20" y="54" width="24" height="4"/>
+  <rect class="f2" x="21" y="50" width="22" height="4"/>
+  <rect class="f2" x="20" y="46" width="23" height="4"/>
+  <path class="ln2" d="M20 54 h24 v4 h-24 z M21 50 h22 v4 h-22 z M20 46 h23 v4 h-23 z"/>
+  <!-- 경비 일지: 펼친 장부 -->
+  <path class="f2" d="M58 57 L60 49 H70 V57 Z M70 57 V49 H80 L82 57 Z"/>
+  <path class="ln2" d="M58 57 L60 49 H80 L82 57 Z M70 49 V57"/>
+  <path class="ln" d="M62 51 h6 M62 53 h5 M62 55 h6 M72 51 h6 M72 53 h4 M72 55 h6"/>
+  <!-- 전화기와 메모철 -->
+  <rect class="f3" x="94" y="49" width="10" height="6" rx="1"/>
+  <path class="ln2" d="M95 49 c0 -3 8 -3 8 0"/>
+  <rect class="f2" x="105" y="44" width="7" height="11"/>
+  <path class="ln" d="M106.5 47 h4 M106.5 49 h4 M106.5 51 h3"/>
+  <!-- 열쇠함: 고리 하나가 비었다 -->
+  <rect class="f2" x="129" y="25" width="17" height="16"/>
+  <path class="ln2" d="M129 25 h17 v16 h-17 z"/>
+  <g class="ln2">
+    <path d="M133 29 v3 M137.5 29 v3 M142 29 v3 M133 35 v3 M142 35 v3"/>
+  </g>
+  <g class="lt">
+    <rect x="132.4" y="32" width="1.2" height="2.4"/><rect x="136.9" y="32" width="1.2" height="2.4"/>
+    <rect x="141.4" y="32" width="1.2" height="2.4"/><rect x="132.4" y="38" width="1.2" height="2.4"/>
+    <rect x="141.4" y="38" width="1.2" height="2.4"/>
+  </g>
+  <path class="ln" d="M137.5 35 v3" stroke-dasharray="0.6 0.6"/>
+  <!-- 의자 -->
+  <path class="ln" d="M90 70 h12 v-10 M90 70 v12 M102 70 v12"/>
+</svg>

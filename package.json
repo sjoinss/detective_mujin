@@ -1,0 +1,11 @@
+{
+  "name": "mujin-casebook",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "node tools/validate-cases.mjs",
+    "test": "node tools/validate-cases.mjs --strict && node tools/test-validator.mjs && node tools/test-engine.mjs && node tools/lint.mjs && node tools/check-contrast.mjs && node tools/stamp.mjs --check",
+    "stamp": "node tools/stamp.mjs",
+    "serve": "python -m http.server 8123 --bind 127.0.0.1"
+  }
+}

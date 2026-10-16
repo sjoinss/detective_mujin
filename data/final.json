@@ -1,0 +1,583 @@
+{
+  "schemaVersion": 1,
+  "id": "final",
+  "kind": "final",
+  "chapter": 6,
+  "title": "06-117",
+  "difficulty": 5,
+
+  "briefing": {
+    "summary": [
+      "철거를 하루 앞둔 옛 매립지 현장 사무소.",
+      "서진우의 사건부가 마지막으로 가리킨 곳.",
+      "2006년 11월 4일, 시공 감리 서정훈이 이곳에서 죽었다. 공식 기록은 실족 사고."
+    ],
+    "rumor": [
+      "아무도 없는 현장 사무소에 밤마다 스탠드 불이 켜진다."
+    ],
+    "victim": { "name": "서정훈", "age": 41, "role": "2006년 매립지 현장 시공 감리" }
+  },
+
+  "start": "sc.fx.office",
+  "completeWhen": ["r.han.5"],
+
+  "objectives": [
+    { "when": [], "text": "철거 전야: 옛 현장 사무소" },
+    { "when": ["clue.notfall", "clue.doublebook", "clue.patrolgap"], "text": "그 밤을 처음부터 다시 적는다" },
+    { "when": ["p.timeline"], "text": "한도윤과 마주 앉는다" },
+    { "when": ["r.han.5"], "text": "한도윤의 제안에 답한다" }
+  ],
+
+  "scenes": [
+    {
+      "id": "sc.fx.office",
+      "art": "art/final/office.svg",
+      "name": "현장 사무소",
+      "alt": "철거 표시가 붙은 가건물 사무실. 서류 상자, 감리 책상, 벽의 칠판, 창가에 켜진 스탠드.",
+      "text": [
+        "벽마다 붉은 철거 번호가 칠해졌다.",
+        "창가 스탠드 하나만 켜져 있다."
+      ],
+      "objects": [
+        {
+          "id": "obj.fx.report",
+          "label": "2006년 사고 기록",
+          "hotspot": { "x": 10, "y": 50, "w": 16, "h": 12 },
+          "text": ["상자 맨 위에 사고 기록 사본. 누군가 먼저 꺼내 본 자리다."],
+          "gives": ["clue.report2006"]
+        },
+        {
+          "id": "obj.fx.desk",
+          "label": "감리 책상",
+          "hotspot": { "x": 36, "y": 52, "w": 22, "h": 14 },
+          "text": ["서정훈의 이름표가 그대로 붙은 책상. 서랍 안쪽에 쪽지가 붙어 있다."],
+          "gives": ["clue.ledgerrule"]
+        },
+        {
+          "id": "obj.fx.board",
+          "label": "벽의 칠판",
+          "hotspot": { "x": 60, "y": 14, "w": 26, "h": 24 },
+          "text": ["지운 자국 위에 시각만 남은 칠판.", "21:30부터 다음 날 08:10까지, 칸이 여섯 개."],
+          "puzzle": "p.timeline"
+        },
+        {
+          "id": "obj.fx.lamp",
+          "label": "켜진 스탠드",
+          "hotspot": { "x": 86, "y": 40, "w": 8, "h": 16 },
+          "text": ["스탠드 코드가 벽의 작은 타이머에 꽂혀 있다.", "밤 열 시에 켜지게 맞춰져 있다."],
+          "gives": ["clue.lamptimer"]
+        }
+      ]
+    },
+    {
+      "id": "sc.fx.roof",
+      "art": "art/final/roof.svg",
+      "name": "옥상",
+      "alt": "사무소 옥상. 동쪽 끝 난간 한 칸이 끊겼다. 바닥에 측량 표시, 아래로 북쪽 마당이 내려다보인다.",
+      "text": ["바람이 바다 쪽에서 분다.", "아래 마당에 철거 장비가 줄지어 섰다."],
+      "objects": [
+        {
+          "id": "obj.fx.rail",
+          "label": "끊긴 난간",
+          "hotspot": { "x": 78, "y": 30, "w": 16, "h": 16 },
+          "text": ["난간이 끊긴 곳은 동쪽 끝 한 칸뿐이다. 절단면이 녹슬었다."],
+          "gives": ["clue.railgap"]
+        },
+        {
+          "id": "obj.fx.marks",
+          "label": "바닥 측량 표시",
+          "hotspot": { "x": 30, "y": 60, "w": 30, "h": 14 },
+          "text": ["철거 측량팀이 남긴 격자 표시. 옥상과 마당이 칸으로 나뉘어 있다."],
+          "puzzle": "p.map"
+        },
+        {
+          "id": "obj.fx.shell",
+          "label": "젖은 조개껍데기",
+          "hotspot": { "x": 12, "y": 84, "w": 6, "h": 6 },
+          "text": ["옥상 바닥 한가운데.", "여기까지 올라온 바다는 없다."],
+          "gives": ["clue.shell"]
+        }
+      ]
+    },
+    {
+      "id": "sc.fx.vault",
+      "art": "art/final/vault.svg",
+      "name": "금고실",
+      "alt": "문이 떨어진 금고실. 선반 위 장부 두 권과 인사 서류철.",
+      "text": ["금고 문은 경첩째 떨어져 바닥에 누웠다."],
+      "objects": [
+        {
+          "id": "obj.fx.books",
+          "label": "장부 두 권",
+          "hotspot": { "x": 20, "y": 40, "w": 24, "h": 20 },
+          "text": ["표지가 같은 공사 장부 두 권. 한 권은 '갑', 한 권은 '을'."],
+          "puzzle": "p.ledgers"
+        },
+        {
+          "id": "obj.fx.file",
+          "label": "인사 서류철",
+          "hotspot": { "x": 60, "y": 30, "w": 16, "h": 20 },
+          "text": ["현장에 드나든 사람들의 서류. 경찰 쪽 서류가 하나 섞였다."],
+          "gives": ["clue.hanpromo"]
+        }
+      ]
+    },
+    {
+      "id": "sc.fx.guard",
+      "art": "art/final/guard.svg",
+      "name": "야간 경비실",
+      "alt": "좁은 경비실. 벽의 경비 수칙, 책상 위 찢어진 순찰표, 안쪽 창고로 통하는 문.",
+      "text": ["경비실 의자가 아직 따뜻하다.", "안쪽 창고 문틈으로 바람이 샌다."],
+      "objects": [
+        {
+          "id": "obj.fx.rule",
+          "label": "경비 수칙",
+          "hotspot": { "x": 10, "y": 18, "w": 14, "h": 18 },
+          "text": ["2006년에 붙인 수칙이 그대로다."],
+          "gives": ["clue.patrolrule"]
+        },
+        {
+          "id": "obj.fx.roster",
+          "label": "찢어진 순찰표",
+          "hotspot": { "x": 36, "y": 50, "w": 18, "h": 10 },
+          "text": ["2006년 11월 4일 순찰표. 넷으로 찢겨 순서가 섞였다."],
+          "puzzle": "p.patrol"
+        },
+        {
+          "id": "obj.fx.seo",
+          "label": "안쪽 창고",
+          "hotspot": { "x": 74, "y": 20, "w": 18, "h": 50 },
+          "requires": ["clue.notfall", "clue.doublebook", "clue.patrolgap"],
+          "text": [
+            "창고 문이 반쯤 열려 있다.",
+            "접이식 침대, 식은 보온병, 펼친 사건부 한 권.",
+            "서진우의 글씨다.",
+            "",
+            "마지막 장이 비어 있다."
+          ],
+          "gives": ["clue.seobook"]
+        }
+      ]
+    }
+  ],
+
+  "puzzles": [
+    {
+      "id": "p.map",
+      "type": "sort",
+      "title": "바닥 측량 표시",
+      "requires": ["clue.railgap"],
+      "teaches": ["clue.report2006"],
+      "gives": ["clue.notfall"],
+      "config": {
+        "caption": "측량 격자에 표시를 놓는다",
+        "itemHeader": "표시",
+        "detailHeader": "근거",
+        "categoryHeader": "격자 칸",
+        "checkLabel": "격자에 맞춰 본다",
+        "categories": [
+          { "id": "east", "label": "동쪽 끝" },
+          { "id": "north", "label": "북쪽 마당" },
+          { "id": "west", "label": "서쪽 출입구" }
+        ],
+        "items": [
+          { "id": "i1", "label": "끊긴 난간", "detail": "옥상에서 직접 본 자리" },
+          { "id": "i2", "label": "시신이 발견된 자리", "detail": "2006년 사고 기록" },
+          { "id": "i3", "label": "자재 더미", "detail": "2006년 사고 기록" }
+        ],
+        "answer": { "i1": "east", "i2": "north", "i3": "north" }
+      },
+      "answerNote": "끊긴 난간은 동쪽 끝. 시신과 자재 더미는 북쪽 마당.",
+      "solvedText": [
+        "격자 위에 표시 셋을 놓는다.",
+        "끊긴 난간은 동쪽 끝. 시신은 북쪽 마당.",
+        "",
+        "옥상에서 떨어져 닿을 수 있는 자리가 아니다."
+      ]
+    },
+    {
+      "id": "p.ledgers",
+      "type": "sort",
+      "title": "장부 두 권",
+      "teaches": ["clue.ledgerrule"],
+      "gives": ["clue.doublebook"],
+      "config": {
+        "caption": "갑 장부와 을 장부, 같은 줄",
+        "itemHeader": "항목",
+        "detailHeader": "갑 / 을",
+        "categoryHeader": "두 장부",
+        "checkLabel": "줄을 맞대 본다",
+        "categories": [
+          { "id": "same", "label": "같다" },
+          { "id": "diff", "label": "다르다" }
+        ],
+        "items": [
+          { "id": "l1", "label": "철근 120t", "detail": "3억 1천 / 4억 2천" },
+          { "id": "l2", "label": "레미콘 900㎥", "detail": "2억 / 2억" },
+          { "id": "l3", "label": "인부 일당 10월분", "detail": "8천만 / 1억 3천" },
+          { "id": "l4", "label": "중장비 임대", "detail": "6천만 / 6천만" }
+        ],
+        "answer": { "l1": "diff", "l2": "same", "l3": "diff", "l4": "same" }
+      },
+      "answerNote": "철근과 인부 일당이 다르다. 레미콘과 중장비 임대는 같다.",
+      "solvedText": [
+        "두 줄이 어긋난다. 철근, 인부 일당.",
+        "을 장부 맨 끝에 붉은 도장.",
+        "",
+        "'장 대표 확인.'"
+      ]
+    },
+    {
+      "id": "p.patrol",
+      "type": "timeline",
+      "title": "찢어진 순찰표",
+      "teaches": ["clue.patrolrule"],
+      "gives": ["clue.patrolgap"],
+      "config": {
+        "groupLabel": "순찰 차례",
+        "checkLabel": "수칙대로 이어 본다",
+        "items": [
+          { "id": "q1", "label": "정문" },
+          { "id": "q2", "label": "자재 창고" },
+          { "id": "q3", "label": "사무소 앞" },
+          { "id": "q4", "label": "옥상 계단" }
+        ],
+        "answer": ["q1", "q2", "q3", "q4"]
+      },
+      "answerNote": "정문 → 자재 창고 → 사무소 앞 → 옥상 계단.",
+      "solvedText": [
+        "조각이 시각으로 이어진다. 22:00, 22:20, 23:00.",
+        "23:00 사무소 앞 칸에 박만석의 글씨.",
+        "",
+        "'형사 한 명이 와서 돌려보냄. 혼자.'"
+      ]
+    },
+    {
+      "id": "p.timeline",
+      "type": "reconstruct",
+      "title": "벽의 칠판",
+      "requires": ["clue.notfall", "clue.doublebook", "clue.patrolgap"],
+      "teaches": ["clue.report2006"],
+      "gives": ["clue.night"],
+      "config": {
+        "caption": "2006년 11월 4일에서 5일",
+        "rows": [
+          { "id": "n1", "time": "21:30", "event": "서정훈 감리가 식당에서 저녁을 먹고 현장으로 돌아간다", "accept": ["clue.cf.tab"] },
+          { "id": "n2", "time": "22:20", "event": "현장 사무소 불이 늦게까지 켜져 있다. 장태수 측과 언쟁", "accept": ["clue.cf.guardtape"] },
+          { "id": "n3", "time": "22:47", "event": "등대에서 현장 쪽 불빛과 소란을 보고 경찰에 신고한다", "accept": ["clue.cf.radio"] },
+          { "id": "n4", "time": "22:50", "event": "신고가 접수대장에 올랐다가 지워진다", "accept": ["clue.cf.register"] },
+          { "id": "n5", "time": "23:00", "event": "형사 한 명이 혼자 현장에 온다. 공식 기록엔 없다", "accept": ["clue.patrolgap", "clue.cf.guardtape"] },
+          { "id": "n6", "time": "다음 날 08:10", "event": "작업자가 발견한 실족 사고사로 기록된다. 감리 일지는 그날 저녁 면이 빠졌다", "accept": ["clue.cf.ledger"] }
+        ]
+      },
+      "answerNote": "21:30 외상 장부, 22:20 경비 녹음, 22:47 무선 일지, 22:50 접수대장 원본, 23:00 순찰표(또는 경비 녹음), 08:10 감리 일지 사본.",
+      "solvedText": [
+        "칠판의 여섯 칸에 조각을 붙인다.",
+        "신고는 있었다. 지워졌다.",
+        "형사 한 명이 혼자 왔다.",
+        "",
+        "문 쪽에서 커피 냄새가 난다."
+      ]
+    }
+  ],
+
+  "clues": [
+    {
+      "id": "clue.cf.ledger",
+      "name": "감리 일지 사본",
+      "text": "2006년 매립지 현장. 11월 4일 저녁 면이 없다. 43쪽 다음이 46쪽.",
+      "people": [],
+      "carry": "frag.ledger"
+    },
+    {
+      "id": "clue.cf.guardtape",
+      "name": "박만석의 녹음",
+      "text": "\"그날 밤 현장 사무소 불이 늦게까지 켜져 있었어. 형사 한 명이 혼자 왔지. 혼자.\" 녹음 날짜는 사흘 전.",
+      "people": [],
+      "carry": "frag.guardtape"
+    },
+    {
+      "id": "clue.cf.tab",
+      "name": "식당 외상 장부",
+      "text": "정순례가 20년 동안 지니던 장부. '11/4 21:30 서 감리 — 백반, 소주 한 병.'",
+      "people": [],
+      "carry": "frag.tab"
+    },
+    {
+      "id": "clue.cf.radio",
+      "name": "무선·신고 일지",
+      "text": "사본. '2006.11.4 22:47 매립지 현장 쪽 불빛과 소란. 무진경찰서에 무선 신고.' 남기철 서명.",
+      "people": [],
+      "carry": "frag.radiolog"
+    },
+    {
+      "id": "clue.cf.register",
+      "name": "접수대장 원본과 삭제 지시 메모",
+      "text": "원본 117쪽과 메모. '22:50 등대 신고 건 지울 것. 현장 정리는 내가 한다.' 서명 약자 H.D.Y. 2006.11.5 새벽.",
+      "people": [],
+      "carry": "frag.register"
+    },
+    {
+      "id": "clue.report2006",
+      "name": "2006년 사고 기록",
+      "text": "'11월 5일 08:10 작업자가 북쪽 마당 자재 더미 옆에서 발견. 옥상 실족 추정. 신고 없음.' 시각만 덧쓴 흔적.",
+      "people": []
+    },
+    {
+      "id": "clue.ledgerrule",
+      "name": "서정훈의 쪽지",
+      "text": "'갑 을 같은 줄을 나란히. 값이 다르면 표시. 표시.' 서랍 안쪽에 붙어 있었다.",
+      "people": []
+    },
+    {
+      "id": "clue.lamptimer",
+      "name": "스탠드 타이머",
+      "text": "스탠드가 벽의 타이머에 꽂혀 밤 열 시에 켜진다. 타이머 포장지가 아직 새것이다.",
+      "people": []
+    },
+    {
+      "id": "clue.railgap",
+      "name": "끊긴 난간",
+      "text": "옥상 난간이 끊긴 곳은 동쪽 끝 한 칸뿐. 절단면이 오래 녹슬었다.",
+      "people": []
+    },
+    {
+      "id": "clue.shell",
+      "name": "젖은 조개껍데기",
+      "text": "옥상 바닥 한가운데. 여기까지 올라온 바다는 없다.",
+      "people": [],
+      "atmosphere": true
+    },
+    {
+      "id": "clue.notfall",
+      "name": "시신이 있던 자리",
+      "text": "끊긴 난간은 동쪽 끝, 시신은 북쪽 마당. 옥상에서 떨어져 닿을 수 없는 자리.",
+      "people": []
+    },
+    {
+      "id": "clue.doublebook",
+      "name": "이중 장부",
+      "text": "철근과 인부 일당이 두 장부에서 다르다. 차액 1억 6천. 을 장부 끝에 '장 대표 확인' 도장.",
+      "people": []
+    },
+    {
+      "id": "clue.hanpromo",
+      "name": "섞여 있던 경찰 서류",
+      "text": "한도윤 경장, 2007년 1월 특별 승진. 추천 무진종합개발. 현장 서류철에 섞여 있었다.",
+      "people": ["s.han"]
+    },
+    {
+      "id": "clue.patrolrule",
+      "name": "경비 수칙",
+      "text": "'순찰은 정문, 자재 창고, 사무소 앞, 옥상 계단 순. 칸마다 시각과 서명.'",
+      "people": []
+    },
+    {
+      "id": "clue.patrolgap",
+      "name": "23:00 순찰 칸",
+      "text": "2006.11.4 23:00 사무소 앞. '형사 한 명이 와서 돌려보냄. 혼자.' 박만석 서명.",
+      "people": ["s.han"]
+    },
+    {
+      "id": "clue.seobook",
+      "name": "서진우의 마지막 사건부",
+      "text": "안쪽 창고에 펼쳐져 있던 사건부. 앞장마다 다섯 사건의 메모. 마지막 장은 비어 있다.",
+      "people": [],
+      "atmosphere": true
+    },
+    {
+      "id": "clue.night",
+      "name": "그 밤의 순서",
+      "text": "신고는 있었고, 지워졌고, 형사 한 명이 혼자 왔다. 다음 날 아침 사고가 되었다.",
+      "people": [],
+      "atmosphere": true
+    }
+  ],
+
+  "suspects": [
+    {
+      "id": "s.han",
+      "name": "한도윤",
+      "age": 53,
+      "role": "기록실장, 2006년 당직 형사",
+      "intro": "커피 두 잔을 들고 들어온다. 하나를 당신 앞에 놓는다.",
+      "onWrong": ["한도윤이 잔을 내려놓는다.", "\"조사관님. 처음부터 다시 하시죠.\""],
+      "requires": ["p.timeline"],
+      "rounds": [
+        {
+          "id": "r.han.1",
+          "requires": [],
+          "skippable": true,
+          "statements": [
+            {
+              "id": "st.han.accident",
+              "text": "실족 사고였어요. 다음 날 아침에 작업자가 발견했고요. 기록 그대로잖아요?",
+              "contradictedBy": ["clue.notfall"],
+              "reply": "......측량을 하셨구나."
+            }
+          ]
+        },
+        {
+          "id": "r.han.2",
+          "requires": ["r.han.1"],
+          "skippable": true,
+          "statements": [
+            {
+              "id": "st.han.left",
+              "text": "서 감리는 그날 저녁 일찍 현장을 떠났다던데요. 누가 봤을까요...",
+              "contradictedBy": ["clue.cf.tab"],
+              "reply": "외상 장부를 아직도 갖고 있는 사람이 있었네요."
+            }
+          ]
+        },
+        {
+          "id": "r.han.3",
+          "requires": ["r.han.2"],
+          "skippable": true,
+          "statements": [
+            {
+              "id": "st.han.nocall",
+              "text": "그 밤에 신고는 없었습니다. 접수대장에 없지 않습니까.",
+              "contradictedBy": ["clue.cf.radio"],
+              "reply": "등대 영감이 끝까지 적어 두셨군요."
+            }
+          ]
+        },
+        {
+          "id": "r.han.4",
+          "requires": ["r.han.3"],
+          "skippable": true,
+          "statements": [
+            {
+              "id": "st.han.register",
+              "text": "대장은 기록계 소관이었습니다. 제가 손댈 일이 없습니다.",
+              "contradictedBy": ["clue.cf.register"],
+              "reply": "......이영길 씨가 그걸 버리지 못했군요."
+            },
+            {
+              "id": "st.han.jang",
+              "text": "장 시장님이요? 그분이 이 일과 무슨 상관입니까.",
+              "contradictedBy": ["clue.doublebook"],
+              "reply": "장부 두 권. 서 감리가 그걸 맞대 봤던 거죠."
+            }
+          ]
+        },
+        {
+          "id": "r.han.5",
+          "requires": ["r.han.4"],
+          "skippable": true,
+          "statements": [
+            {
+              "id": "st.han.alone",
+              "text": "현장엔 아무도 안 갔습니다. 저는 그 밤 내내 당직실에 있었습니다.",
+              "contradictedBy": ["clue.patrolgap", "clue.cf.guardtape"],
+              "reply": "박만석. 그 사람 글씨였죠."
+            },
+            {
+              "id": "st.han.why",
+              "text": "제가 왜 그런 짓을 합니까. 얻을 게 뭐가 있다고요.",
+              "contradictedBy": ["clue.hanpromo"],
+              "reply": "......계급장 하나. 그때는 그게 다였습니다."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "board": [
+    {
+      "id": "b.f.fall",
+      "left": "clue.notfall",
+      "right": "st.han.accident",
+      "sentence": "실족이라던 사람은 난간이 끊긴 쪽이 아닌 마당에 누워 있었다."
+    },
+    {
+      "id": "b.f.call",
+      "left": "clue.cf.radio",
+      "right": "st.han.nocall",
+      "sentence": "신고는 없었다던 밤 22:47, 등대가 무선을 쳤다."
+    },
+    {
+      "id": "b.f.alone",
+      "left": "clue.patrolgap",
+      "right": "st.han.alone",
+      "sentence": "당직실에 있었다던 23:00, 형사 한 명이 경비를 돌려보낸다."
+    },
+    {
+      "id": "b.f.lamp",
+      "left": "clue.lamptimer",
+      "right": "clue.report2006",
+      "sentence": "빈 사무소의 불은 새 타이머가 켠다. 2006년 기록은 사람이 고쳤다."
+    }
+  ],
+
+  "hints": {
+    "p.map": [
+      "사고 기록. 발견된 자리.",
+      "난간은 직접 본 대로. 동쪽.",
+      "시신과 자재 더미. 같은 마당. 마당."
+    ],
+    "p.ledgers": [
+      "아버지 쪽지. 같은 줄을 나란히.",
+      "갑과 을. 숫자가 같은지만. 같은지만.",
+      "다른 건 둘. 철근, 일당."
+    ],
+    "p.patrol": [
+      "수칙. 수칙대로.",
+      "바깥에서 안으로. 아래에서 위로.",
+      "정문이 처음. 옥상이 끝. 끝."
+    ],
+    "p.timeline": [
+      "칸마다 시각. 시각이 적힌 조각.",
+      "사건부를 처음부터 넘길 것. 처음부터.",
+      "없는 조각은 빈칸. 빈칸도 기록."
+    ]
+  },
+
+  "offer": {
+    "text": [
+      "한도윤이 식은 커피를 마저 마신다.",
+      "\"사건부를 저한테 넘기세요.\"",
+      "\"내일이면 이 사무소도 없습니다. 도시는 조용해지고, 서 조사관도 돌아올 수 있겠죠.\"",
+      "\"어떻게 하실래요?\""
+    ],
+    "accept": "사건부를 넘긴다",
+    "refuse": "거절한다"
+  },
+
+  "endings": {
+    "truth": {
+      "title": "남은 기록",
+      "text": [
+        "접수대장 원본 117쪽이 증거물 봉투에 들어간다.",
+        "한도윤과 장태수가 같은 날 피고인석에 앉는다.",
+        "",
+        "사흘 뒤, 항구 창고에서 서진우를 찾는다.",
+        "그가 사건부의 빈 장을 오래 들여다본다.",
+        "",
+        "아무것도 적지 않는다."
+      ]
+    },
+    "partial": {
+      "title": "빠진 페이지",
+      "text": [
+        "한도윤이 모든 일을 혼자 했다고 진술한다.",
+        "장태수는 예정대로 착공식 테이프를 자른다.",
+        "",
+        "사건부를 덮는다.",
+        "몇 장이 빠져 있다. 손끝이 그 자리에서 오래 멈춘다."
+      ]
+    },
+    "cover": {
+      "title": "새 사건부",
+      "text": [
+        "사건부를 한도윤에게 건넨다.",
+        "도시는 조용하다. 착공식은 맑은 날 열린다.",
+        "",
+        "한 달 뒤, 책상 위에 갈색 봉투가 놓여 있다.",
+        "새 사건부. 첫 장에 젖은 조개껍데기 한 점."
+      ]
+    }
+  }
+}

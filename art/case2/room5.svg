@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice">
+  <!-- 5호실. 핫스팟: 창문(13~45, 14~40) 벽 쪽 가구/옷장(90~131, 14~70) 바닥 자국(64~112, 80~90) 조개껍데기(48~58, 84~90) -->
+  <rect class="bg" width="160" height="100"/>
+  <rect class="f1" x="0" y="0" width="160" height="72"/>
+  <path class="ln" d="M0 72 H160"/>
+  <!-- 창과 부두 -->
+  <rect class="f2" x="13" y="14" width="32" height="26"/>
+  <path class="ln2" d="M13 14 h32 v26 h-32 z M29 14 V40"/>
+  <path class="ln" d="M15 33 H43 M18 33 l3 -4 h5 l2 4 M33 33 l2 -3 h5 l1 3"/>
+  <!-- 침대 틀 -->
+  <path class="ln2" d="M14 60 h38 v10 M14 60 V70 M14 64 H52"/>
+  <!-- 화장대 -->
+  <rect class="f3" x="58" y="50" width="28" height="20"/>
+  <path class="ln2" d="M58 50 h28 v20 h-28 z M58 58 H86"/>
+  <rect class="f2" x="64" y="36" width="16" height="13"/>
+  <!-- 옷장: 4호실 쪽 벽 -->
+  <rect class="f2" x="90" y="14" width="41" height="56"/>
+  <path class="ln2" d="M90 14 h41 v56 h-41 z M110.5 14 V70"/>
+  <circle class="ln2" cx="106" cy="42" r="1"/>
+  <circle class="seal" cx="115" cy="42" r="0.6"/>
+  <path class="ln" d="M131 14 V70 M134 14 V70" opacity="0.5"/>
+  <!-- 바닥 긁힌 자국 -->
+  <rect class="f1" x="0" y="72" width="160" height="28" opacity="0.5"/>
+  <path class="ln2" d="M92 72 c-10 4 -20 10 -26 16 M100 72 c-8 5 -14 11 -18 17 M108 72 c-4 6 -6 11 -6 17"/>
+  <!-- 조개껍데기 -->
+  <ellipse class="f2" cx="53" cy="88" rx="6" ry="1.6"/>
+  <path class="ln2" d="M50.5 88 c0 -3 5 -3 5 0 z M51.5 87.8 l1 -2 M53 87.8 v-2.3 M54.5 87.8 l-1 -2"/>
+</svg>

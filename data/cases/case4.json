@@ -1,0 +1,647 @@
+{
+  "schemaVersion": 1,
+  "id": "case4",
+  "chapter": 4,
+  "title": "등대의 신호",
+  "difficulty": 4,
+
+  "briefing": {
+    "summary": [
+      "태풍으로 바다 길이 끊긴 무진 외항 등대.",
+      "안전 점검차 머물던 다섯 사람 가운데 관리인 남기철이 등롱실에서 떨어져 숨진다.",
+      "그때 꺼져 있어야 할 램프가 SOS로 깜빡이고 있었다."
+    ],
+    "rumor": [
+      "꺼진 등대 램프가 폭풍 치는 밤마다 SOS를 보낸다.",
+      "그 불을 본 사람은 바다로 끌려간다고 한다."
+    ],
+    "victim": { "name": "남기철", "age": 70, "role": "등대 관리인" }
+  },
+
+  "start": "sc.lodge",
+  "reportRequires": ["r.shin.1"],
+
+  "objectives": [
+    { "when": [], "text": "폭풍 속 점검: 등대 숙소" },
+    { "when": ["clue.sosseq"], "text": "꺼진 램프가 되풀이하는 숫자의 뜻을 찾는다" },
+    { "when": ["clue.emergency"], "text": "정전 동안 등롱실에 불을 넣은 손을 찾는다" },
+    { "when": ["r.shin.1"], "text": "보고서를 쓴다" }
+  ],
+
+  "scenes": [
+    {
+      "id": "sc.lodge",
+      "art": "art/case4/lodge.svg",
+      "name": "숙소",
+      "alt": "등대 아래 숙소. 책장, 벽의 액자, 탁자 위 자물쇠 달린 일기장, 난로.",
+      "text": [
+        "창이 바람에 덜컹인다.",
+        "난로 곁 의자 다섯 개 가운데 하나가 비었다."
+      ],
+      "objects": [
+        {
+          "id": "obj.l.book",
+          "label": "책장",
+          "hotspot": { "x": 10, "y": 30, "w": 14, "h": 20 },
+          "text": ["해양 신호 교본 한 권이 삐죽 나와 있다. 한 쪽이 접혔다."],
+          "gives": ["clue.morsetable"]
+        },
+        {
+          "id": "obj.l.frame",
+          "label": "벽의 액자",
+          "hotspot": { "x": 40, "y": 18, "w": 12, "h": 14 },
+          "text": ["젊은 남기철이 등대 앞에 서 있다.", "액자를 뒤집는다."],
+          "gives": ["clue.photoframe"]
+        },
+        {
+          "id": "obj.l.diary",
+          "label": "자물쇠 달린 일기장",
+          "hotspot": { "x": 60, "y": 56, "w": 12, "h": 8 },
+          "text": ["남기철의 일기장. 네 자리 번호 자물쇠가 걸렸다."],
+          "puzzle": "p.diary"
+        },
+        {
+          "id": "obj.l.shell",
+          "label": "젖은 조개껍데기",
+          "hotspot": { "x": 82, "y": 84, "w": 6, "h": 6 },
+          "text": ["난로 앞 깔개 위.", "불 옆인데 마르지 않았다."],
+          "gives": ["clue.shell"]
+        }
+      ]
+    },
+    {
+      "id": "sc.spiral",
+      "art": "art/case4/spiral.svg",
+      "name": "나선 계단",
+      "alt": "등롱실로 올라가는 쇠 나선 계단. 계단 아래 바닥의 검안 메모, 난간에 감긴 낚싯줄, 좁은 창.",
+      "text": ["쇠 계단이 발소리를 위로 돌려보낸다."],
+      "objects": [
+        {
+          "id": "obj.s.memo",
+          "label": "도하연의 검안 메모",
+          "hotspot": { "x": 40, "y": 74, "w": 14, "h": 10 },
+          "text": ["계단 아래 바닥. 숫자부터 적힌 메모."],
+          "gives": ["clue.c4autopsy"]
+        },
+        {
+          "id": "obj.s.rope",
+          "label": "난간의 낚싯줄",
+          "hotspot": { "x": 60, "y": 30, "w": 16, "h": 20 },
+          "text": ["낚싯줄 한 타래가 난간에 감겨 말라 간다."],
+          "gives": ["clue.rope"]
+        },
+        {
+          "id": "obj.s.window",
+          "label": "계단 창",
+          "hotspot": { "x": 14, "y": 16, "w": 12, "h": 22 },
+          "text": ["좁은 창으로 파도가 하얗게 부서진다.", "건너편 매립지 쪽은 불빛 하나 없다."],
+          "gives": ["clue.storm"]
+        }
+      ]
+    },
+    {
+      "id": "sc.lamp",
+      "art": "art/case4/lamp.svg",
+      "name": "등롱실",
+      "alt": "등대 꼭대기 등롱실. 가운데 램프와 점멸기, 옆의 프레넬 렌즈, 작은 책상 위 정비 수첩, 벽의 점검 일지.",
+      "text": ["유리벽 밖이 온통 검다.", "난간 한쪽이 바깥으로 휘었다."],
+      "objects": [
+        {
+          "id": "obj.lm.lamp",
+          "label": "램프 점멸기",
+          "hotspot": { "x": 40, "y": 30, "w": 20, "h": 24 },
+          "text": ["점멸기에서 기록지가 길게 늘어졌다. 점과 줄이 되풀이된다."],
+          "puzzle": "p.morse"
+        },
+        {
+          "id": "obj.lm.lens",
+          "label": "프레넬 렌즈",
+          "hotspot": { "x": 64, "y": 22, "w": 16, "h": 32 },
+          "text": ["렌즈 뒤로 작은 거울 세 개가 비뚤게 꽂혀 있다. 누가 손을 댔다."],
+          "puzzle": "p.optics"
+        },
+        {
+          "id": "obj.lm.notebook",
+          "label": "정비 수첩",
+          "hotspot": { "x": 14, "y": 60, "w": 12, "h": 8 },
+          "text": ["기름 묻은 수첩. 거울 각도 그림이 있다."],
+          "gives": ["clue.lensnote"]
+        },
+        {
+          "id": "obj.lm.check",
+          "label": "점검 일지",
+          "hotspot": { "x": 80, "y": 60, "w": 14, "h": 10 },
+          "text": ["역대 점검 일지 묶음. 2006년 장이 접혀 있다.", "맨 뒤에 점검 책임자 이력이 붙었다."],
+          "gives": ["clue.dispatch", "clue.promotion"]
+        }
+      ]
+    },
+    {
+      "id": "sc.engine",
+      "art": "art/case4/engine.svg",
+      "name": "기관실",
+      "alt": "발전기가 있는 기관실. 벽의 브레이커 판, 정전 수칙, 책상 위 기관실 일지, 열쇠 보관함.",
+      "text": ["발전기 냄새가 아직 가시지 않았다."],
+      "objects": [
+        {
+          "id": "obj.e.panel",
+          "label": "브레이커 판",
+          "hotspot": { "x": 12, "y": 22, "w": 20, "h": 30 },
+          "text": ["스위치마다 기록계 바늘이 달렸다. 바늘 자국이 뒤엉켜 순서가 안 읽힌다."],
+          "puzzle": "p.breaker"
+        },
+        {
+          "id": "obj.e.rule",
+          "label": "정전 수칙",
+          "hotspot": { "x": 36, "y": 20, "w": 12, "h": 16 },
+          "text": ["벽에 붙은 정전 수칙. 모서리가 닳았다."],
+          "gives": ["clue.blackoutrule"]
+        },
+        {
+          "id": "obj.e.log",
+          "label": "기관실 일지",
+          "hotspot": { "x": 56, "y": 58, "w": 14, "h": 8 },
+          "text": ["발전기 곁에 있던 사람이 시각과 이름을 적는다."],
+          "gives": ["clue.jihoolog"]
+        },
+        {
+          "id": "obj.e.keys",
+          "label": "열쇠 보관함",
+          "hotspot": { "x": 78, "y": 24, "w": 12, "h": 16 },
+          "text": ["'비상전원' 고리가 비었다. 아래에 쪽지 한 장."],
+          "gives": ["clue.keyholder"]
+        }
+      ]
+    }
+  ],
+
+  "puzzles": [
+    {
+      "id": "p.morse",
+      "type": "morse",
+      "title": "램프 점멸 기록",
+      "teaches": ["clue.morsetable"],
+      "gives": ["clue.sosseq"],
+      "config": {
+        "signal": ["···", "———", "···", "/", "··———", "··———", "····—", "——···"],
+        "answer": "SOS2247",
+        "answerLabel": "읽은 신호"
+      },
+      "answerNote": "··· ——— ··· 은 SOS. 이어지는 넷은 2, 2, 4, 7. SOS 2247.",
+      "solvedText": [
+        "SOS.",
+        "그리고 숫자 넷. 2, 2, 4, 7.",
+        "",
+        "꺼진 등대가 같은 숫자를 되풀이한다."
+      ]
+    },
+    {
+      "id": "p.optics",
+      "type": "optics",
+      "title": "렌즈 뒤 거울",
+      "teaches": ["clue.lensnote"],
+      "gives": ["clue.timer"],
+      "config": {
+        "mirrors": [
+          { "id": "m1", "label": "아래 거울" },
+          { "id": "m2", "label": "가운데 거울" },
+          { "id": "m3", "label": "위 거울" }
+        ],
+        "answer": { "m1": 45, "m2": 135, "m3": 135 },
+        "min": 0,
+        "max": 180,
+        "step": 15
+      },
+      "answerNote": "아래 45도, 가운데 135도, 위 135도.",
+      "solvedText": [
+        "빛이 세 번 꺾여 렌즈 뒤 상자에 닿는다.",
+        "상자 안에서 태엽 소리.",
+        "수동 타이머다. 라벨에 남기철의 글씨.",
+        "",
+        "'내가 없으면.'"
+      ]
+    },
+    {
+      "id": "p.breaker",
+      "type": "timeline",
+      "title": "브레이커 판",
+      "teaches": ["clue.blackoutrule"],
+      "gives": ["clue.emergency"],
+      "config": {
+        "groupLabel": "차단 순서",
+        "checkLabel": "바늘 자국과 맞춰 본다",
+        "wrongText": "바늘 자국이 순서와 엇갈린다.",
+        "items": [
+          { "id": "b1", "label": "숙소 회로를 내린다" },
+          { "id": "b2", "label": "계단 회로를 내린다" },
+          { "id": "b3", "label": "주 전원을 내린다" },
+          { "id": "b4", "label": "비상 발전기를 돌린다" },
+          { "id": "b5", "label": "등롱실 회로만 비상전원에 올린다" }
+        ],
+        "answer": ["b1", "b2", "b3", "b4", "b5"]
+      },
+      "answerNote": "숙소 → 계단 → 주 전원 → 발전기 → 등롱실 비상전원.",
+      "solvedText": [
+        "순서를 맞추자 바늘 자국이 시각으로 읽힌다.",
+        "22:10 주 전원 내림. 22:40 복구.",
+        "",
+        "그 사이 비상전원이 들어간 곳은 등롱실 하나."
+      ]
+    },
+    {
+      "id": "p.diary",
+      "type": "lock",
+      "title": "자물쇠 달린 일기장",
+      "teaches": ["clue.photoframe"],
+      "gives": ["clue.radiolog"],
+      "config": { "digits": 4, "answer": "1104" },
+      "answerNote": "액자 뒤 날짜. 11월 4일, 1104.",
+      "solvedText": [
+        "자물쇠가 1104에서 풀린다.",
+        "일기장 맨 뒤에 누렇게 바랜 무선 일지 사본이 접혀 있다.",
+        "",
+        "22:47."
+      ]
+    }
+  ],
+
+  "clues": [
+    {
+      "id": "clue.c4autopsy",
+      "name": "검안 소견",
+      "text": "남기철, 등롱실 난간 아래로 추락. 사망 22:20~22:40. 양 손목에 붙잡힌 멍.",
+      "people": []
+    },
+    {
+      "id": "clue.storm",
+      "name": "창밖",
+      "text": "파도가 계단 창까지 튄다. 건너편 매립지 쪽은 캄캄하다.",
+      "people": [],
+      "atmosphere": true
+    },
+    {
+      "id": "clue.shell",
+      "name": "젖은 조개껍데기",
+      "text": "숙소 난로 앞 깔개. 불 옆인데 마르지 않았다.",
+      "people": [],
+      "atmosphere": true
+    },
+    {
+      "id": "clue.morsetable",
+      "name": "해양 신호 교본",
+      "text": "접힌 쪽. S ···  O ———  0 —————  1 ·————  2 ··———  4 ····—  7 ——···  9 ————·",
+      "people": []
+    },
+    {
+      "id": "clue.sosseq",
+      "name": "램프의 신호",
+      "text": "꺼진 램프가 SOS 다음에 2247을 되풀이한다.",
+      "people": []
+    },
+    {
+      "id": "clue.lensnote",
+      "name": "정비 수첩",
+      "text": "'빛은 오른쪽으로 나가, 아래 거울에서 위로, 가운데 거울에서 왼쪽으로, 위 거울에서 다시 위로 꺾인다. 45도: 오른쪽→위. 135도: 위→왼쪽, 왼쪽→위.'",
+      "people": []
+    },
+    {
+      "id": "clue.timer",
+      "name": "렌즈 뒤 타이머",
+      "text": "정전과 상관없이 태엽대로 점멸한다. 라벨에 남기철의 글씨 '내가 없으면'.",
+      "people": []
+    },
+    {
+      "id": "clue.blackoutrule",
+      "name": "정전 수칙",
+      "text": "사람 있는 곳부터 차례로 내린다(숙소, 계단). 주 전원은 그다음. 발전기를 돌린 뒤 꼭 필요한 회로만 올린다.",
+      "people": []
+    },
+    {
+      "id": "clue.emergency",
+      "name": "정전 시간표",
+      "text": "정전 22:10~22:40. 그동안 비상전원이 들어간 회로는 등롱실 하나.",
+      "people": []
+    },
+    {
+      "id": "clue.keyholder",
+      "name": "비상전원 열쇠",
+      "text": "쪽지. '비상전원 열쇠는 한 벌. 점검 기간 동안 점검 책임자 신재호가 소지.'",
+      "people": ["s.shin"]
+    },
+    {
+      "id": "clue.jihoolog",
+      "name": "기관실 일지",
+      "text": "22:05~22:45 발전기 곁 근무. 서명 남지후. 10분마다 시각이 적혔다.",
+      "people": ["s.jihu"]
+    },
+    {
+      "id": "clue.dispatch",
+      "name": "2006년 점검 일지",
+      "text": "2006년 11월, 무진 외항 등대 담당 파견. 신재호(당시 공단 신입).",
+      "people": ["s.shin"]
+    },
+    {
+      "id": "clue.promotion",
+      "name": "점검 책임자 이력",
+      "text": "신재호. 2007년 이례적 정규 전환과 특별 승진. 추천서 발신 무진종합개발.",
+      "people": ["s.shin"]
+    },
+    {
+      "id": "clue.photoframe",
+      "name": "액자 뒷면",
+      "text": "'그 밤을 잊지 말 것. 2006.11.4.' 남기철의 글씨.",
+      "people": []
+    },
+    {
+      "id": "clue.radiolog",
+      "name": "무선·신고 일지",
+      "text": "사본. '2006.11.4 22:47 매립지 현장 쪽 불빛과 소란. 무진경찰서에 무선 신고.' 남기철 서명.",
+      "people": [],
+      "fragment": "frag.radiolog"
+    },
+    {
+      "id": "clue.rope",
+      "name": "난간의 낚싯줄",
+      "text": "편상철의 낚싯줄이 나선 계단 난간에 감겨 있다.",
+      "people": ["s.pyeon"]
+    },
+    {
+      "id": "clue.flash",
+      "name": "정전 직전의 플래시",
+      "text": "정전 직전 임도연이 플래시를 들고 등롱실로 올라갔다(편상철 증언).",
+      "people": ["s.lim"]
+    },
+    {
+      "id": "clue.inheritance",
+      "name": "유산 다툼",
+      "text": "남지후와 남기철이 유산 문제로 다투는 소리를 들었다(편상철 증언).",
+      "people": ["s.jihu"]
+    },
+    {
+      "id": "clue.limphotos",
+      "name": "촛불 사진",
+      "text": "22:10~22:40 숙소 난로 앞 사진 열두 장. 임도연과 편상철이 찍혔다. 신재호는 한 장에도 없다.",
+      "people": ["s.lim", "s.pyeon", "s.shin"]
+    },
+    {
+      "id": "clue.testimony",
+      "name": "첫날의 말",
+      "text": "점검 첫날 남기철이 신재호에게 '그날 밤 일을 이제 말하겠다'고 했다(남지후 증언).",
+      "people": ["s.shin"]
+    }
+  ],
+
+  "suspects": [
+    {
+      "id": "s.shin",
+      "name": "신재호",
+      "age": 44,
+      "role": "해양시설관리공단 직원, 점검 책임자",
+      "intro": "젖은 우비를 벗지 않았다. 목에 줄이 하나 걸려 있다.",
+      "onWrong": ["신재호가 우비 깃을 세운다.", "\"점검 절차대로 했습니다. 처음부터 다시 말씀드리죠.\""],
+      "requires": [],
+      "suspectedBy": ["clue.keyholder"],
+      "clearedBy": [],
+      "rounds": [
+        {
+          "id": "r.shin.1",
+          "requires": [],
+          "statements": [
+            {
+              "id": "st.shin.away",
+              "text": "20년 전엔 다른 지역 근무였습니다. 이 등대와는 인연이 없어요.",
+              "contradictedBy": ["clue.dispatch"],
+              "reply": "......신입 때 잠깐 파견 온 걸 인연이라고 하진 않죠."
+            },
+            {
+              "id": "st.shin.power",
+              "text": "정전 때는 다들 숙소에 모여 있었습니다. 저도요.",
+              "contradictedBy": ["clue.limphotos"],
+              "reply": "사진 찍을 때 마침 화장실에 갔겠죠."
+            },
+            {
+              "id": "st.shin.key",
+              "text": "비상전원 열쇠요? 기관실 보관함에 그대로 있었을 겁니다.",
+              "contradictedBy": ["clue.keyholder"],
+              "reply": "규정상 제가 들고 있긴 합니다만."
+            }
+          ]
+        },
+        {
+          "id": "r.shin.2",
+          "requires": ["r.shin.1", "clue.timer"],
+          "statements": [
+            {
+              "id": "st.shin.lamp",
+              "text": "램프가 혼자 깜빡였다니, 괴담이죠. 영감님이 그 불빛에 놀라서 헛디딘 겁니다.",
+              "contradictedBy": ["clue.timer"],
+              "reply": "......"
+            },
+            {
+              "id": "st.shin.end",
+              "text": "저는 점검하러 왔을 뿐입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s.lim",
+      "name": "임도연",
+      "age": 38,
+      "role": "사진작가",
+      "intro": "카메라 끈을 손목에 두 번 감았다.",
+      "onWrong": ["임도연이 카메라를 내려놓는다.", "\"그건 제가 찍은 게 아니에요.\""],
+      "requires": [],
+      "suspectedBy": ["clue.flash"],
+      "clearedBy": ["clue.limphotos"],
+      "rounds": [
+        {
+          "id": "r.lim.1",
+          "requires": [],
+          "statements": [
+            {
+              "id": "st.lim.up",
+              "text": "정전 직전에 등롱실에 올라간 건 맞아요. 폭풍 사진 몇 장 찍고 바로 내려왔어요."
+            },
+            {
+              "id": "st.lim.photos",
+              "text": "정전 내내 숙소에서 촛불 사진만 찍었어요. 시각이 다 찍혀 있어요.",
+              "gives": ["clue.limphotos"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s.jihu",
+      "name": "남지후",
+      "age": 24,
+      "role": "관리인의 손자",
+      "intro": "눈가가 붉다. 손에 기름때가 묻었다.",
+      "onWrong": ["남지후가 고개를 돌린다.", "\"할아버지 일에 그런 거 들이밀지 마세요.\""],
+      "requires": [],
+      "suspectedBy": ["clue.inheritance"],
+      "clearedBy": ["clue.jihoolog"],
+      "rounds": [
+        {
+          "id": "r.jihu.1",
+          "requires": [],
+          "statements": [
+            {
+              "id": "st.jihu.money",
+              "text": "할아버지랑 돈 문제로 싸운 건 맞아요."
+            },
+            {
+              "id": "st.jihu.engine",
+              "text": "정전 내내 기관실 발전기 옆에 있었어요. 일지에 이름 적었어요."
+            },
+            {
+              "id": "st.jihu.testimony",
+              "text": "할아버지가 첫날 신 주임님한테 그랬어요. 그날 밤 일을 이제 말하겠다고.",
+              "gives": ["clue.testimony"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s.pyeon",
+      "name": "편상철",
+      "age": 59,
+      "role": "낚시꾼, 배를 놓쳐 묵은 손님",
+      "intro": "말끝마다 바다 쪽을 본다.",
+      "onWrong": ["편상철이 담배를 꺼냈다 도로 넣는다.", "\"그건 내 낚싯대랑 상관없소.\""],
+      "requires": [],
+      "suspectedBy": ["clue.rope"],
+      "clearedBy": ["clue.limphotos"],
+      "rounds": [
+        {
+          "id": "r.pyeon.1",
+          "requires": [],
+          "statements": [
+            {
+              "id": "st.pyeon.rope",
+              "text": "낚싯줄은 내 거요. 젖어서 계단에 말려 놓은 거지."
+            },
+            {
+              "id": "st.pyeon.flash",
+              "text": "정전 직전에 사진 찍는 아가씨가 플래시 들고 위로 올라가더군.",
+              "gives": ["clue.flash"]
+            },
+            {
+              "id": "st.pyeon.fight",
+              "text": "손자랑 영감이 유산 얘기로 언성 높이는 것도 들었소.",
+              "gives": ["clue.inheritance"]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "board": [
+    {
+      "id": "b.away",
+      "left": "clue.dispatch",
+      "right": "st.shin.away",
+      "sentence": "인연이 없다던 등대의 2006년 점검 일지에 그의 이름이 있다."
+    },
+    {
+      "id": "b.photo",
+      "left": "clue.limphotos",
+      "right": "st.shin.power",
+      "sentence": "정전 내내 숙소에 있었다던 사람이 사진 열두 장 어디에도 없다."
+    },
+    {
+      "id": "b.key",
+      "left": "clue.keyholder",
+      "right": "clue.emergency",
+      "sentence": "비상전원이 들어간 곳은 등롱실 하나. 그 열쇠는 그의 목에 걸려 있었다."
+    },
+    {
+      "id": "b.time",
+      "left": "clue.c4autopsy",
+      "right": "clue.emergency",
+      "sentence": "남기철이 떨어진 22:20~22:40, 불이 켜진 곳은 등롱실뿐이었다."
+    },
+    {
+      "id": "b.sos",
+      "left": "clue.sosseq",
+      "right": "clue.radiolog",
+      "sentence": "램프가 되풀이하던 2247은 20년 전 신고 시각 22:47."
+    }
+  ],
+
+  "accusation": {
+    "method": [
+      { "id": "m.push", "text": "정전을 틈타 비상전원을 넣은 등롱실로 불러 밀었다" },
+      { "id": "m.slip", "text": "폭풍에 흔들린 난간에서 혼자 미끄러졌다" },
+      { "id": "m.ghost", "text": "혼자 깜빡이는 SOS 불빛에 놀라 떨어졌다" }
+    ],
+    "motive": [
+      { "id": "mo.silence", "text": "20년 전 침묵의 대가로 얻은 자리를 지키려고" },
+      { "id": "mo.inherit", "text": "등대 관리인의 유산을 노려서" },
+      { "id": "mo.photo", "text": "등롱실 사진을 두고 다투다가" }
+    ]
+  },
+
+  "solution": {
+    "culprit": "s.shin",
+    "method": "m.push",
+    "motive": "mo.silence",
+    "requires": [
+      "clue.keyholder", "clue.limphotos", "clue.dispatch",
+      "clue.emergency", "clue.c4autopsy", "clue.timer",
+      "clue.testimony", "clue.promotion"
+    ],
+    "evidence": {
+      "culprit": ["clue.keyholder", "clue.limphotos", "clue.dispatch"],
+      "method": ["clue.emergency", "clue.c4autopsy", "clue.timer"],
+      "motive": ["clue.testimony", "clue.promotion"]
+    }
+  },
+
+  "hints": {
+    "p.morse": [
+      "교본 접힌 쪽. 접힌 쪽.",
+      "묶음 하나가 글자 하나. 빗금은 쉼.",
+      "점 셋 줄 셋 점 셋. 그다음은 숫자. 숫자."
+    ],
+    "p.optics": [
+      "정비 수첩. 빛 길부터.",
+      "오른쪽에서 위로는 45. 위에서 왼쪽으로는 135.",
+      "왼쪽에서 위로도 135. 135."
+    ],
+    "p.breaker": [
+      "정전 수칙. 수칙대로.",
+      "사람 있는 데부터. 숙소, 계단.",
+      "발전기 돌린 다음에야 올린다. 올린다."
+    ],
+    "p.diary": [
+      "액자. 액자 뒤.",
+      "날짜. 연도는 빼고.",
+      "월 둘, 일 둘. 넷."
+    ],
+    "report": [
+      "누가. 등롱실에 불을 넣을 수 있던 사람. 사진에 없는 사람.",
+      "어떻게. 정전 시각, 떨어진 시각. 혼자 깜빡인 램프의 정체.",
+      "왜. 첫날 들은 말. 2006년 그 이름. 이름."
+    ]
+  },
+
+  "han": [
+    { "when": [], "text": "꺼진 등대가 깜빡인다... 그 불, 누가 켰을까요?" },
+    { "when": ["clue.emergency"], "text": "비상전원이라... 그 열쇠는 누구 목에 걸려 있었을까요?" }
+  ],
+
+  "result": {
+    "text": [
+      "신재호가 목의 줄을 당긴다.",
+      "비상전원 열쇠가 우비 밖으로 나온다.",
+      "",
+      "무선 일지 사본을 사건부에 끼운다.",
+      "22:47. 신고는 있었다."
+    ]
+  }
+}

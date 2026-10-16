@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice">
+  <!-- 프런트. 핫스팟: 투숙 장부(58~86, 52~62) 열쇠판(106~138, 16~40) 우편함(13~35, 30~48) -->
+  <rect class="bg" width="160" height="100"/>
+  <rect class="f1" x="0" y="0" width="160" height="72"/>
+  <path class="ln" d="M0 72 H160"/>
+  <!-- 우편함 -->
+  <rect class="f2" x="13" y="30" width="22" height="18"/>
+  <path class="ln2" d="M13 30 h22 v18 h-22 z M13 39 H35 M24 30 V48"/>
+  <rect class="lt" x="27" y="32" width="5" height="1.2"/>
+  <path class="ln" d="M28 33 l2 4 h-4 z"/>
+  <!-- 카운터 -->
+  <rect class="f3" x="40" y="62" width="82" height="20"/>
+  <path class="ln2" d="M38 62 H124 M40 62 V82 M122 62 V82"/>
+  <path class="ln" d="M40 70 H122" opacity="0.5"/>
+  <!-- 펼친 투숙 장부 -->
+  <path class="f2" d="M58 61 L60 53 H72 V61 Z M72 61 V53 H84 L86 61 Z"/>
+  <path class="ln2" d="M58 61 L60 53 H84 L86 61 Z M72 53 V61"/>
+  <path class="ln" d="M62 55.5 h8 M62 57.5 h7 M74 55.5 h8 M74 59.5 h7"/>
+  <path class="seal-ln" d="M74 57.5 h8" stroke-dasharray="0.8 0.6"/>
+  <!-- 종 -->
+  <path class="ln2" d="M96 61 c0 -4 6 -4 6 0 z M95 61 h8"/>
+  <!-- 열쇠판 -->
+  <rect class="f2" x="106" y="16" width="32" height="24"/>
+  <path class="ln2" d="M106 16 h32 v24 h-32 z"/>
+  <g class="ln2"><path d="M111 21 v3 M117 21 v3 M123 21 v3 M129 21 v3 M135 21 v3 M111 31 v3 M117 31 v3 M123 31 v3 M129 31 v3"/></g>
+  <g class="lt">
+    <rect x="110.4" y="24" width="1.2" height="2.4"/><rect x="116.4" y="24" width="1.2" height="2.4"/>
+    <rect x="128.4" y="24" width="1.2" height="2.4"/><rect x="134.4" y="24" width="1.2" height="2.4"/>
+    <rect x="110.4" y="34" width="1.2" height="2.4"/><rect x="122.4" y="34" width="1.2" height="2.4"/>
+    <rect x="128.4" y="34" width="1.2" height="2.4"/>
+  </g>
+  <!-- 복도와 계단 -->
+  <rect class="f2" x="144" y="18" width="16" height="54"/>
+  <path class="ln" d="M144 18 V72 M146 66 h14 M148 60 h12 M150 54 h10 M152 48 h8"/>
+</svg>

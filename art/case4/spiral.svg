@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice">
+  <!-- 나선 계단. 핫스팟: 계단 창(22~42, 16~38) 난간 낚싯줄(96~122, 30~50) 검안 메모(64~86, 74~84) -->
+  <rect class="bg" width="160" height="100"/>
+  <!-- 둥근 벽 -->
+  <rect class="f1" x="10" y="0" width="140" height="100"/>
+  <path class="ln" d="M10 0 V100 M150 0 V100"/>
+  <!-- 좁은 창 -->
+  <rect class="f2" x="24" y="16" width="16" height="22" rx="7"/>
+  <path class="ln2" d="M24 23 a8 7 0 0 1 16 0 V38 H24 Z"/>
+  <path class="ln" d="M26 32 c3 -2 5 2 8 0 s3 2 4 0"/>
+  <!-- 가운데 기둥과 나선 디딤판 -->
+  <rect class="f3" x="76" y="0" width="8" height="74"/>
+  <g class="f2">
+    <path d="M84 70 L118 64 L118 67 L84 73 Z"/>
+    <path d="M76 58 L44 52 L44 55 L76 61 Z"/>
+    <path d="M84 46 L118 40 L118 43 L84 49 Z"/>
+    <path d="M76 34 L44 28 L44 31 L76 37 Z"/>
+    <path d="M84 22 L118 16 L118 19 L84 25 Z"/>
+    <path d="M76 10 L44 4 L44 7 L76 13 Z"/>
+  </g>
+  <g class="ln2">
+    <path d="M84 70 L118 64 M76 58 L44 52 M84 46 L118 40 M76 34 L44 28 M84 22 L118 16 M76 10 L44 4"/>
+  </g>
+  <!-- 난간 -->
+  <path class="ln2" d="M118 64 V54 L118 30 M44 52 V42 M118 40 V16 M44 28 V18"/>
+  <path class="ln2" d="M118 54 C 130 50 130 36 118 30"/>
+  <!-- 감긴 낚싯줄 -->
+  <path class="ln" d="M112 34 c6 1 8 4 4 6 s-8 3 -3 6 s8 2 3 4 M114 36 c4 2 4 6 0 8"/>
+  <!-- 바닥과 메모 -->
+  <rect class="f2" x="10" y="74" width="140" height="26" opacity="0.6"/>
+  <path class="ln" d="M10 74 H150"/>
+  <rect class="f3" x="66" y="76" width="18" height="7" transform="rotate(3 75 79)"/>
+  <path class="ln2" d="M68 78.5 h13 M68 81 h9" transform="rotate(3 75 79)"/>
+  <path class="seal-ln" d="M50 88 c6 -3 14 -3 22 0 c6 2 12 2 18 -1"/>
+</svg>

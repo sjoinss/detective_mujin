@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice">
+  <!-- 지하 배수로. 핫스팟: 배수로(32~96, 60~80) 판자 바닥(102~144, 40~58) -->
+  <rect class="bg" width="160" height="100"/>
+  <!-- 판자 위: 창고 바닥과 상자들(단면 위쪽) -->
+  <rect class="f2" x="0" y="0" width="160" height="34" opacity="0.5"/>
+  <g class="f3"><rect x="14" y="18" width="18" height="16"/><rect x="34" y="24" width="12" height="10"/><rect x="118" y="20" width="16" height="14"/></g>
+  <path class="ln" d="M14 18 h18 v16 M34 24 h12 v10 M118 20 h16 v14" />
+  <path class="ln" d="M0 28 c20 -2 40 2 60 0 s40 2 60 0 s30 2 40 0" opacity="0.4"/>
+  <rect class="f1" x="0" y="40" width="160" height="60"/>
+  <!-- 위쪽 판자 바닥(단면) -->
+  <rect class="f3" x="0" y="34" width="160" height="6"/>
+  <path class="ln2" d="M0 34 H160 M0 40 H160"/>
+  <g class="ln"><path d="M20 34 V40 M40 34 V40 M60 34 V40 M80 34 V40 M100 34 V40 M120 34 V40 M140 34 V40"/></g>
+  <!-- 판자 윗면 확대: 발 모양 홈. 가는 선으로 판자 단면과 잇는다 -->
+  <rect class="f2" x="102" y="42" width="42" height="16"/>
+  <path class="ln2" d="M102 42 h42 v16 h-42 z"/>
+  <path class="ln" d="M102 42 L96 40 M144 42 L150 40" stroke-dasharray="1 1"/>
+  <path class="ln" d="M102 50 H144" opacity="0.4"/>
+  <g class="ln2"><ellipse cx="109" cy="47" rx="2.2" ry="3.4"/><ellipse cx="118" cy="53" rx="2.2" ry="3.4"/><ellipse cx="127" cy="46" rx="2.2" ry="3.4"/><ellipse cx="136" cy="52" rx="2.2" ry="3.4"/></g>
+  <!-- 수로 벽의 물때 줄 -->
+  <path class="ln" d="M0 52 H100 M0 56 H100 M0 60 H100" opacity="0.4"/>
+  <!-- 배수로 물 -->
+  <path class="f2" d="M30 62 H98 V80 H30 Z"/>
+  <path class="ln2" d="M30 62 H98 V80 H30 Z"/>
+  <path class="ln" d="M34 68 c6 -2 12 2 18 0 s12 2 18 0 s12 2 18 0 M36 74 c6 -2 12 2 18 0 s12 2 18 0"/>
+  <!-- 바다 쪽 녹슨 수문 -->
+  <rect class="f3" x="10" y="58" width="16" height="26"/>
+  <path class="ln2" d="M10 58 h16 v26 h-16 z M10 66 H26"/>
+  <path class="seal-ln" d="M12 62 h12" opacity="0.7"/>
+  <!-- 판자 틈으로 스미는 물 -->
+  <path class="ln2" d="M108 40 v4 M126 40 v3 M135 40 v4" stroke-dasharray="0.8 0.8"/>
+</svg>

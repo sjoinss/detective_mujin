@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice">
+  <!-- 현장 사무소. 핫스팟: 사고 기록(16~42, 50~62) 감리 책상(58~93, 52~66) 칠판(96~138, 14~38) 스탠드(138~150, 40~56) -->
+  <rect class="bg" width="160" height="100"/>
+  <rect class="f1" x="0" y="0" width="160" height="70"/>
+  <path class="ln" d="M0 70 H160"/>
+  <!-- 가건물 벽 판넬과 철거 번호 -->
+  <path class="ln" d="M40 0 V70 M80 0 V70 M120 0 V70" opacity="0.35"/>
+  <path class="seal-ln" d="M10 10 h14 M10 10 v8 h14 M24 18 v8 h-14" />
+  <path class="seal-ln" d="M48 10 l6 0 l-6 16 h8"/>
+  <!-- 서류 상자와 맨 위 사고 기록 -->
+  <g class="f3"><rect x="14" y="56" width="30" height="14"/><rect x="18" y="44" width="24" height="12"/></g>
+  <path class="ln" d="M14 56 h30 v14 h-30 z M18 44 h24 v12 h-24 z"/>
+  <rect class="f2" x="20" y="50" width="18" height="6" transform="rotate(-3 29 53)"/>
+  <path class="ln" d="M22 52 h12 M22 54 h9" transform="rotate(-3 29 53)"/>
+  <!-- 감리 책상 -->
+  <rect class="f3" x="58" y="58" width="36" height="3"/>
+  <path class="ln2" d="M58 58 H94 M60 61 V80 M92 61 V80 M76 61 V72 H92"/>
+  <rect class="f2" x="64" y="54" width="10" height="4"/>
+  <!-- 칠판: 시각만 남은 칸 여섯 -->
+  <rect class="f3" x="96" y="14" width="42" height="24"/>
+  <path class="ln2" d="M96 14 h42 v24 h-42 z M96 22 H138 M96 30 H138 M117 14 V38"/>
+  <g class="lt"><rect x="98" y="16" width="6" height="1.2"/><rect x="98" y="24" width="6" height="1.2"/><rect x="98" y="32" width="6" height="1.2"/><rect x="119" y="16" width="6" height="1.2"/><rect x="119" y="24" width="6" height="1.2"/><rect x="119" y="32" width="9" height="1.2"/></g>
+  <path class="ln" d="M106 19 c4 -1 8 1 9 0 M127 27 c3 -1 6 1 8 0" opacity="0.4"/>
+  <!-- 창가 스탠드와 타이머 -->
+  <ellipse class="glow" cx="144" cy="44" rx="10" ry="8"/>
+  <path class="ln2" d="M140 56 h8 M144 56 V46 l-4 -4 h8 z"/>
+  <rect class="f2" x="152" y="60" width="5" height="4"/>
+  <path class="ln" d="M148 56 c2 2 4 4 4 6"/>
+</svg>

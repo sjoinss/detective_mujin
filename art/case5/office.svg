@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice">
+  <!-- 선적 사무실. 핫스팟: 옛 양식(16~42, 16~36) 조위표(51~77, 16~36) 팩스(90~112, 52~62) 금고(125~147, 44~70) -->
+  <rect class="bg" width="160" height="100"/>
+  <rect class="f1" x="0" y="0" width="160" height="70"/>
+  <path class="ln" d="M0 70 H160"/>
+  <!-- 옛 양식 -->
+  <rect class="f2" x="16" y="16" width="26" height="20"/>
+  <path class="ln" d="M16 20 H42 M24 20 V36 M30 20 V36 M36 20 V36 M16 26 H42 M16 31 H42"/>
+  <!-- 조위표와 단면도 -->
+  <rect class="f2" x="51" y="16" width="26" height="20"/>
+  <path class="ln2" d="M53 30 c4 -8 8 -8 11 0 s7 8 11 0"/>
+  <path class="seal-ln" d="M53 24 H75" stroke-dasharray="1 1"/>
+  <!-- 창: 안개 -->
+  <rect class="f2" x="86" y="12" width="28" height="22"/>
+  <path class="ln2" d="M86 12 h28 v22 h-28 z M100 12 V34"/>
+  <path class="ln" d="M88 24 c4 -2 8 2 12 0 s8 2 12 0" opacity="0.6"/>
+  <!-- 책상과 팩스 -->
+  <rect class="f3" x="82" y="62" width="36" height="3"/>
+  <path class="ln2" d="M82 62 H118 M85 65 V80 M115 65 V80"/>
+  <rect class="f3" x="91" y="55" width="20" height="7"/>
+  <path class="ln2" d="M91 55 h20 v7 h-20 z"/>
+  <rect class="lt" x="95" y="52" width="12" height="3"/>
+  <!-- 금고 -->
+  <rect class="f3" x="125" y="44" width="22" height="26"/>
+  <path class="ln2" d="M125 44 h22 v26 h-22 z"/>
+  <circle class="ln2" cx="136" cy="55" r="4"/>
+  <path class="ln" d="M136 51 v2 M140 55 h-2 M136 59 v-2 M132 55 h2"/>
+  <rect class="f2" x="142" y="58" width="4" height="5" transform="rotate(8 144 60)"/>
+  <!-- 의자 -->
+  <path class="ln" d="M60 74 h14 v-10 M60 74 v10 M74 74 v10"/>
+</svg>

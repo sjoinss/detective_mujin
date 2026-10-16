@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "title": "무진 사건부",
+
+  "characters": [
+    { "id": "c.player", "name": "", "role": "무진경찰서 장기미제 기록실 신입 조사관" },
+    { "id": "c.han", "name": "한도윤", "age": 53, "role": "기록실장" },
+    { "id": "c.seo", "name": "서진우", "age": 32, "role": "전임 조사관" },
+    { "id": "c.do", "name": "도하연", "age": 35, "role": "법의관" },
+    { "id": "c.jang", "name": "장태수", "age": 62, "role": "무진시장" }
+  ],
+
+  "fragments": [
+    { "id": "frag.ledger", "chapter": "case1", "name": "감리 일지 사본" },
+    { "id": "frag.guardtape", "chapter": "case2", "name": "야간 경비 녹취" },
+    { "id": "frag.tab", "chapter": "case3", "name": "식당 외상 장부와 약정서" },
+    { "id": "frag.radiolog", "chapter": "case4", "name": "무선·신고 일지" },
+    { "id": "frag.register", "chapter": "case5", "name": "접수대장 원본과 삭제 지시 메모" }
+  ],
+
+  "chapters": [
+    { "id": "prologue", "title": "인수인계", "file": "cases/prologue.json", "ready": true },
+    { "id": "case1", "title": "방송실의 출석", "file": "cases/case1.json", "ready": true, "requires": ["prologue"] },
+    { "id": "case2", "title": "4호실의 물", "file": "cases/case2.json", "ready": true, "requires": ["case1"] },
+    { "id": "case3", "title": "7번 병실의 벨", "file": "cases/case3.json", "ready": true, "requires": ["case2"] },
+    { "id": "case4", "title": "등대의 신호", "file": "cases/case4.json", "ready": true, "requires": ["case3"] },
+    { "id": "case5", "title": "젖은 발자국", "file": "cases/case5.json", "ready": true, "requires": ["case4"] },
+    { "id": "final", "title": "06-117", "file": "final.json", "ready": true, "requires": ["case5"] }
+  ]
+}

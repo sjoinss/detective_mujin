@@ -1,0 +1,127 @@
+/* 디자인 토큰. 색·간격·글자·반경 값은 여기에만 둔다.
+   색은 네 가지 재료로만 만든다: 종이, 먹, 인주(붉은 한 가지), 형광펜(노란 한 가지).
+   상태색(ok/warn/err)은 이름만 다르고 같은 재료 계열이다.
+   대비는 tools/check-contrast.mjs로 검사한다. */
+
+:root {
+  /* 재료 */
+  --c-ink-950: #121010;
+  --c-ink-900: #1b1815;
+  --c-ink-850: #221f1b;
+  --c-ink-800: #2a2621;
+  --c-ink-700: #3a352e;
+  --c-ink-500: #7a7064;
+  --c-paper-50: #f4eedf;
+  --c-paper-100: #e7dfcd;
+  --c-paper-200: #d9cfb9;
+  --c-paper-300: #bcb2a0;
+  --c-paper-ink: #24201b;
+  --c-paper-ink-muted: #574f44;
+  --c-seal-700: #8e2a1c;
+  --c-seal-600: #a5311f;
+  --c-seal-300: #ec8a78;
+  --c-marker-300: #f1d466;
+  --c-ok-300: #9cc489;
+  --c-ok-700: #3b6a2a;
+  --c-warn-300: #e6b85c;
+  --c-err-300: #f09584;
+
+  /* 역할: 책상(어두운 바탕) */
+  --bg: var(--c-ink-900);
+  --surface: var(--c-ink-850);
+  --surface-raised: var(--c-ink-800);
+  --line: var(--c-ink-700);
+  --line-strong: var(--c-ink-500);
+  --text: var(--c-paper-100);
+  --text-muted: var(--c-paper-300);
+  --text-strong: var(--c-paper-50);
+  --accent: var(--c-seal-600);
+  --accent-text: var(--c-seal-300);
+  --on-accent: var(--c-paper-50);
+  --highlight-bg: var(--c-marker-300);
+  --highlight-text: var(--c-paper-ink);
+  --ok: var(--c-ok-300);
+  --warn: var(--c-warn-300);
+  --err: var(--c-err-300);
+  --focus: var(--c-marker-300);
+  --scrim: var(--c-ink-950);
+
+  /* 역할: 서류(사건부, 대조표, 보고서는 종이 위에 쓴다) */
+  --sheet-bg: var(--c-paper-100);
+  --sheet-bg-alt: var(--c-paper-200);
+  --sheet-text: var(--c-paper-ink);
+  --sheet-muted: var(--c-paper-ink-muted);
+  --sheet-line: var(--c-ink-500);
+  --sheet-accent: var(--c-seal-700);
+  --sheet-ok: var(--c-ok-700);
+  --sheet-focus: var(--c-seal-700);
+
+  /* 서진우 메모: 색과 왼쪽 줄, 그리고 "메모"라는 이름으로 구분 */
+  --memo-line: var(--c-seal-700);
+  --memo-text: var(--c-paper-ink);
+
+  /* 글자 */
+  --font-body: system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  --font-mono: ui-monospace, "D2Coding", Consolas, monospace;
+  --fs-small: 0.875rem;
+  --fs-body: 1rem;
+  --fs-lead: 1.125rem;
+  --fs-h2: 1.25rem;
+  --fs-h1: 1.625rem;
+  --fs-display: 2.25rem;
+  --lh-body: 1.75;
+  --lh-tight: 1.35;
+  --measure: 34em;
+
+  /* 간격·크기 */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --touch: 2.75rem;
+  --tabbar-h: 3.5rem;
+  --content-max: 90rem;
+  --radius: 2px;
+  --border: 1px;
+  --focus-ring: 3px;
+
+  /* 움직임 */
+  --dur-fast: 120ms;
+  --dur-slow: 400ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+
+  /* 공포 연출. --fx는 설정(끔 0 / 약하게 0.5 / 기본 1), --unease는 엔진이 정하는 숨김 값(0~1). */
+  --fx: 1;
+  --unease: 0;
+  --noise-opacity: calc(0.035 + var(--fx) * var(--unease) * 0.08);
+  --line-drift: calc(var(--fx) * var(--unease) * 0.2);
+}
+
+/* 높은 대비 */
+:root[data-contrast="high"] {
+  --bg: var(--c-ink-950);
+  --surface: var(--c-ink-950);
+  --surface-raised: var(--c-ink-900);
+  --line: var(--c-ink-500);
+  --line-strong: var(--c-paper-300);
+  --text: var(--c-paper-50);
+  --text-muted: var(--c-paper-100);
+  --text-strong: var(--c-paper-50);
+  --accent: var(--c-seal-700);
+  --sheet-bg: var(--c-paper-50);
+  --sheet-muted: var(--c-paper-ink);
+  --sheet-line: var(--c-paper-ink);
+}
+
+/* 글자 크기 3단계: rem 기준값을 바꿔 전체가 함께 커진다 */
+:root[data-text-size="m"] { font-size: 100%; }
+:root[data-text-size="l"] { font-size: 112.5%; }
+:root[data-text-size="xl"] { font-size: 128%; }
+
+:root[data-fx="off"] { --fx: 0; }
+:root[data-fx="low"] { --fx: 0.5; }
+:root[data-fx="full"] { --fx: 1; }

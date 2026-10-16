@@ -1,0 +1,590 @@
+{
+  "schemaVersion": 1,
+  "id": "case3",
+  "chapter": 3,
+  "title": "7번 병실의 벨",
+  "difficulty": 3,
+
+  "briefing": {
+    "summary": [
+      "시내 요양병원 야간 병동.",
+      "입원 환자 정순례가 새벽에 저혈당 쇼크로 숨진다.",
+      "당뇨가 없는 사람이었다."
+    ],
+    "rumor": [
+      "환자가 없는 7번 병실에서 새벽 3시에 호출벨이 울린다.",
+      "벨이 울린 다음 날엔 누군가 죽는다고 한다."
+    ],
+    "victim": { "name": "정순례", "age": 78, "role": "입원 환자, 전 매립지 현장 식당 운영자" }
+  },
+
+  "start": "sc.ward7",
+  "reportRequires": ["r.dae.1"],
+
+  "objectives": [
+    { "when": [], "text": "야간 순찰: 요양병원 7번 병실" },
+    { "when": ["clue.insulin"], "text": "당뇨 없는 환자의 인슐린. 어디서 나왔는지 찾는다" },
+    { "when": ["clue.insulinout"], "text": "02:30 그 서랍 앞에 있던 사람을 찾는다" },
+    { "when": ["r.dae.1"], "text": "보고서를 쓴다" }
+  ],
+
+  "scenes": [
+    {
+      "id": "sc.ward7",
+      "art": "art/case3/ward7.svg",
+      "name": "7번 병실",
+      "alt": "비어 있는 병실. 머리맡 호출벨, 시트가 팽팽한 빈 침대, 벽에 붙은 보호자 사물함.",
+      "text": [
+        "7번 병실은 반년째 비어 있다.",
+        "머리맡 호출벨에 먼지가 앉았다."
+      ],
+      "objects": [
+        {
+          "id": "obj.w7.bell",
+          "label": "호출벨",
+          "hotspot": { "x": 30, "y": 30, "w": 8, "h": 10 },
+          "text": ["버튼에 먼지가 고르게 앉았다. 누른 자국이 없다.", "", "그런데 새벽 3시마다 울렸다고 한다."],
+          "gives": ["clue.bellnoise"]
+        },
+        {
+          "id": "obj.w7.locker",
+          "label": "보호자 사물함",
+          "hotspot": { "x": 72, "y": 30, "w": 16, "h": 40 },
+          "text": ["이름표에 '정순례'. 짐을 둘 곳이 모자라 빈 병실 사물함을 빌려 썼다.", "보자기로 싼 장부 한 권과 접힌 종이 한 장."],
+          "gives": ["clue.tabbook", "clue.agreement"]
+        },
+        {
+          "id": "obj.w7.bed",
+          "label": "빈 침대",
+          "hotspot": { "x": 20, "y": 50, "w": 40, "h": 22 },
+          "text": ["시트가 팽팽하다. 오래 아무도 눕지 않았다."],
+          "gives": ["clue.bedempty"]
+        },
+        {
+          "id": "obj.w7.shell",
+          "label": "젖은 조개껍데기",
+          "hotspot": { "x": 64, "y": 82, "w": 6, "h": 6 },
+          "text": ["침대 밑 리놀륨 바닥.", "바다에서 먼 병동인데 젖어 있다."],
+          "gives": ["clue.shell"]
+        }
+      ]
+    },
+    {
+      "id": "sc.station",
+      "art": "art/case3/station.svg",
+      "name": "간호사실",
+      "alt": "간호사실. 벽의 호출벨 배선판과 배선도, 책상 위 투약 기록표와 처치 기록.",
+      "text": ["형광등 하나가 늦게 켜진다."],
+      "objects": [
+        {
+          "id": "obj.st.panel",
+          "label": "호출벨 배선판",
+          "hotspot": { "x": 10, "y": 18, "w": 22, "h": 30 },
+          "text": ["뚜껑이 열린 배선판. 선 세 가닥이 단자에서 빠져 있다.", "점검한다고 뽑아 놓고 그대로 둔 모양이다."],
+          "puzzle": "p.bell"
+        },
+        {
+          "id": "obj.st.chart",
+          "label": "배선도",
+          "hotspot": { "x": 36, "y": 18, "w": 16, "h": 22 },
+          "text": ["배선판 옆에 테이프로 붙인 배선도."],
+          "gives": ["clue.bellchart"]
+        },
+        {
+          "id": "obj.st.medchart",
+          "label": "투약 기록표",
+          "hotspot": { "x": 56, "y": 56, "w": 18, "h": 10 },
+          "text": ["그날 밤 카트를 쓴 기록. 시각마다 서명이 있다."],
+          "gives": ["clue.medchart"]
+        },
+        {
+          "id": "obj.st.shift",
+          "label": "처치 기록",
+          "hotspot": { "x": 78, "y": 56, "w": 16, "h": 10 },
+          "text": ["야간 처치 기록. 볼펜 자국이 눌려 있다."],
+          "gives": ["clue.eunbinote"]
+        }
+      ]
+    },
+    {
+      "id": "sc.pharmacy",
+      "art": "art/case3/pharmacy.svg",
+      "name": "약품실",
+      "alt": "약품실. 잠금 장치가 달린 투약 카트, 유리문 약품 냉장고, 처방 파일이 꽂힌 선반.",
+      "text": ["소독약 냄새 밑에 냉장고 모터 소리."],
+      "objects": [
+        {
+          "id": "obj.ph.cart",
+          "label": "투약 카트",
+          "hotspot": { "x": 14, "y": 46, "w": 24, "h": 34 },
+          "text": ["카트 잠금 장치가 열릴 때마다 기록을 남긴다.", "버튼을 누르자 영수증 같은 기록이 길게 나온다."],
+          "puzzle": "p.cart"
+        },
+        {
+          "id": "obj.ph.fridge",
+          "label": "약품 냉장고",
+          "hotspot": { "x": 48, "y": 16, "w": 20, "h": 56 },
+          "text": ["인슐린 펜 보관함에 자리가 하나 비었다."],
+          "gives": ["clue.penmissing"]
+        },
+        {
+          "id": "obj.ph.prescr",
+          "label": "처방 파일",
+          "hotspot": { "x": 76, "y": 22, "w": 16, "h": 30 },
+          "text": ["환자별 처방 파일. 정순례 칸에 붉은 정정 도장이 두 번."],
+          "gives": ["clue.prescription"]
+        }
+      ]
+    },
+    {
+      "id": "sc.hall",
+      "art": "art/case3/hall.svg",
+      "name": "중앙 복도",
+      "alt": "긴 복도. 경비 모니터가 놓인 탁자, 끝의 출입문 비밀번호 패널, 면회 기록부, 게시판에 꽂힌 검안 메모.",
+      "text": ["복도 끝 비상구 표시등만 밝다."],
+      "objects": [
+        {
+          "id": "obj.h.cctv",
+          "label": "경비 모니터",
+          "hotspot": { "x": 40, "y": 52, "w": 16, "h": 14 },
+          "text": ["녹화가 흐려 캡처만 몇 장 남았다. 순서가 뒤섞여 인쇄됐다."],
+          "gives": ["clue.cctvclock"],
+          "puzzle": "p.cctv"
+        },
+        {
+          "id": "obj.h.door",
+          "label": "출입문 패널",
+          "hotspot": { "x": 84, "y": 36, "w": 8, "h": 12 },
+          "text": ["비밀번호 패널. 관리자 메뉴에 출입 기록이 남는다."],
+          "gives": ["clue.doorlog"]
+        },
+        {
+          "id": "obj.h.visit",
+          "label": "면회 기록부",
+          "hotspot": { "x": 16, "y": 58, "w": 16, "h": 10 },
+          "text": ["면회 온 사람이 이름과 시각을 적는다."],
+          "gives": ["clue.visitlog"]
+        },
+        {
+          "id": "obj.h.memo",
+          "label": "도하연의 검안 메모",
+          "hotspot": { "x": 62, "y": 26, "w": 12, "h": 14 },
+          "text": ["게시판에 꽂힌 메모. 숫자부터 적혀 있다."],
+          "gives": ["clue.insulin"]
+        }
+      ]
+    }
+  ],
+
+  "puzzles": [
+    {
+      "id": "p.bell",
+      "type": "wiring",
+      "title": "호출벨 배선판",
+      "teaches": ["clue.bellchart"],
+      "gives": ["clue.shortcircuit"],
+      "config": {
+        "plugs": [
+          { "id": "w7", "label": "7번 벨선" },
+          { "id": "w8", "label": "8번 벨선" },
+          { "id": "lamp", "label": "표시등 선" }
+        ],
+        "jacks": [
+          { "id": "t7", "label": "단자 7" },
+          { "id": "t8", "label": "단자 8" },
+          { "id": "com", "label": "공통 단자" },
+          { "id": "gnd", "label": "접지" }
+        ],
+        "answer": { "w7": "t7", "w8": "t8", "lamp": "com" }
+      },
+      "answerNote": "7번 벨선 → 단자 7, 8번 벨선 → 단자 8, 표시등 선 → 공통 단자.",
+      "solvedText": [
+        "선을 제자리에 물린다.",
+        "7번 선만 손끝에 미지근하다. 피복이 삭아 속이 드러났다.",
+        "공통선에 닿을 듯 말 듯 흔들린다.",
+        "",
+        "아무도 누르지 않았다."
+      ]
+    },
+    {
+      "id": "p.cart",
+      "type": "sort",
+      "title": "투약 카트 잠금 기록",
+      "teaches": ["clue.medchart"],
+      "gives": ["clue.insulinout"],
+      "config": {
+        "caption": "카트 잠금 기록과 투약 기록표",
+        "itemHeader": "열린 시각",
+        "detailHeader": "열린 서랍",
+        "categoryHeader": "투약 기록표",
+        "checkLabel": "기록표와 대조한다",
+        "wrongText": "기록표를 한 줄씩 다시 짚는다. 어딘가 맞지 않는다.",
+        "categories": [
+          { "id": "in", "label": "기록표에 있다" },
+          { "id": "out", "label": "기록표에 없다" }
+        ],
+        "items": [
+          { "id": "l1", "label": "02:10", "detail": "서랍 1 (혈압약)" },
+          { "id": "l2", "label": "02:30", "detail": "서랍 4 (인슐린)" },
+          { "id": "l3", "label": "03:05", "detail": "서랍 2 (해열제)" },
+          { "id": "l4", "label": "03:50", "detail": "서랍 1 (진통제)" }
+        ],
+        "answer": { "l1": "in", "l2": "out", "l3": "in", "l4": "in" }
+      },
+      "answerNote": "02:10, 03:05, 03:50은 기록표에 있다. 02:30만 없다.",
+      "solvedText": [
+        "기록표에 없는 줄이 하나 남는다.",
+        "",
+        "02:30, 인슐린 서랍."
+      ]
+    },
+    {
+      "id": "p.cctv",
+      "type": "pieces",
+      "title": "흐린 캡처",
+      "teaches": ["clue.cctvclock"],
+      "gives": ["clue.cctvman"],
+      "config": {
+        "pieces": [
+          { "id": "c1", "label": "02:12. 빈 복도. 형광등 하나가 깜빡인다." },
+          { "id": "c2", "label": "02:18. 출입문이 열린다. 갈색 점퍼." },
+          { "id": "c3", "label": "02:31. 갈색 점퍼가 약품실 앞에 서 있다." },
+          { "id": "c4", "label": "02:44. 갈색 점퍼가 3호실 문고리를 잡는다." }
+        ],
+        "answer": ["c1", "c2", "c3", "c4"]
+      },
+      "answerNote": "02:12 → 02:18 → 02:31 → 02:44.",
+      "solvedText": [
+        "캡처를 시각순으로 놓는다.",
+        "갈색 점퍼가 출입문에서 약품실을 거쳐 3호실로 간다.",
+        "",
+        "3호실은 정순례의 병실이다."
+      ]
+    }
+  ],
+
+  "clues": [
+    {
+      "id": "clue.insulin",
+      "name": "검안 소견",
+      "text": "정순례, 새벽 03:40경 저혈당 쇼크로 사망. 당뇨 병력 없음. 왼팔 안쪽에 주사 자국 하나. 인슐린이 들어갔다.",
+      "people": []
+    },
+    {
+      "id": "clue.bellnoise",
+      "name": "누른 적 없는 벨",
+      "text": "7번 병실 호출벨 버튼에 먼지가 고르게 앉았다. 누른 자국이 없다.",
+      "people": []
+    },
+    {
+      "id": "clue.tabbook",
+      "name": "식당 외상 장부",
+      "text": "정순례가 20년 동안 지니던 장부. '11/4 21:30 서 감리 — 백반, 소주 한 병.'",
+      "people": [],
+      "fragment": "frag.tab"
+    },
+    {
+      "id": "clue.agreement",
+      "name": "약정서",
+      "text": "정대호와 무진종합개발. 매달 약정금. '모친이 그날 일을 말하면 전액 환수, 위약금 별도.'",
+      "people": ["s.dae"]
+    },
+    {
+      "id": "clue.bedempty",
+      "name": "빈 침대",
+      "text": "시트가 팽팽하다. 반년째 아무도 눕지 않았다.",
+      "people": [],
+      "atmosphere": true
+    },
+    {
+      "id": "clue.shell",
+      "name": "젖은 조개껍데기",
+      "text": "7번 병실 침대 밑. 바다에서 먼 병동인데 젖어 있다.",
+      "people": [],
+      "atmosphere": true
+    },
+    {
+      "id": "clue.bellchart",
+      "name": "호출벨 배선도",
+      "text": "병실마다 벨선은 같은 번호 단자로. 표시등 선은 공통 단자로. 접지는 따로.",
+      "people": []
+    },
+    {
+      "id": "clue.shortcircuit",
+      "name": "삭은 7번 벨선",
+      "text": "7번 벨선 피복이 삭아 공통선에 닿는다. 새벽에 난방이 돌아 습기가 차면 저절로 붙어 벨이 울린다.",
+      "people": []
+    },
+    {
+      "id": "clue.medchart",
+      "name": "투약 기록표",
+      "text": "그날 밤 카트 사용. 02:10 2호 혈압약, 03:05 5호 해열제, 03:50 8호 진통제. 서명 조은비.",
+      "people": ["s.eun"]
+    },
+    {
+      "id": "clue.eunbinote",
+      "name": "처치 기록",
+      "text": "02:20~02:45 5호 환자 상처 처치. 처치자 조은비. 병실을 비우지 않았다.",
+      "people": ["s.eun"]
+    },
+    {
+      "id": "clue.insulinout",
+      "name": "기록 없는 서랍",
+      "text": "02:30 투약 카트 인슐린 서랍이 열렸다. 투약 기록표에 없는 열림.",
+      "people": []
+    },
+    {
+      "id": "clue.penmissing",
+      "name": "빈 인슐린 자리",
+      "text": "약품 냉장고 인슐린 펜 보관함에 빈자리 하나. 관리 책임자 조은비.",
+      "people": ["s.eun"]
+    },
+    {
+      "id": "clue.prescription",
+      "name": "처방 정정 이력",
+      "text": "오세현이 그 주에만 정순례 처방을 두 번 고쳤다. 붉은 정정 도장.",
+      "people": ["s.oh"]
+    },
+    {
+      "id": "clue.orders",
+      "name": "처방 목록",
+      "text": "정순례 앞 처방은 수면제와 소화제. 두 번의 정정은 수면제 용량. 인슐린은 한 번도 없다.",
+      "people": ["s.oh"]
+    },
+    {
+      "id": "clue.cctvclock",
+      "name": "흐린 캡처 넉 장",
+      "text": "경비 모니터에서 인쇄한 캡처 넉 장. 구석마다 시각이 찍혀 있다. 순서가 섞였다.",
+      "people": []
+    },
+    {
+      "id": "clue.cctvman",
+      "name": "갈색 점퍼",
+      "text": "남자 하나. 02:18 출입문, 02:31 약품실 앞, 02:44 3호실 정순례 병실. 면회 기록 없음.",
+      "people": ["s.dae"]
+    },
+    {
+      "id": "clue.doorlog",
+      "name": "출입문 기록",
+      "text": "02:18 출입. 보호자 번호 '정대호'로 열렸다.",
+      "people": ["s.dae"]
+    },
+    {
+      "id": "clue.visitlog",
+      "name": "면회 기록부",
+      "text": "정대호의 마지막 면회는 사흘 전 14:00. 그 뒤로 이름이 없다.",
+      "people": ["s.dae"]
+    }
+  ],
+
+  "suspects": [
+    {
+      "id": "s.dae",
+      "name": "정대호",
+      "age": 52,
+      "role": "아들, 보호자",
+      "intro": "갈색 점퍼 지퍼를 목 끝까지 올렸다.",
+      "onWrong": ["정대호가 지퍼를 내렸다 다시 올린다.", "\"그게 지금 상주한테 할 소립니까.\""],
+      "requires": [],
+      "suspectedBy": ["clue.agreement"],
+      "clearedBy": [],
+      "rounds": [
+        {
+          "id": "r.dae.1",
+          "requires": [],
+          "statements": [
+            {
+              "id": "st.dae.away",
+              "text": "사흘 동안 어머니를 못 뵀습니다. 면회 기록 보시면 압니다.",
+              "contradictedBy": ["clue.doorlog", "clue.cctvman"],
+              "reply": "......번호를 누가 알아서 썼겠죠."
+            },
+            {
+              "id": "st.dae.money",
+              "text": "약정금이요? 처음 듣는 말입니다.",
+              "contradictedBy": ["clue.agreement"],
+              "reply": "어머니 병원비 대려고 받은 겁니다."
+            },
+            {
+              "id": "st.dae.drug",
+              "text": "약품실이 어디 붙어 있는지도 몰라요.",
+              "contradictedBy": ["clue.cctvman"],
+              "reply": "화장실을 찾다가......"
+            }
+          ]
+        },
+        {
+          "id": "r.dae.2",
+          "requires": ["r.dae.1", "clue.shortcircuit"],
+          "statements": [
+            {
+              "id": "st.dae.bell",
+              "text": "7번 벨이 울리면 다음 날 누가 죽는다잖아요. 어머니도 그 벨 때문에 놀라서.",
+              "contradictedBy": ["clue.shortcircuit"],
+              "reply": "......"
+            },
+            {
+              "id": "st.dae.end",
+              "text": "저는 이제 할 말 없습니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s.eun",
+      "name": "조은비",
+      "age": 31,
+      "role": "야간 간호사",
+      "intro": "명찰을 자꾸 매만진다.",
+      "onWrong": ["조은비가 차트를 끌어안는다.", "\"그건 제가 드릴 말씀이 아니에요.\""],
+      "requires": [],
+      "suspectedBy": ["clue.penmissing"],
+      "clearedBy": ["clue.eunbinote"],
+      "rounds": [
+        {
+          "id": "r.eun.1",
+          "requires": [],
+          "statements": [
+            {
+              "id": "st.eun.pen",
+              "text": "인슐린 펜은 제 책임이에요. 하나 빈 걸 아침에야 알았어요."
+            },
+            {
+              "id": "st.eun.time",
+              "text": "두 시 반이요? 그땐 5호 환자 처치 중이었어요. 기록에 있어요."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s.oh",
+      "name": "오세현",
+      "age": 45,
+      "role": "담당의",
+      "intro": "가운 주머니에 펜이 세 자루 꽂혔다.",
+      "onWrong": ["오세현이 안경을 벗어 닦는다.", "\"의학적으로 아무 관련이 없습니다.\""],
+      "requires": [],
+      "suspectedBy": ["clue.prescription"],
+      "clearedBy": ["clue.orders"],
+      "rounds": [
+        {
+          "id": "r.oh.1",
+          "requires": [],
+          "statements": [
+            {
+              "id": "st.oh.fix",
+              "text": "정정이요? 수면제 용량을 줄였을 뿐입니다."
+            },
+            {
+              "id": "st.oh.list",
+              "text": "제 처방 목록 보시죠. 인슐린은 한 번도 쓰지 않았습니다.",
+              "gives": ["clue.orders"]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "board": [
+    {
+      "id": "b.away",
+      "left": "clue.doorlog",
+      "right": "st.dae.away",
+      "sentence": "사흘 못 왔다던 아들의 번호가 02:18 출입문을 연다."
+    },
+    {
+      "id": "b.visit",
+      "left": "clue.visitlog",
+      "right": "clue.doorlog",
+      "sentence": "면회 기록부엔 사흘 전이 마지막. 출입문은 그날 새벽을 기억한다."
+    },
+    {
+      "id": "b.cart",
+      "left": "clue.insulinout",
+      "right": "clue.cctvman",
+      "sentence": "02:30 인슐린 서랍이 열리고, 02:31 갈색 점퍼가 약품실 앞에 있다."
+    },
+    {
+      "id": "b.bell",
+      "left": "clue.shortcircuit",
+      "right": "clue.bellnoise",
+      "sentence": "누른 자국 없는 벨. 울린 건 젖은 전선."
+    },
+    {
+      "id": "b.nurse",
+      "left": "clue.eunbinote",
+      "right": "clue.insulinout",
+      "sentence": "02:30 조은비는 5호 환자 곁에 있었다."
+    }
+  ],
+
+  "accusation": {
+    "method": [
+      { "id": "m.insulin", "text": "카트에서 인슐린 펜을 꺼내 몰래 투여했다" },
+      { "id": "m.bell", "text": "7번 벨 괴담에 놀라 쇼크가 왔다" },
+      { "id": "m.error", "text": "야간 투약 실수로 인슐린이 들어갔다" }
+    ],
+    "motive": [
+      { "id": "mo.agreement", "text": "약정금 환수와 위약금을 피하려고" },
+      { "id": "mo.care", "text": "긴 간병에 지쳐서" },
+      { "id": "mo.inherit", "text": "어머니 유산을 노려서" }
+    ]
+  },
+
+  "solution": {
+    "culprit": "s.dae",
+    "method": "m.insulin",
+    "motive": "mo.agreement",
+    "requires": [
+      "clue.doorlog", "clue.cctvman",
+      "clue.insulinout", "clue.insulin",
+      "clue.agreement"
+    ],
+    "evidence": {
+      "culprit": ["clue.doorlog", "clue.cctvman"],
+      "method": ["clue.insulinout", "clue.insulin", "clue.cctvman"],
+      "motive": ["clue.agreement"]
+    }
+  },
+
+  "hints": {
+    "p.bell": [
+      "배선도. 배선도 먼저.",
+      "번호는 번호끼리. 번호끼리.",
+      "표시등은 공통. 접지는 비워 둘 것."
+    ],
+    "p.cart": [
+      "투약 기록표를 옆에 펼칠 것.",
+      "시각을 하나씩 지울 것. 하나씩.",
+      "남는 줄 하나. 서랍 번호. 번호."
+    ],
+    "p.cctv": [
+      "캡처 구석. 시각.",
+      "시각순. 시각순.",
+      "02:12에서 02:44까지."
+    ],
+    "report": [
+      "누가. 02:18 문을 연 번호. 번호.",
+      "어떻게. 02:30 서랍. 팔의 주사 자국.",
+      "왜. 사물함 속 종이. 종이."
+    ]
+  },
+
+  "han": [
+    { "when": [], "text": "인슐린은 간호사 소관입니다. 카트 관리 책임자부터 확인하십시오." },
+    { "when": ["clue.insulinout"], "text": "02시 반 근무자가 누구였는지 보십시오. 그게 먼저입니다." }
+  ],
+
+  "result": {
+    "text": [
+      "정대호가 지퍼를 내린다.",
+      "안주머니에서 접힌 약정서 사본이 나온다.",
+      "",
+      "외상 장부 한 줄을 사건부에 옮겨 적는다.",
+      "11월 4일 21:30, 서 감리."
+    ]
+  }
+}
