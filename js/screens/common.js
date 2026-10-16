@@ -2,6 +2,7 @@
 
 import { el, button, notice, fill, add } from '../ui/dom.js';
 import { announce } from '../ui/toast.js';
+import { play } from '../sound.js';
 import { updateCase, currentCase } from '../engine/game.js';
 import { findClue } from '../engine/clues.js';
 import { currentObjective } from '../engine/graph.js';
@@ -82,7 +83,8 @@ export function objectiveFor(data, st) {
   return st.solved ? '종결된 사건부를 다시 읽는다' : currentObjective(data, new Set(st.have));
 }
 
-export function commitCase(app, data, st, gained = [], { speak = true } = {}) {
+// sound: 새 단서를 적을 때 펜 소리. 다른 소리를 낼 화면(퍼즐 풀이)은 false로 끈다.
+export function commitCase(app, data, st, gained = [], { speak = true, sound = true } = {}) {
   app.store.set((s) => ({
     ...s,
     game: updateCase(s.game, data, st, gained),
@@ -91,4 +93,5 @@ export function commitCase(app, data, st, gained = [], { speak = true } = {}) {
   for (const id of gained) {
     announce(`사건부에 한 줄이 더해진다. ${findClue(data, id).name}`, { speak });
   }
+  if (gained.length && sound) play('note');
 }

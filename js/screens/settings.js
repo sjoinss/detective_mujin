@@ -2,6 +2,7 @@
 // 조작 안내는 게임 본문에 두지 않고 여기에만 둔다(2.4).
 
 import { el, button, linkButton, notice, nextId, fill, add, setBusy } from '../ui/dom.js';
+import { play } from '../sound.js';
 import { radioGroup } from '../ui/fields.js';
 import { announce, alertNow } from '../ui/toast.js';
 import { confirmDialog } from '../ui/dialog.js';
@@ -145,6 +146,8 @@ export function settingsScreen(app) {
         onChange: (value) => {
           draft = { ...draft, [key]: value };
           applySettings(draft);
+          // 소리를 켜면 한 번 들려준다(어떤 소리인지, 크기는 어떤지)
+          if (key === 'sound' && value === 'on') play('note', { force: true });
         },
       })));
     }

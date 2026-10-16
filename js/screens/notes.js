@@ -1,6 +1,7 @@
 // 사건부 여백: 서진우 메모를 한 장씩 넘긴다. 퍼즐과 보고서가 함께 쓴다.
 
 import { el, button, memo, fill } from '../ui/dom.js';
+import { play } from '../sound.js';
 import { notePages, turnNote } from '../engine/hints.js';
 import { foundClues } from '../engine/clues.js';
 import { caseState, commitCase } from './common.js';
@@ -18,6 +19,7 @@ export function notesPanel(app, data, key, { headingId = 'notes-title' } = {}) {
         label: '여백을 한 장 넘긴다',
         onClick: () => {
           commitCase(app, data, turnNote(data, caseState(app), key));
+          play('page');
           draw(true);
         },
       }) : null);

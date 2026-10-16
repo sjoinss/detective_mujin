@@ -2,6 +2,7 @@
 // 조작 안내 문구는 두지 않는다. 현장의 단서가 방법을 알려 준다.
 
 import { el, button, lines, fill, add } from '../ui/dom.js';
+import { play } from '../sound.js';
 import { PUZZLES, wrongTextOf, checkLabelOf } from '../puzzles/index.js';
 import { findPuzzle, findObject, puzzleOpen, solvePuzzle, foundClues } from '../engine/clues.js';
 import { caseScreen, caseState, commitCase } from './common.js';
@@ -41,7 +42,8 @@ export function puzzleScreen(app) {
           return;
         }
         const { state, gained } = solvePuzzle(data, caseState(app), puzzle.id);
-        commitCase(app, data, state, gained, { speak: false });
+        commitCase(app, data, state, gained, { speak: false, sound: false });
+        play('solve');
         const done = el('div', { class: 'log-entry', tabindex: '-1' },
           ...lines(puzzle.solvedText),
           ...gained.map((id) => el('p', { class: 'log-note' },

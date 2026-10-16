@@ -3,6 +3,7 @@
 // 드래그 없이 줄 선택만으로 동작한다.
 
 import { el, button, memo, fill, add } from '../ui/dom.js';
+import { play } from '../sound.js';
 import { boardSheets, connect, linkedLines, statementById } from '../engine/board.js';
 import { findClue } from '../engine/clues.js';
 import { caseScreen, caseState, commitCase } from './common.js';
@@ -94,6 +95,7 @@ export function boardScreen(app) {
         const before = caseState(app);
         const outcome = connect(data, before, pick.left, pick.right);
         if (outcome.result === 'linked') {
+          play('solve');
           commitCase(app, data, outcome.state, outcome.gained);
           fill(result, el('p', { class: 'board-sentence' }, el('mark', { class: 'marker' }, outcome.link.sentence)));
         } else if (outcome.result === 'already') {

@@ -2,6 +2,7 @@
 // 상태는 store의 game에 있고, 이 화면은 엔진 함수로 바꾼 상태를 store에 넣고 다시 그린다.
 
 import { el, button, lines, notice, fill, add } from '../ui/dom.js';
+import { play } from '../sound.js';
 import { sceneView, objectList } from '../ui/scene.js';
 import { casebook } from '../ui/casebook.js';
 import {
@@ -154,6 +155,7 @@ function createDesk(app, data, story, view) {
 
   function doMove(scene) {
     const before = caseState(app).log.length;
+    play('step');
     commit(move(data, caseState(app), scene.id));
     draw();
     focusEntry(before);

@@ -2,6 +2,7 @@
 // 틀리면 말투가 굳고 라운드가 닫혀 처음부터 다시 듣는다. 수치는 어디에도 없다.
 
 import { el, button, lines, fill, add } from '../ui/dom.js';
+import { play } from '../sound.js';
 import { foundClues, findClue } from '../engine/clues.js';
 import { findSuspect, suspectOpen, currentRound, lastRound, hear, present, skipRound } from '../engine/interrogation.js';
 import { josa } from '../ui/text.js';
@@ -151,6 +152,7 @@ export function talkScreen(app) {
         if (outcome.result === 'already') {
           fill(response, el('p', {}, '이미 짚은 말이다.'));
         } else if (outcome.result === 'wrong') {
+          play('wrong');
           // 말투가 굳고 라운드가 닫힌다
           fill(response,
             el('p', { class: 'talk-wrong' }, '이 증거는 이 진술과 모순되지 않습니다.'),
