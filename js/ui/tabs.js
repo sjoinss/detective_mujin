@@ -3,7 +3,8 @@
 
 import { el, nextId, fill, add } from './dom.js';
 
-export function createTabs({ label, tabs, selected = tabs[0]?.id, onSelect }) {
+// className: 탭 묶음에 더할 클래스(어두운 바탕 위 탭 등)
+export function createTabs({ label, tabs, selected = tabs[0]?.id, onSelect, className = '' }) {
   const base = nextId('tabs');
   const list = el('div', { class: 'tabs-list', role: 'tablist', 'aria-label': label });
   const panel = el('div', { class: 'tab-panel', role: 'tabpanel', tabindex: '0' });
@@ -45,5 +46,5 @@ export function createTabs({ label, tabs, selected = tabs[0]?.id, onSelect }) {
   });
 
   select(selected);
-  return { node: el('div', { class: 'tabs' }, list, panel), select };
+  return { node: el('div', { class: ['tabs', className].filter(Boolean).join(' ') }, list, panel), select };
 }

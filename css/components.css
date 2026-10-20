@@ -233,6 +233,17 @@
 }
 .tab-panel { padding-top: var(--space-4); }
 
+/* 할 일 탭: 어두운 바탕(현장) 위 */
+.act-tabs .tabs-list { border-bottom-color: var(--line); }
+.act-tabs .tab { color: var(--text-muted); }
+.act-tabs .tab[aria-selected="true"] {
+  background: var(--surface-raised);
+  border-color: var(--line);
+  color: var(--text-strong);
+  box-shadow: inset 0 var(--focus-ring) 0 var(--accent-text);
+}
+.act-tabs .tab-panel { padding-top: var(--space-3); }
+
 /* ---------- 알림 줄(토스트) ---------- */
 /* 알림 줄은 위쪽 오른편, 목표 줄 아래. 아래쪽엔 손이 닿는 버튼이 모이므로 가리지 않는다. */
 .toasts {

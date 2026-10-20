@@ -6,6 +6,7 @@ import { el, button, lines, notice, fill, add } from '../ui/dom.js';
 import { play } from '../sound.js';
 import { sceneView, objectList } from '../ui/scene.js';
 import { casebook, freshClues } from '../ui/casebook.js';
+import { createTabs } from '../ui/tabs.js';
 import { showMessage } from '../ui/message.js';
 import {
   inspect, move, openScenes, visibleObjects, findScene, findClue,
@@ -24,6 +25,8 @@ import { caseScreen, caseState, commitCase, chapterLabel } from './common.js';
 const WIDE = '(min-width: 64em)';
 
 let bookTab = 'clues';
+// 할 일 탭(살펴보기 / 이동 / 사람). 한 화면에 누를 것이 한꺼번에 늘어서지 않게 나눈다.
+let actTab = 'look';
 
 export function deskScreen(app) {
   const screen = caseScreen(app, {
@@ -109,7 +112,7 @@ function createDesk(app, data, story, view) {
   const statusSlot = el('div', { class: 'desk-status' });
   const desk = el('div', { class: 'desk', dataset: { view } });
   const sceneCol = el('section', { class: 'desk-scene', 'aria-labelledby': 'desk-title' });
-  const listCol = el('section', { class: 'desk-list', 'aria-labelledby': 'list-title' });
+  const listCol = el('section', { class: 'desk-list', 'aria-label': '할 일' });
   const bookCol = el('aside', { class: 'desk-book sheet', 'aria-labelledby': 'book-title' });
   add(desk, sceneCol, listCol, bookCol);
 
@@ -197,6 +200,8 @@ function createDesk(app, data, story, view) {
   // 다른 곳으로 가면 장면 제목으로 옮긴다(그림과 장면 글이 바로 아래에 있다)
   function doMove(scene) {
     play('step');
+    // 새 곳에 들어서면 둘러보는 탭부터
+    actTab = 'look';
     commit(move(data, caseState(app), scene.id));
     draw();
     sceneCol.querySelector('.scene-title')?.focus();
@@ -244,26 +249,43 @@ function createDesk(app, data, story, view) {
     const elsewhere = openScenes(data, st).filter((s) => s.id !== scene.id);
     const people = (data.suspects ?? []).filter((s) => suspectOpen(st, s));
     const reportReady = canReport(data, st);
-    fill(listCol,
-      el('h2', { class: 'section-title', id: 'list-title' }, '살펴볼 곳'),
-      objectList(objects, { done, onInspect: doInspect, headingId: 'list-title' }),
-      ...(elsewhere.length ? [
-        el('h2', { class: 'section-title', id: 'moves-title' }, '다른 곳'),
-        el('div', { class: 'scene-moves', role: 'group', 'aria-labelledby': 'moves-title' },
-          ...elsewhere.map((s) => button({ label: s.name, onClick: () => doMove(s) }))),
-      ] : []),
-      // 말을 들을 사람과 한도윤에게 거는 전화는 한 목록에 둔다(메뉴 칸을 줄인다)
-      ...(people.length || data.han?.length ? [
-        el('h2', { class: 'section-title', id: 'people-title' }, '말을 들을 사람'),
-        el('ul', { class: 'choices', role: 'list', 'aria-labelledby': 'people-title' },
+    const heardFrom = (s) => (s.rounds ?? []).some((r) => (r.statements ?? []).some((x) => (st.heard ?? []).includes(x.id)));
+
+    // 살펴보기는 늘 있고, 갈 곳·만날 사람이 생기면 탭이 붙는다.
+    // 아직 안 가 본 곳, 아직 말을 안 들어 본 사람이 있으면 탭에 "새"를 단다(살펴봄 ✓과 같은 종류의 표시).
+    const tabs = [{ id: 'look', label: '살펴보기', render: () => objectList(objects, { done, onInspect: doInspect }) }];
+    if (elsewhere.length) {
+      tabs.push({
+        id: 'move',
+        label: '이동',
+        badge: elsewhere.some((s) => !st.have.includes(s.id)) ? '새' : '',
+        render: () => el('ul', { class: 'choices', role: 'list' }, ...elsewhere.map((s) => el('li', {},
+          el('button', { type: 'button', class: 'choice', dataset: { done: String(st.have.includes(s.id)) }, onclick: () => doMove(s) },
+            el('span', { class: 'choice-label' }, s.name),
+            st.have.includes(s.id) ? null : el('span', { class: 'choice-mark' }, '처음'))))),
+      });
+    }
+    // 말을 들을 사람과 한도윤에게 거는 전화는 한 탭에 둔다
+    if (people.length || data.han?.length) {
+      tabs.push({
+        id: 'people',
+        label: '사람',
+        badge: people.some((s) => !heardFrom(s)) ? '새' : '',
+        render: () => el('ul', { class: 'choices', role: 'list' },
           ...people.map((s) =>
             el('li', {}, el('a', { href: `#/talk/${s.id}`, class: 'choice', dataset: { done: String(suspectDone(st, s)) } },
               el('span', { class: 'choice-label' }, s.name),
               suspectDone(st, s) ? el('span', { class: 'choice-mark' }, '✓ 다 들었다') : null))),
           data.han?.length ? el('li', {}, el('button', { type: 'button', class: 'choice', dataset: { han: 'true' }, onclick: doAskHan },
             el('span', { class: 'choice-label' }, '한도윤'),
-            el('span', { class: 'choice-mark' }, '전화')) ) : null),
-      ] : []),
+            el('span', { class: 'choice-mark' }, '전화'))) : null),
+      });
+    }
+    if (!tabs.some((t) => t.id === actTab)) actTab = 'look';
+    fill(listCol,
+      tabs.length > 1
+        ? createTabs({ label: '할 일', tabs, selected: actTab, className: 'act-tabs', onSelect: (id) => { actTab = id; } }).node
+        : [el('h2', { class: 'section-title', id: 'list-title' }, '살펴보기'), objectList(objects, { done, onInspect: doInspect, headingId: 'list-title' })],
       el('div', { class: 'desk-report' }, closingAction(st, reportReady)));
 
     fill(bookCol,
