@@ -217,7 +217,7 @@
 .tab {
   flex: 0 0 auto;
   min-height: var(--touch);
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-2) var(--space-2);
   border: var(--border) solid transparent;
   border-bottom: 0;
   border-radius: var(--radius) var(--radius) 0 0;
@@ -359,3 +359,62 @@
   color: var(--text-muted);
 }
 .scene-caption { margin-top: var(--space-2); color: var(--text-muted); font-size: var(--fs-small); }
+
+/* ---------- 메시지 창(현장에서 살펴본 글) ----------
+   화면 아래에 뜨고 닫으면 사라진다. 뒤 화면의 스크롤은 움직이지 않는다. */
+.message {
+  position: fixed;
+  inset: auto 0 calc(var(--tabbar-h) + env(safe-area-inset-bottom) + var(--space-3));
+  width: min(40rem, calc(100vw - 2 * var(--space-4)));
+  max-height: min(60dvh, calc(100dvh - var(--tabbar-h) - 2 * var(--space-6)));
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-5);
+  overflow-y: auto;
+  border: var(--border) solid var(--line-strong);
+  border-left: var(--focus-ring) solid var(--accent-text);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  animation: toast-in var(--dur-slow) var(--ease);
+}
+.message::backdrop { background: var(--scrim); opacity: 0.45; }
+.message-label { margin-bottom: var(--space-2); color: var(--text-muted); font-weight: 700; }
+.message-label::before { content: "› "; }
+.message-speaker { margin-bottom: var(--space-2); color: var(--text-strong); font-weight: 700; }
+.message-body { display: flex; flex-direction: column; gap: calc(var(--space-1) + var(--line-drift) * 1rem); max-width: var(--measure); }
+.message-gains { display: flex; flex-direction: column; gap: var(--space-1); margin-top: var(--space-2); }
+.message-open { margin-top: var(--space-1); color: var(--accent-text); font-weight: 700; }
+.message .name-field { margin-top: var(--space-3); }
+.message-actions { display: flex; justify-content: flex-end; margin-top: var(--space-3); }
+
+/* 장면 글: 지금 있는 곳의 글만 그림 아래에 */
+.scene-text { display: flex; flex-direction: column; gap: var(--space-1); max-width: var(--measure); }
+
+/* 사건부 기록 탭 */
+.log-book { display: flex; flex-direction: column; gap: var(--space-4); }
+.log-book .log-choice { background: var(--sheet-bg-alt); color: var(--sheet-muted); border-left-color: var(--sheet-line); }
+.log-book .log-note { border-left-color: var(--sheet-accent); color: var(--sheet-text); }
+.log-book .log-note-tag { color: var(--sheet-accent); }
+.log-book .log-speaker { color: var(--sheet-text); }
+.log-book .log-past > summary { color: var(--sheet-muted); }
+
+/* 새 줄 표시: 사건부 탭과 하단 띠의 수, 새로 적은 단서 */
+.tab-badge,
+#book-badge:not(:empty) {
+  display: inline-block;
+  margin-left: var(--space-1);
+  padding: 0 var(--space-2);
+  border-radius: 999px;
+  background: var(--highlight-bg);
+  color: var(--highlight-text);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  line-height: 1.6;
+}
+.clue[data-fresh="true"] {
+  margin-inline: calc(-1 * var(--space-2));
+  padding-inline: var(--space-2);
+  padding-top: var(--space-1);
+  background: var(--sheet-bg-alt);
+  box-shadow: inset var(--focus-ring) 0 0 var(--sheet-accent);
+}

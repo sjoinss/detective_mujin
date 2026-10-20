@@ -26,6 +26,8 @@ export function talkScreen(app) {
       const response = el('div', { class: 'talk-response', 'aria-live': 'polite' });
       let selected = null;
       let round = null;
+      // 고른 단서는 진술을 다시 고르며 목록을 새로 그려도 남는다
+      let chosenClue = '';
 
       // 라운드에 들어간다: 증언을 적고 진술 목록을 그린다.
       // 들을 라운드가 없으면 마지막 라운드를 다시 읽을 수 있게만 둔다.
@@ -83,12 +85,17 @@ export function talkScreen(app) {
           id: 'evidence-pick',
           class: 'wire-select evidence-select',
           'aria-describedby': 'evidence-preview',
-          onchange: () => { preview.textContent = findClue(data, pick.value)?.text ?? ''; },
+          onchange: () => { chosenClue = pick.value; preview.textContent = findClue(data, pick.value)?.text ?? ''; },
         },
         el('option', { value: '' }, '—'),
-        ...clues.map((c) => el('option', { value: c.id }, c.name)));
+        ...clues.map((c) => el('option', { value: c.id, selected: c.id === chosenClue }, c.name)));
+        preview.textContent = findClue(data, chosenClue)?.text ?? '';
         const file = el('div', { class: 'evidence sheet', role: 'group', 'aria-labelledby': 'evidence-title' },
           el('h2', { id: 'evidence-title' }, '사건부에서 꺼낸다'),
+          // 어느 말에 내미는지 버튼 옆에서 바로 보이게
+          el('p', { class: 'sheet-meta' }, selected
+            ? `짚은 말: “${round.statements.find((s) => s.id === selected)?.text ?? ''}”`
+            : '아직 짚은 말이 없다. 위에서 하나 누른다.'),
           clues.length
             ? [
               el('label', { for: 'evidence-pick', class: 'visually-hidden' }, '내밀 단서'),
@@ -131,6 +138,7 @@ export function talkScreen(app) {
         fill(body,
           round.intro ? el('p', {}, round.intro) : null,
           el('h2', { id: 'statements-title', class: 'section-title' }, '진술'),
+          el('p', { class: 'talk-help' }, '걸리는 말을 하나 누르고, 아래 사건부에서 그 말과 어긋나는 단서를 골라 내민다. 틀리면 처음부터 다시 듣는다.'),
           statements,
           response,
           file,

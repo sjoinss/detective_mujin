@@ -26,7 +26,7 @@ export function boardScreen(app) {
       })();
 
       // 한 줄. 고른 줄은 형광펜, 이미 짚은 관계에 쓰인 줄은 표시를 단다.
-      function line(side, id, text, used) {
+      function line(side, id, text, used, detail = '') {
         return el('li', {}, el('button', {
           type: 'button',
           class: 'board-line',
@@ -38,7 +38,8 @@ export function boardScreen(app) {
             (side === 'left' ? left : right).querySelector(`[data-line="${CSS.escape(id)}"]`)?.focus();
           },
           'data-line': id,
-        }, el('span', {}, text), used ? el('span', { class: 'board-used' }, '✓ 짚음') : null));
+        }, el('span', { class: 'board-line-body' }, el('span', {}, text), detail ? el('span', { class: 'board-line-text' }, detail) : null),
+        used ? el('span', { class: 'board-used' }, '✓ 짚음') : null));
       }
 
       function draw() {
@@ -49,7 +50,7 @@ export function boardScreen(app) {
         fill(left,
           el('h2', { id: 'board-left' }, '단서'),
           clues.length
-            ? el('ol', { class: 'board-lines', role: 'list' }, ...clues.map((c) => line('left', c.id, c.name, usedIds.has(c.id))))
+            ? el('ol', { class: 'board-lines', role: 'list' }, ...clues.map((c) => line('left', c.id, c.name, usedIds.has(c.id), c.text)))
             : memo('대조할 서류가 아직 없다.'));
 
         fill(right,
@@ -59,7 +60,7 @@ export function boardScreen(app) {
             el('ol', { class: 'board-lines', role: 'list', 'aria-labelledby': 'board-statements' },
               ...statements.map(({ suspect, statement }) => line('right', statement.id,
                 `${suspect.name}: “${statement.text}”`, usedIds.has(statement.id)))),
-          ] : memo('들은 말이 아직 없다. 없다.'),
+          ] : memo('들은 말이 아직 없다.'),
           clues.length ? [
             el('h3', { class: 'board-sub', id: 'board-records' }, '다른 기록'),
             el('ol', { class: 'board-lines', role: 'list', 'aria-labelledby': 'board-records' },
@@ -110,7 +111,8 @@ export function boardScreen(app) {
 
       draw();
       add(root, el('div', { class: 'board' },
-        el('div', { class: 'board-head' }, heading),
+        el('div', { class: 'board-head' }, heading,
+          el('p', { class: 'board-help' }, '왼쪽 단서 한 줄과 오른쪽 말이나 기록 한 줄을 짚고 "연결하기"를 누른다. 틀려도 잃는 것은 없다.')),
         left,
         right,
         actions,

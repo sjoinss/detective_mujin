@@ -1,5 +1,5 @@
 // 탭. 방향키(←→), Home, End로 옮기고 옮기면 바로 열린다.
-// tabs: [{ id, label, render: () => Node }]
+// tabs: [{ id, label, badge?, render: () => Node }]  badge: 탭 이름 옆 작은 표시(새 줄 수)
 
 import { el, nextId, fill, add } from './dom.js';
 
@@ -14,7 +14,7 @@ export function createTabs({ label, tabs, selected = tabs[0]?.id, onSelect }) {
     id: `${base}-${tab.id}`,
     'aria-controls': `${base}-panel`,
     dataset: { tab: tab.id },
-  }, tab.label));
+  }, tab.label, tab.badge ? el('span', { class: 'tab-badge' }, ` ${tab.badge}`) : null));
   panel.id = `${base}-panel`;
   add(list, ...buttons);
 

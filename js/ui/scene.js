@@ -74,7 +74,7 @@ export function sceneView(scene, { done, onInspect }) {
         class: 'hotspot',
         style: `left:${obj.hotspot.x}%;top:${obj.hotspot.y}%;width:${obj.hotspot.w}%;height:${obj.hotspot.h}%`,
         'aria-label': done.has(obj.id) ? `${obj.label}, 살펴봄` : obj.label,
-        dataset: { done: String(done.has(obj.id)) },
+        dataset: { done: String(done.has(obj.id)), obj: obj.id },
         onclick: () => onInspect(obj),
       }))),
     el('figcaption', { class: 'scene-caption' }, scene.alt));
@@ -87,7 +87,7 @@ export function objectList(scene, { done, onInspect, headingId }) {
       el('button', {
         type: 'button',
         class: 'choice',
-        dataset: { done: String(done.has(obj.id)) },
+        dataset: { done: String(done.has(obj.id)), obj: obj.id },
         onclick: () => onInspect(obj),
       },
       el('span', { class: 'choice-label' }, obj.label),

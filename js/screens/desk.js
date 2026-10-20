@@ -1,13 +1,15 @@
-// 책상(현장 탐색) 화면: 장면·글 흐름 / 살펴볼 곳·말을 들을 사람·보고서 / 사건부.
+// 책상(현장 탐색) 화면: 장면 / 살펴볼 곳·말을 들을 사람·보고서 / 사건부.
+// 살펴본 글은 메시지 창으로 띄우고 닫으면 사라진다. 지난 글은 사건부 "기록" 탭에 모두 남는다.
 // 상태는 store의 game에 있고, 이 화면은 엔진 함수로 바꾼 상태를 store에 넣고 다시 그린다.
 
 import { el, button, lines, notice, fill, add } from '../ui/dom.js';
 import { play } from '../sound.js';
 import { sceneView, objectList } from '../ui/scene.js';
-import { casebook } from '../ui/casebook.js';
+import { casebook, freshClues } from '../ui/casebook.js';
+import { showMessage } from '../ui/message.js';
 import {
-  inspect, move, openScenes, visibleObjects, findScene, findObject, findClue, findPuzzle,
-  puzzleOpen, markRead, reconcile, askHan, complete,
+  inspect, move, openScenes, visibleObjects, findScene, findClue,
+  puzzleOpen, markRead, reconcile, askHan, hanLine, complete,
 } from '../engine/clues.js';
 import { suspectOpen, suspectDone } from '../engine/interrogation.js';
 import { canReport, closeCase } from '../engine/accusation.js';
@@ -60,11 +62,18 @@ export function deskScreen(app) {
 
 function createDesk(app, data, story, view) {
   const bookVisible = () => view === 'book' || window.matchMedia(WIDE).matches;
+  // 단서 탭이 눈앞에 펼쳐져 있어야 새 줄을 읽은 것으로 친다
+  const cluesInSight = () => bookVisible() && bookTab === 'clues';
 
   // 저장된 장면이 데이터에서 사라졌으면 시작 장면으로
+  // fresh: "새로 적음" 표시를 달 단서. 읽음 처리 전에 골라 둔다.
+  let fresh;
   {
     let st = reconcile(data, caseState(app));
-    if (bookVisible()) st = markRead(st);
+    // 새 줄이 있다고 해서 사건부를 펼쳤으면 단서 탭부터 보인다
+    if (view === 'book' && st.unread) bookTab = 'clues';
+    fresh = freshClues(data, st);
+    if (cluesInSight()) st = markRead(st);
     commitCase(app, data, st);
   }
   const kind = data.kind ?? 'case';
@@ -106,13 +115,36 @@ function createDesk(app, data, story, view) {
   const heading = el('h1', { class: 'section-title', id: 'desk-title', tabindex: '-1' }, chapterLabel(data));
   const bookHeading = el('h2', { id: 'book-title', tabindex: '-1' }, '사건부');
 
+  // 메시지 창이 단서 이름을 보여 주고 읽으므로 알림 줄은 띄우지 않는다
   function commit(st, gained = []) {
-    commitCase(app, data, bookVisible() ? markRead(st) : st, gained, { speak: false });
+    fresh = freshClues(data, st);
+    commitCase(app, data, cluesInSight() ? markRead(st) : st, gained, { speak: false, toast: false });
+  }
+
+  // 이번 행동으로 새로 갈 수 있게 된 곳, 말을 들을 수 있게 된 사람
+  function openings(prev, st) {
+    const was = new Set(openScenes(data, prev).map((s) => s.id));
+    const places = openScenes(data, st).filter((s) => !was.has(s.id)).map((s) => s.name);
+    const people = (data.suspects ?? []).filter((s) => suspectOpen(st, s) && !suspectOpen(prev, s)).map((s) => s.name);
+    return [
+      places.length ? `갈 수 있는 곳이 생겼다: ${places.join(', ')}` : null,
+      people.length ? `말을 들을 사람이 생겼다: ${people.join(', ')}` : null,
+    ].filter(Boolean);
+  }
+
+  // 창을 닫으면 연 자리(그림 위 핫스팟이나 목록)로 포커스를 돌린다. 스크롤은 그대로 둔다.
+  function returnTo(selector) {
+    return () => desk.querySelector(selector)?.focus({ preventScroll: true });
+  }
+  function openerOf(id) {
+    const where = document.activeElement?.classList.contains('hotspot') ? '.hotspot' : '.choice';
+    return returnTo(`${where}[data-obj="${CSS.escape(id)}"]`);
   }
 
   function doInspect(obj) {
-    const before = caseState(app).log.length;
-    const { state, gained } = inspect(data, caseState(app), obj.id);
+    const restore = openerOf(obj.id);
+    const prev = caseState(app);
+    const { state, gained } = inspect(data, prev, obj.id);
     commit(state, gained);
     // 손댈 수 있는 물건이면 퍼즐 패널로. 패널 맨 위에 같은 지문이 다시 나온다.
     if (obj.puzzle && puzzleOpen(data, caseState(app), obj.puzzle)) {
@@ -120,14 +152,22 @@ function createDesk(app, data, story, view) {
       return;
     }
     draw();
-    focusEntry(before);
+    showMessage({
+      label: obj.label,
+      text: obj.text,
+      gained: gained.map((id) => findClue(data, id).name),
+      opened: openings(prev, caseState(app)),
+      extra: obj.input ? nameField() : null,
+      restore,
+    });
   }
 
   function doAskHan() {
-    const before = caseState(app).log.length;
     commit(askHan(data, caseState(app)));
     draw();
-    focusEntry(before);
+    const line = data.han?.[hanLine(data, caseState(app))];
+    if (!line) return;
+    showMessage({ label: '한도윤', speaker: true, text: [`“${line.text}”`], restore: returnTo('.choice[data-han]') });
   }
 
   // 인계 칸: 이름을 적는다. 비워 둬도 진행에는 상관없다.
@@ -153,75 +193,12 @@ function createDesk(app, data, story, view) {
       button({ label: '적는다', type: 'submit' }));
   }
 
+  // 다른 곳으로 가면 장면 제목으로 옮긴다(그림과 장면 글이 바로 아래에 있다)
   function doMove(scene) {
-    const before = caseState(app).log.length;
     play('step');
     commit(move(data, caseState(app), scene.id));
     draw();
-    focusEntry(before);
-  }
-
-  // 이번 행동으로 생긴 첫 글로 포커스를 옮긴다. 글을 먼저 읽고, 다음 Tab에서 선택지로 간다.
-  function focusEntry(index) {
-    const entry = sceneCol.querySelector(`.log-entry[data-index="${index}"]`);
-    if (!entry) return;
-    entry.focus({ preventScroll: true });
-    entry.scrollIntoView({ block: 'start', behavior: 'smooth' });
-  }
-
-  // 글 흐름: 지금 장면에 들어온 뒤의 글만 펼치고, 그 앞은 "앞서 본 것"으로 접는다.
-  // 지운 것은 없다. 접은 글도 펼치면 그대로 다시 읽힌다.
-  // "사건부에 적는다" 줄은 그 단서를 얻은 행동 바로 아래에 붙인다.
-  function renderLog(log) {
-    const items = [];
-    log.forEach((item, i) => {
-      if (item.k === 'clue' && items.length) {
-        const clue = findClue(data, item.id);
-        if (clue) add(items[items.length - 1].node, el('p', { class: 'log-note' }, el('span', { class: 'log-note-tag' }, '사건부에 적는다'), clue.name));
-        return;
-      }
-      const node = logEntry(item, i, log);
-      if (node) items.push({ node, k: item.k, i });
-    });
-    let start = 0;
-    items.forEach((x, n) => { if (x.k === 'scene') start = n; });
-    const past = items.slice(0, start).map((x) => x.node);
-    const now = items.slice(start).map((x) => x.node);
-    return el('div', { class: 'log' },
-      past.length ? el('details', { class: 'log-past' },
-        el('summary', {}, '앞서 본 것'),
-        el('div', { class: 'log' }, ...past)) : null,
-      ...now);
-  }
-
-  function logEntry(item, index, log) {
-    const attrs = { class: 'log-entry', tabindex: '-1', dataset: { index: String(index) } };
-    if (item.k === 'han') {
-      const line = data.han?.[Number(item.id.split('.')[1])];
-      return line && el('div', attrs,
-        el('p', { class: 'log-choice' }, '한도윤에게 전화한다'),
-        el('p', {}, el('span', { class: 'log-speaker' }, '한도윤 '), `“${line.text}”`));
-    }
-    if (item.k === 'look') {
-      const obj = findObject(data, item.id)?.obj;
-      // 이름 칸은 그 물건을 마지막으로 살펴본 줄에만 둔다
-      const latest = obj?.input && log.findLastIndex((e) => e.k === 'look' && e.id === item.id) === index;
-      return obj && el('div', attrs, el('p', { class: 'log-choice' }, obj.label), ...lines(obj.text), latest ? nameField() : null);
-    }
-    if (item.k === 'scene') {
-      const scene = findScene(data, item.id);
-      return scene && el('div', attrs, el('h3', {}, scene.name), ...lines(scene.text));
-    }
-    if (item.k === 'solve') {
-      const puzzle = findPuzzle(data, item.id);
-      return puzzle && el('div', attrs, el('p', { class: 'log-choice' }, puzzle.title), ...lines(puzzle.solvedText));
-    }
-    if (item.k === 'clue') {
-      const clue = findClue(data, item.id);
-      return clue && el('div', attrs,
-        el('p', { class: 'log-note' }, el('span', { class: 'log-note-tag' }, '사건부에 적는다'), clue.name));
-    }
-    return null;
+    sceneCol.querySelector('.scene-title')?.focus();
   }
 
   function drawStatus() {
@@ -257,10 +234,9 @@ function createDesk(app, data, story, view) {
 
     fill(sceneCol,
       statusSlot,
-      el('h2', {}, scene.name),
+      el('h2', { class: 'scene-title', tabindex: '-1' }, scene.name),
       sceneView(objects, { done, onInspect: doInspect }),
-      el('h2', { class: 'visually-hidden' }, '지문'),
-      renderLog(st.log));
+      el('div', { class: 'scene-text' }, ...lines(scene.text)));
 
     const elsewhere = openScenes(data, st).filter((s) => s.id !== scene.id);
     const people = (data.suspects ?? []).filter((s) => suspectOpen(st, s));
@@ -281,7 +257,7 @@ function createDesk(app, data, story, view) {
             el('li', {}, el('a', { href: `#/talk/${s.id}`, class: 'choice', dataset: { done: String(suspectDone(st, s)) } },
               el('span', { class: 'choice-label' }, s.name),
               suspectDone(st, s) ? el('span', { class: 'choice-mark' }, '✓ 다 들었다') : null))),
-          data.han?.length ? el('li', {}, el('button', { type: 'button', class: 'choice', onclick: doAskHan },
+          data.han?.length ? el('li', {}, el('button', { type: 'button', class: 'choice', dataset: { han: 'true' }, onclick: doAskHan },
             el('span', { class: 'choice-label' }, '한도윤'),
             el('span', { class: 'choice-mark' }, '전화')) ) : null),
       ] : []),
@@ -296,8 +272,17 @@ function createDesk(app, data, story, view) {
         st,
         story,
         fragments: game.fragments,
+        fresh,
         selected: bookTab,
-        onSelect: (id) => { bookTab = id; },
+        onSelect: (id) => {
+          const was = bookTab;
+          bookTab = id;
+          // 단서 탭을 펼치면 새 줄을 읽은 것으로 친다(표시는 이번에 그린 그대로 남는다)
+          if (id === 'clues' && was !== 'clues' && caseState(app).unread) {
+            commitCase(app, data, markRead(caseState(app)));
+            bookCol.querySelector('.tab-badge')?.remove();
+          }
+        },
       }));
   }
 

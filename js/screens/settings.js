@@ -1,4 +1,4 @@
-// 설정: 고르면 바로 미리 보이고, "저장"을 눌러야 남는다. 저장하지 않고 나가면 되돌린다.
+// 설정: 고르면 바로 바뀌고 바로 저장된다(저장 버튼을 깜빡하고 나가 바뀐 것이 사라지지 않게).
 // 조작 안내는 게임 본문에 두지 않고 여기에만 둔다(2.4).
 
 import { el, button, linkButton, notice, nextId, fill, add, setBusy } from '../ui/dom.js';
@@ -133,6 +133,7 @@ export function settingsScreen(app) {
   return ({ root }) => {
     let draft = { ...app.store.get().settings };
     const heading = el('h1', { tabindex: '-1' }, '설정');
+    const autosave = el('p', { class: 'field-help' }, '고르면 바로 바뀌고 저장된다.');
     const status = el('div', { 'aria-live': 'polite' });
     const groups = el('div', { class: 'settings-group' });
 
@@ -145,21 +146,20 @@ export function settingsScreen(app) {
         value: draft[key],
         onChange: (value) => {
           draft = { ...draft, [key]: value };
-          applySettings(draft);
+          save();
           // 소리를 켜면 한 번 들려준다(어떤 소리인지, 크기는 어떤지)
           if (key === 'sound' && value === 'on') play('note', { force: true });
         },
       })));
     }
 
-    function save(event) {
-      event.preventDefault();
+    function save() {
       app.store.set({ settings: draft });
+      applySettings(draft);
       const result = saveSettings(draft);
       if (result.ok) {
         app.store.set({ settingsSaved: true });
         fill(status);
-        announce('설정을 저장했습니다.');
       } else {
         fill(status, notice({
           kind: 'error',
@@ -173,8 +173,9 @@ export function settingsScreen(app) {
 
     drawGroups();
     const back = app.store.get().returnTo || 'title';
-    add(root, el('form', { class: 'settings', onsubmit: save },
+    add(root, el('form', { class: 'settings', onsubmit: (event) => event.preventDefault() },
       heading,
+      autosave,
       groups,
       saveSection(app),
       el('section', { 'aria-labelledby': 'keys-title' },
@@ -182,25 +183,22 @@ export function settingsScreen(app) {
         el('dl', { class: 'keys' }, ...KEYS.flatMap(([k, d]) => [el('dt', {}, k), el('dd', {}, d)]))),
       status,
       el('div', { class: 'settings-foot actions' },
-        button({ label: '저장', variant: 'primary', type: 'submit' }),
+        linkButton({ label: '돌아가기', href: `#/${back}`, variant: 'primary' }),
         button({
           label: '기본값으로',
           variant: 'ghost',
           onClick: () => {
             draft = { ...DEFAULT_SETTINGS };
-            applySettings(draft);
+            save();
             drawGroups();
-            announce('기본값으로 바꿨습니다. 저장해야 남습니다.', { visible: false });
+            announce('기본값으로 바꿨습니다.', { visible: false });
           },
-        }),
-        linkButton({ label: '돌아가기', href: `#/${back}` }))));
+        }))));
 
     return {
       focus: heading,
       title: '설정',
       chrome: 'none',
-      // 저장하지 않은 미리 보기는 나갈 때 되돌린다
-      cleanup: () => applySettings(app.store.get().settings),
     };
   };
 }

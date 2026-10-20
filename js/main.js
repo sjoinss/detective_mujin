@@ -43,7 +43,7 @@ store.subscribe((state, prev) => {
   if (state.game !== prev.game) {
     applyUnease(currentCase(state.game)?.unease ?? 0);
     const unread = currentCase(state.game)?.unread ?? 0;
-    bookBadge.textContent = unread ? ` · 새 줄 ${unread}` : '';
+    bookBadge.textContent = unread ? ` 새 ${unread}` : '';
 
     // 자동 저장. 실패는 한 번만 바로 알리고, 화면에는 계속 남긴다.
     if (state.game && state.storageOk) {

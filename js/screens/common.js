@@ -84,14 +84,15 @@ export function objectiveFor(data, st) {
 }
 
 // sound: 새 단서를 적을 때 펜 소리. 다른 소리를 낼 화면(퍼즐 풀이)은 false로 끈다.
-export function commitCase(app, data, st, gained = [], { speak = true, sound = true } = {}) {
+// toast: false면 알림 줄을 띄우지 않는다(현장의 메시지 창이 같은 줄을 이미 보여 줄 때).
+export function commitCase(app, data, st, gained = [], { speak = true, sound = true, toast = true } = {}) {
   app.store.set((s) => ({
     ...s,
     game: updateCase(s.game, data, st, gained),
     objective: objectiveFor(data, st),
   }));
   for (const id of gained) {
-    announce(`사건부에 한 줄이 더해진다. ${findClue(data, id).name}`, { speak });
+    if (toast) announce(`사건부에 한 줄이 더해진다. ${findClue(data, id).name}`, { speak });
   }
   if (gained.length && sound) play('note');
 }
