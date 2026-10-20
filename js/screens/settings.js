@@ -17,6 +17,7 @@ const GROUPS = [
   { key: 'motion', legend: '움직임', help: '화면 전환과 흔들림을 줄입니다.' },
   { key: 'fx', legend: '공포 연출', help: '화면 노이즈와 글자 어긋남. 꺼도 모든 글은 그대로 읽힙니다.' },
   { key: 'sound', legend: '소리', help: '소리가 없어도 모든 단서를 얻을 수 있습니다.' },
+  { key: 'marks', legend: '누를 곳 표시', help: '장면 그림에서 살펴볼 수 있는 곳에 표식을 띄웁니다. 현장 화면에서도 바로 켜고 끌 수 있습니다.' },
 ];
 
 const KEYS = [

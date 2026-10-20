@@ -21,6 +21,7 @@ export function applySettings(settings) {
   root.fx = settings.fx;
   root.contrast = settings.contrast;
   root.sound = settings.sound;
+  root.marks = settings.marks;
 }
 
 // 불안도는 화면에 숫자로 나오지 않는다. 노이즈와 줄 간격으로만 스민다.

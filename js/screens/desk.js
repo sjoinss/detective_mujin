@@ -18,6 +18,7 @@ import { decideEnding, setEnding } from '../engine/final.js';
 import { choiceDialog } from '../ui/dialog.js';
 import { announce } from '../ui/toast.js';
 import { saveGame } from '../save.js';
+import { saveSettings } from '../settings.js';
 import { caseScreen, caseState, commitCase, chapterLabel } from './common.js';
 
 const WIDE = '(min-width: 64em)';
@@ -234,7 +235,9 @@ function createDesk(app, data, story, view) {
 
     fill(sceneCol,
       statusSlot,
-      el('h2', { class: 'scene-title', tabindex: '-1' }, scene.name),
+      el('div', { class: 'scene-heading' },
+        el('h2', { class: 'scene-title', tabindex: '-1' }, scene.name),
+        marksToggle()),
       sceneView(objects, { done, onInspect: doInspect }),
       el('div', { class: 'scene-text' }, ...lines(scene.text)));
 
@@ -284,6 +287,24 @@ function createDesk(app, data, story, view) {
           }
         },
       }));
+  }
+
+  // 그림 속 누를 곳 표시 켜기/끄기(기본은 끔). 설정에 함께 저장된다.
+  function marksToggle() {
+    const on = app.store.get().settings.marks === 'on';
+    return el('button', {
+      type: 'button',
+      class: 'btn btn--ghost marks-toggle',
+      'aria-pressed': String(on),
+      onclick: (event) => {
+        const settings = { ...app.store.get().settings, marks: on ? 'off' : 'on' };
+        app.store.set({ settings });
+        saveSettings(settings);
+        const btn = event.currentTarget;
+        btn.replaceWith(marksToggle());
+        sceneCol.querySelector('.marks-toggle')?.focus();
+      },
+    }, on ? '누를 곳 숨기기' : '누를 곳 보기');
   }
 
   // 장을 닫는 동작: 사건은 보고서, 최종장은 한도윤의 제안, 프롤로그는 저절로 닫힌다

@@ -350,9 +350,10 @@
   border: var(--border) dashed transparent;
   background: transparent;
 }
-/* 누를 수 있는 곳: 옅은 점선 테두리와 가운데 표식. 아직 안 살펴본 곳은 표식이 천천히 숨 쉬고,
-   살펴본 곳은 표식 대신 ✓만 남는다. 움직임을 줄이면 base.css가 숨쉬기를 멈춘다. */
-.hotspot { border-color: var(--line-strong); border-radius: var(--radius); }
+/* 누를 곳 표시(설정 marks, 기본은 끔): 켜면 옅은 점선 테두리와 가운데 표식. 아직 안 살펴본 곳은
+   표식이 천천히 숨 쉬고, 살펴본 곳은 표식 대신 ✓만 남는다. 움직임을 줄이면 base.css가 숨쉬기를 멈춘다. */
+:root[data-marks="on"] .hotspot { border-color: var(--line-strong); border-radius: var(--radius); }
+:root:not([data-marks="on"]) .hotspot::before { content: none; }
 .hotspot::before {
   content: "";
   position: absolute;
@@ -364,10 +365,13 @@
   background: var(--c-ink-950);
   animation: hotspot-breath 2.4s var(--ease) infinite;
 }
-.hotspot[data-done="true"] { border-color: transparent; }
+:root[data-marks="on"] .hotspot[data-done="true"] { border-color: transparent; }
 .hotspot[data-done="true"]::before { content: none; }
 .hotspot:hover,
-.hotspot:focus-visible { border-color: var(--text); border-style: solid; }
+.hotspot:focus-visible,
+:root[data-marks="on"] .hotspot:hover { border-color: var(--text); border-style: solid; }
+.marks-toggle { margin-left: auto; min-height: var(--touch); font-size: var(--fs-small); }
+.marks-toggle[aria-pressed="true"] { color: var(--accent-text); }
 .hotspot[data-done="true"]::after {
   content: "✓";
   position: absolute;

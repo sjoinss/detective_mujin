@@ -11,6 +11,7 @@ export const SETTING_OPTIONS = {
   fx: [['off', '끔'], ['low', '약하게'], ['full', '기본']],
   sound: [['off', '끔'], ['on', '켬']],
   contrast: [['normal', '기본'], ['high', '높게']],
+  marks: [['off', '끔'], ['on', '켬']],
 };
 
 export const DEFAULT_SETTINGS = {
@@ -19,6 +20,7 @@ export const DEFAULT_SETTINGS = {
   fx: 'full',
   sound: 'off',
   contrast: 'normal',
+  marks: 'off',
 };
 
 // 저장된 값 중 아는 키·아는 값만 받는다. 나머지는 기본값.
